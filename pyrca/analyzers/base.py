@@ -36,7 +36,7 @@ class RCAResults:
             results.append({
                 "root_cause": node,
                 "score": score,
-                "paths": self.root_cause_paths[node]
+                "paths": self.root_cause_paths.get(node, None)
             })
         return results
 
