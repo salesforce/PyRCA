@@ -1,0 +1,11 @@
+# Domain knowledge for the causal graph
+causal-graph:
+  root-nodes: []
+  leaf-nodes: ["apt_no_mq_1p"]
+  forbids:
+    - ["allocated_mb_per_interval_1p", "young_pause_time_1p"]
+    - ["old_gen_size_1p", "code_heap_nonprofiled_methods_1p"]
+    - ["old_gen_size_1p", "mem_promoted_1p"]
+    - ["old_gen_size_1p", "jetty_qtp_busy_threads_1p"]
+    - ["jvm_uptime_1p", "code_heap_nonprofiled_methods_1p"]
+  requires: null

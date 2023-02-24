@@ -1,0 +1,16 @@
+# Domain knowledge for the causal graph
+causal-graph:
+  root-nodes: ["DB_CPU", "APP_GC"]
+  leaf-nodes: ["APT"]
+  forbids:
+    - ["A", "B"]
+  requires: null
+
+# Root cause information
+root-causes:
+  - name: "Root_APP_GC"
+    P(r=1): 0.5
+    metrics:
+    - name: "APP_GC"
+      P(m=0|r=0): 0.99
+      P(m=0|r=1): 0.01

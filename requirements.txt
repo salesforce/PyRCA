@@ -1,0 +1,11 @@
+numpy
+pandas
+networkx
+scikit-learn
+matplotlib
+pyyaml
+schema
+dill
+tqdm
+javabridge>=1.0.11
+pyparsing

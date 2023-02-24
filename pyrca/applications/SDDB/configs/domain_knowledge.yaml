@@ -1,0 +1,224 @@
+# Domain knowledge for the causal graph
+causal-graph:
+  root-nodes: ["ETxIA", "LCLA", "LCPA", "LRCA", "LCBA", "AvgRL",
+               "Lfpw", "LFCI", "LfsA", "ECFA", "ESSA", "EHWA", "GCW",
+               "CLSA", "LMS", "LMD", "SMON", "CKPT", "PMON", "LGWR",
+               "BGB", "AWT", "OCP", "DBCPU", "BGCPU", "ETxRA", "ETmA",
+               "APPA", "CONA"]
+  leaf-nodes: null
+  forbids:
+    - ["BGCPU", "IDLE"]
+    - ["IDLE", "BGCPU"]
+    - ["UsrC", "TotPGA"]
+    - ["TotPGA", "UsrC"]
+    - ["BGCPU", "Lfs"]
+    - ["TotPGA", "USIO"]
+    - ["ACT", "APPL"]
+    - ["CONF", "ETxIC"]
+    - ["BGCPU", "USIO"]
+  requires:
+    - ["BGCPU", "CPU"]
+    - ["DBCPU", "CPU"]
+    - ["OCP", "CPU"]
+    - ["CPU", "AvgSL"]
+    - ["AvgSL", "ACT"]
+    - ["ETxRA", "ETxRL"]
+    - ["ETxRL", "APPL"]
+    - ["ETmA", "ETmC"]
+    - ["ETmC", "APPL"]
+    - ["APPA", "APPL"]
+    - ["CONA", "CONC"]
+    - ["ETxIA", "ETxIC"]
+    - ["ETxIC", "CONC"]
+    - ["LCLA", "LCL"]
+    - ["LCL", "CONC"]
+    - ["LCPA", "LCP"]
+    - ["LCP", "CONC"]
+    - ["LRCA", "LRCO"]
+    - ["LRCO", "CONC"]
+    - ["LCBA", "LCBC"]
+    - ["LCBC", "CONC"]
+    - ["AvgRL", "USIO"]
+    - ["Lfpw", "COMT"]
+    - ["LFCI", "Lfs"]
+    - ["LfsA", "Lfs"]
+    - ["Lfs", "COMT"]
+    - ["ECFA", "ECFC"]
+    - ["ECFC", "OTHR"]
+    - ["ESSA", "ESSC"]
+    - ["ESSC", "CONF"]
+    - ["EHWA", "EHWC"]
+    - ["EHWC", "CONF"]
+    - ["GCW", "CLS"]
+    - ["CLSA", "CLS"]
+    - ["AWT", "ACT"]
+
+# Root cause information
+root-causes:
+  - name: "ICI"
+    P(r=1): 0.5
+    metrics:
+    - name: "ETxIA"
+      P(m=0|r=0): 0.99
+      P(m=0|r=1): 0.01
+
+  - name: "LCLI"
+    P(r=1): 0.5
+    metrics:
+    - name: "LCLA"
+      P(m=0|r=0): 0.99
+      P(m=0|r=1): 0.01
+
+  - name: "LCPI"
+    P(r=1): 0.5
+    metrics:
+    - name: "LCPA"
+      P(m=0|r=0): 0.99
+      P(m=0|r=1): 0.01
+
+  - name: "LRCOI"
+    P(r=1): 0.5
+    metrics:
+    - name: "LRCA"
+      P(m=0|r=0): 0.99
+      P(m=0|r=1): 0.01
+
+  - name: "LCBCI"
+    P(r=1): 0.5
+    metrics:
+    - name: "LCBA"
+      P(m=0|r=0): 0.99
+      P(m=0|r=1): 0.01
+
+  - name: "DBFI"
+    P(r=1): 0.5
+    metrics:
+    - name: "AvgRL"
+      P(m=0|r=0): 0.99
+      P(m=0|r=1): 0.01
+
+  - name: "IOI"
+    P(r=1): 0.5
+    metrics:
+    - name: "Lfpw"
+      P(m=0|r=0): 0.99
+      P(m=0|r=1): 0.01
+    - name: "LFCI"
+      P(m=0|r=0): 0.99
+      P(m=0|r=1): 0.01
+
+  - name: "LFSI"
+    P(r=1): 0.5
+    metrics:
+    - name: "LfsA"
+      P(m=0|r=0): 0.99
+      P(m=0|r=1): 0.01
+
+  - name: "CFI"
+    P(r=1): 0.5
+    metrics:
+    - name: "ECFA"
+      P(m=0|r=0): 0.99
+      P(m=0|r=1): 0.01
+
+  - name: "TI"
+    P(r=1): 0.5
+    metrics:
+    - name: "ESSA"
+      P(m=0|r=0): 0.99
+      P(m=0|r=1): 0.01
+
+  - name: "HWI"
+    P(r=1): 0.5
+    metrics:
+    - name: "EHWA"
+      P(m=0|r=0): 0.99
+      P(m=0|r=1): 0.01
+
+  - name: "GCI"
+    P(r=1): 0.5
+    metrics:
+    - name: "GCW"
+      P(m=0|r=0): 0.99
+      P(m=0|r=1): 0.01
+
+  - name: "CLS_OTH"
+    P(r=1): 0.5
+    metrics:
+    - name: "CLSA"
+      P(m=0|r=0): 0.99
+      P(m=0|r=1): 0.01
+
+  - name: "HANGD"
+    P(r=1): 0.5
+    metrics:
+    - name: "BGB"
+      P(m=0|r=0): 0.99
+      P(m=0|r=1): 0.01
+    - name: "LMS"
+      P(m=0|r=0): 0.99
+      P(m=0|r=1): 0.01
+    - name: "LMD"
+      P(m=0|r=0): 0.99
+      P(m=0|r=1): 0.01
+    - name: "SMON"
+      P(m=0|r=0): 0.99
+      P(m=0|r=1): 0.01
+    - name: "CKPT"
+      P(m=0|r=0): 0.99
+      P(m=0|r=1): 0.01
+    - name: "PMON"
+      P(m=0|r=0): 0.99
+      P(m=0|r=1): 0.01
+    - name: "LGWR"
+      P(m=0|r=0): 0.99
+      P(m=0|r=1): 0.01
+
+  - name: "HAWT"
+    P(r=1): 0.5
+    metrics:
+    - name: "AWT"
+      P(m=0|r=0): 0.99
+      P(m=0|r=1): 0.01
+
+  - name: "ARL"
+    P(r=1): 0.5
+    metrics:
+    - name: "ETxRA"
+      P(m=0|r=0): 0.99
+      P(m=0|r=1): 0.01
+
+  - name: "ATL"
+    P(r=1): 0.5
+    metrics:
+    - name: "ETmA"
+      P(m=0|r=0): 0.99
+      P(m=0|r=1): 0.01
+
+  - name: "APP_OTH"
+    P(r=1): 0.5
+    metrics:
+    - name: "APPA"
+      P(m=0|r=0): 0.99
+      P(m=0|r=1): 0.01
+
+  - name: "DBCPUI"
+    P(r=1): 0.5
+    metrics:
+    - name: "DBCPU"
+      P(m=0|r=0): 0.99
+      P(m=0|r=1): 0.01
+
+  - name: "BGCPUI"
+    P(r=1): 0.5
+    metrics:
+    - name: "BGCPU"
+      P(m=0|r=0): 0.99
+      P(m=0|r=1): 0.01
+
+  - name: "OCPI"
+    P(r=1): 0.5
+    metrics:
+    - name: "OCP"
+      P(m=0|r=0): 0.99
+      P(m=0|r=1): 0.01
