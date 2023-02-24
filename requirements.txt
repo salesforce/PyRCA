@@ -7,5 +7,5 @@ pyyaml
 schema
 dill
 tqdm
-javabridge>=1.0.11
+# javabridge>=1.0.11
 pyparsing
