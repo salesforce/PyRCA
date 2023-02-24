@@ -9,18 +9,11 @@ from typing import Dict, Union, List
 from collections import deque
 from dataclasses import dataclass
 
-try:
-    from pgmpy.models import BayesianModel
-    from pgmpy.estimators import MaximumLikelihoodEstimator
-    from pgmpy.inference import VariableElimination
-    from pgmpy.factors.discrete import TabularCPD
-    from pgmpy.readwrite import BIFWriter, BIFReader
-except:
-    from pyrca.thirdparty.pgmpy.models import BayesianModel
-    from pyrca.thirdparty.pgmpy.estimators import MaximumLikelihoodEstimator
-    from pyrca.thirdparty.pgmpy.inference import VariableElimination
-    from pyrca.thirdparty.pgmpy.factors.discrete import TabularCPD
-    from pyrca.thirdparty.pgmpy.readwrite import BIFWriter, BIFReader
+from pyrca.thirdparty.pgmpy.models import BayesianModel
+from pyrca.thirdparty.pgmpy.estimators import MaximumLikelihoodEstimator
+from pyrca.thirdparty.pgmpy.inference import VariableElimination
+from pyrca.thirdparty.pgmpy.factors.discrete import TabularCPD
+from pyrca.thirdparty.pgmpy.readwrite import BIFWriter, BIFReader
 
 from pyrca.utils.utils import estimate_thresholds
 from pyrca.base import BaseConfig, BaseModel
