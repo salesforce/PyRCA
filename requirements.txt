@@ -9,3 +9,6 @@ dill
 tqdm
 # javabridge>=1.0.11
 pyparsing
+dash
+dash_cytoscape
+dash_bootstrap_components

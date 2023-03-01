@@ -41,6 +41,12 @@ def create_layout() -> html.Div:
                 style=tab_style, selected_style=tab_selected_style)
     )
     values.append("file-manager")
+    # Causal graph tab
+    children.append(
+        dcc.Tab(label="Causal Discovery", value="causal-graph",
+                style=tab_style, selected_style=tab_selected_style)
+    )
+    values.append("causal-graph")
 
     layout = html.Div(
         id="app-content",

@@ -12,8 +12,10 @@ from dash.dependencies import Input, Output, State
 
 from .utils.layout import create_banner, create_layout
 from .pages.data import create_data_layout
+from .pages.causal import create_causal_layout
 
 from .callbacks import data
+from .callbacks import causal
 
 
 app = dash.Dash(
@@ -59,5 +61,7 @@ def _click_tab(
 ):
     if tab == "file-manager":
         return create_data_layout()
+    elif tab == "causal-graph":
+        return create_causal_layout()
     else:
         return create_data_layout()
