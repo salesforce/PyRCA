@@ -9,7 +9,7 @@ import dash_cytoscape as cyto
 
 from dash import dcc
 from dash import html
-from .utils import create_modal
+from .utils import create_modal, create_param_table
 
 
 default_stylesheet = [
@@ -94,6 +94,13 @@ def create_control_panel() -> html.Div:
                         options=[],
                         style={"width": "100%"}
                     )]
+            ),
+
+            html.Br(),
+            html.P("Algorithm Setting"),
+            html.Div(
+                id="causal-param-table",
+                children=[create_param_table()]
             ),
 
             create_modal(
