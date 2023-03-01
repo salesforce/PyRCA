@@ -84,6 +84,18 @@ def create_control_panel() -> html.Div:
                     )]
             ),
 
+            html.Br(),
+            html.P("Causal Discovery Algorithm"),
+            html.Div(
+                id="select-causal-method-parent",
+                children=[
+                    dcc.Dropdown(
+                        id="select-causal-method",
+                        options=[],
+                        style={"width": "100%"}
+                    )]
+            ),
+
             create_modal(
                 modal_id="causal-exception-modal",
                 header="An Exception Occurred",
