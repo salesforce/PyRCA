@@ -1,5 +1,6 @@
 import os
 import sys
+import json
 import logging
 import inspect
 import importlib
@@ -20,15 +21,12 @@ class CausalDiscovery:
         self.logger.setLevel(logging.DEBUG)
         self.logger.addHandler(dash_logger)
         self.folder = folder
-
-        self.df = None
         self.supported_methods = None
 
     def load_data(self, file_name):
         df = pd.read_csv(os.path.join(self.folder, file_name))
         df = df.rename(columns={df.columns[0]: "Timestamp"})
-        self.df = df.set_index("Timestamp")
-        return self.df
+        return df.set_index("Timestamp")
 
     def get_supported_methods(self):
         if self.supported_methods is not None:
@@ -87,3 +85,37 @@ class CausalDiscovery:
                 value = value.name if isinstance(value, Enum) else value
                 param_info[name] = {"type": param.annotation, "default": value}
         return param_info
+
+    @staticmethod
+    def parse_parameters(param_info, params):
+        for key in params.keys():
+            assert key in param_info, f"{key} is not in `param_info`."
+
+        kwargs = {}
+        for name, value in params.items():
+            info = param_info[name]
+            value_type = info["type"]
+            if value.lower() in ["none", "null"]:
+                kwargs[name] = None
+            elif value_type in [int, float, str]:
+                kwargs[name] = value_type(value)
+            elif issubclass(value_type, Enum):
+                valid_enum_values = value_type.__members__.keys()
+                assert value in valid_enum_values, f"The value of {name} should be in {valid_enum_values}"
+                kwargs[name] = value_type[value]
+            elif value_type == bool:
+                assert value.lower() in ["true", "false"], f"The value of {name} should be either True or False."
+                kwargs[name] = value.lower() == "true"
+            elif info["type"] in [list, tuple, dict]:
+                value = value.replace(" ", "").replace("\t", "")
+                value = value.replace("(", "[").replace(")", "]").replace(",]", "]")
+                kwargs[name] = json.loads(value)
+        return kwargs
+
+    def run(self, df, algorithm, params):
+        df = df.dropna()
+        method_class = self.get_supported_methods()[algorithm]["class"]
+        config_class = self.get_supported_methods()[algorithm]["config_class"]
+        method = method_class(config_class.from_dict(params))
+        result = method.train(df)
+        return result

@@ -103,6 +103,15 @@ def create_control_panel() -> html.Div:
                 children=[create_param_table()]
             ),
 
+            html.Br(),
+            html.Div(
+                children=[
+                    html.Button(id="causal-run-btn", children="Run", n_clicks=0),
+                    html.Button(id="causal-cancel-btn", children="Cancel", style={"margin-left": "15px"}),
+                ],
+                style={"textAlign": "center"}
+            ),
+
             create_modal(
                 modal_id="causal-exception-modal",
                 header="An Exception Occurred",

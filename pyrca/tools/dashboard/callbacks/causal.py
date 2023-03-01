@@ -57,7 +57,60 @@ def select_algorithm(algorithm):
     param_table = create_param_table()
     ctx = dash.callback_context
     prop_id = ctx.triggered_id
-    if prop_id == "select-causal-method":
+    if prop_id == "select-causal-method" and algorithm is not None:
         param_info = causal_method.get_parameter_info(algorithm)
         param_table = create_param_table(param_info)
     return param_table
+
+
+@callback(
+    Output("causal-exception-modal", "is_open"),
+    Output("causal-exception-modal-content", "children"),
+    [
+        Input("causal-run-btn", "n_clicks"),
+        Input("causal-exception-modal-close", "n_clicks"),
+    ],
+    [
+        State("causal-select-file", "value"),
+        State("select-causal-method", "value"),
+        State("causal-param-table", "children"),
+    ],
+    running=[
+        (Output("causal-run-btn", "disabled"), True, False),
+        (Output("causal-cancel-btn", "disabled"), False, True),
+    ],
+    cancel=[Input("causal-cancel-btn", "n_clicks")],
+    background=True,
+    manager=file_manager.get_long_callback_manager(),
+)
+def click_train_test(
+    run_clicks,
+    modal_close,
+    filename,
+    algorithm,
+    param_table,
+):
+    ctx = dash.callback_context
+    modal_is_open = False
+    modal_content = ""
+
+    try:
+        if ctx.triggered:
+            prop_id = ctx.triggered_id
+            if prop_id == "causal-run-btn" and run_clicks > 0:
+                assert filename, "The data file is empty!"
+                assert algorithm, "Please select a causal discovery algorithm."
+
+                params = causal_method.parse_parameters(
+                    param_info=causal_method.get_parameter_info(algorithm),
+                    params={p["Parameter"]: p["Value"] for p in param_table["props"]["data"]},
+                )
+                df = causal_method.load_data(filename)
+                res = causal_method.run(df, algorithm, params)
+                print(res)
+
+    except Exception as e:
+        modal_is_open = True
+        modal_content = str(e)
+
+    return modal_is_open, modal_content
