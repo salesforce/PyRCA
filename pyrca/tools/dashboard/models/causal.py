@@ -45,3 +45,7 @@ class CausalDiscovery:
         config_classes = sorted(config_classes, key=lambda x: x.__name__)
         return {name: {"class": method, "config_class": config}
                 for name, method, config in zip(method_names, method_classes, config_classes)}
+
+    @staticmethod
+    def get_default_method():
+        return "PC"
