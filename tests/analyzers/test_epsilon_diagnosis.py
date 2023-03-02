@@ -1,6 +1,7 @@
 import unittest
 import pandas as pd
 import numpy as np
+
 from pyrca.analyzers.epsilon_diagnosis import EpsilonDiagnosis, EpsilonDiagnosisConfig
 
 
@@ -28,7 +29,7 @@ class TestEpsilonDiagnosis(unittest.TestCase):
     def test(self):
         model = EpsilonDiagnosis(config=EpsilonDiagnosisConfig(alpha=0.01))
         model.train(self.normal_data)
-        results = model.find_root_causes(self.abnormal_data)
+        results = model.find_root_causes(self.abnormal_data).to_list()
         print(results)
 
 
