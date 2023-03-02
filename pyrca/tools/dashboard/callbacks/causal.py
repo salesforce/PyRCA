@@ -9,6 +9,7 @@ import dash
 from dash import Input, Output, State, callback
 from ..utils.file_manager import FileManager
 from ..pages.utils import create_param_table
+from ..pages.causal import create_graph_figure
 from ..models.causal import CausalDiscovery
 
 file_manager = FileManager()
@@ -64,6 +65,7 @@ def select_algorithm(algorithm):
 
 
 @callback(
+    Output("cytoscape", "elements"),
     Output("causal-exception-modal", "is_open"),
     Output("causal-exception-modal-content", "children"),
     [
@@ -93,6 +95,7 @@ def click_train_test(
     ctx = dash.callback_context
     modal_is_open = False
     modal_content = ""
+    graph = None
 
     try:
         if ctx.triggered:
@@ -106,11 +109,10 @@ def click_train_test(
                     params={p["Parameter"]: p["Value"] for p in param_table["props"]["data"]},
                 )
                 df = causal_method.load_data(filename)
-                res = causal_method.run(df, algorithm, params)
-                print(res)
+                graph = causal_method.run(df, algorithm, params)
 
     except Exception as e:
         modal_is_open = True
         modal_content = str(e)
 
-    return modal_is_open, modal_content
+    return create_graph_figure(graph), modal_is_open, modal_content

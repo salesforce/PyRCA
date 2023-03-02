@@ -46,6 +46,13 @@ def build_cyto_graph(graph):
     return cy_nodes + cy_edges
 
 
+def create_graph_figure(graph=None):
+    if graph is None:
+        graph = nx.random_geometric_graph(5, 0.5)
+    fig = build_cyto_graph(graph)
+    return fig
+
+
 def create_control_panel() -> html.Div:
     return html.Div(
         id="control-card",
@@ -137,7 +144,7 @@ def create_right_column() -> html.Div:
                         children=[
                             cyto.Cytoscape(
                                 id="cytoscape",
-                                elements=build_cyto_graph(nx.random_geometric_graph(5, 0.5)),
+                                elements=create_graph_figure(),
                                 stylesheet=default_stylesheet,
                                 style={'height': '40vh', 'width': '100%'}
                             )

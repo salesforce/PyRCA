@@ -5,6 +5,7 @@ import logging
 import inspect
 import importlib
 import pandas as pd
+import networkx as nx
 from enum import Enum
 from collections import OrderedDict
 
@@ -117,5 +118,5 @@ class CausalDiscovery:
         method_class = self.get_supported_methods()[algorithm]["class"]
         config_class = self.get_supported_methods()[algorithm]["config_class"]
         method = method_class(config_class.from_dict(params))
-        result = method.train(df)
-        return result
+        graph_df = method.train(df)
+        return nx.from_pandas_adjacency(graph_df)
