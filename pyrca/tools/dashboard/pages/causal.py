@@ -222,8 +222,8 @@ def create_right_column() -> html.Div:
                                 stylesheet=default_stylesheet,
                                 style={"height": "60vh", "width": "100%"},
                                 minZoom=0.5,
-                                maxZoom=2.0,
-                                layout={'name': 'preset'}
+                                maxZoom=4.0,
+                                layout={"name": "preset"}
                             )
                         ]
                     )
