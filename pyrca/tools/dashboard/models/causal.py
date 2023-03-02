@@ -119,4 +119,18 @@ class CausalDiscovery:
         config_class = self.get_supported_methods()[algorithm]["config_class"]
         method = method_class(config_class.from_dict(params))
         graph_df = method.train(df)
-        return nx.from_pandas_adjacency(graph_df)
+
+        relations = {}
+        names = list(graph_df.columns)
+        for i in range(len(names)):
+            for j in range(len(names)):
+                if i == j:
+                    continue
+                if graph_df.values[i, j] > 0:
+                    if graph_df.values[j, i] == 0:
+                        relations[(i, j)] = "-->"
+                    else:
+                        if (j, i) not in relations:
+                            relations[(i, j)] = "---"
+        relations = {(names[i], names[j]): v for (i, j), v in relations.items()}
+        return nx.from_pandas_adjacency(graph_df), relations

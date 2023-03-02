@@ -4,12 +4,11 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
-import json
 import dash
 from dash import Input, Output, State, callback
 from ..utils.file_manager import FileManager
 from ..pages.utils import create_param_table
-from ..pages.causal import create_graph_figure
+from ..pages.causal import create_graph_figure, create_causal_relation_table
 from ..models.causal import CausalDiscovery
 
 file_manager = FileManager()
@@ -66,6 +65,7 @@ def select_algorithm(algorithm):
 
 @callback(
     Output("cytoscape", "elements"),
+    Output("causal-relationship-table", "children"),
     Output("causal-exception-modal", "is_open"),
     Output("causal-exception-modal-content", "children"),
     [
@@ -96,6 +96,7 @@ def click_train_test(
     modal_is_open = False
     modal_content = ""
     graph = None
+    relations = None
 
     try:
         if ctx.triggered:
@@ -109,10 +110,12 @@ def click_train_test(
                     params={p["Parameter"]: p["Value"] for p in param_table["props"]["data"]},
                 )
                 df = causal_method.load_data(filename)
-                graph = causal_method.run(df, algorithm, params)
+                graph, relations = causal_method.run(df, algorithm, params)
 
     except Exception as e:
         modal_is_open = True
         modal_content = str(e)
 
-    return create_graph_figure(graph), modal_is_open, modal_content
+    return create_graph_figure(graph), \
+           create_causal_relation_table(relations), \
+           modal_is_open, modal_content

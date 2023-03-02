@@ -8,8 +8,9 @@ import networkx as nx
 import dash_cytoscape as cyto
 
 from dash import dcc
-from dash import html
+from dash import html, dash_table
 from .utils import create_modal, create_param_table
+from ..settings import *
 
 
 default_stylesheet = [
@@ -51,6 +52,35 @@ def create_graph_figure(graph=None):
         graph = nx.random_geometric_graph(5, 0.5)
     fig = build_cyto_graph(graph)
     return fig
+
+
+def create_causal_relation_table(relations=None, height=200):
+    if relations is None or len(relations) == 0:
+        data = [{"Node A": "", "Relation": "", "Node B": ""}]
+    else:
+        data = [{"Node A": i, "Relation": v, "Node B": j}
+                for (i, j), v in relations.items()]
+
+    table = dash_table.DataTable(
+        id="metric-stats",
+        data=data,
+        columns=[
+            {"id": "Node A", "name": "Node A"},
+            {"id": "Relation", "name": "Relation"},
+            {"id": "Node B", "name": "Node B"}
+        ],
+        editable=False,
+        style_header_conditional=[{"textAlign": "center"}],
+        style_cell_conditional=[{"textAlign": "center"}],
+        style_header=dict(backgroundColor=TABLE_HEADER_COLOR),
+        style_data=dict(backgroundColor=TABLE_DATA_COLOR),
+        style_table={
+            "overflowX": "scroll",
+            "overflowY": "scroll",
+            "height": height
+        },
+    )
+    return table
 
 
 def create_control_panel() -> html.Div:
