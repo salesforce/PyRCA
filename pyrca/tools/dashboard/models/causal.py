@@ -134,3 +134,7 @@ class CausalDiscovery:
                             relations[(i, j)] = "---"
         relations = {(names[i], names[j]): v for (i, j), v in relations.items()}
         return nx.from_pandas_adjacency(graph_df), relations
+
+    @staticmethod
+    def causal_order(graph):
+        pass
