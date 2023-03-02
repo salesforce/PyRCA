@@ -66,6 +66,7 @@ def select_algorithm(algorithm):
 @callback(
     Output("cytoscape", "elements"),
     Output("causal-relationship-table", "children"),
+    Output("causal-cycle-table", "children"),
     Output("causal-exception-modal", "is_open"),
     Output("causal-exception-modal-content", "children"),
     [
@@ -97,6 +98,7 @@ def click_train_test(
     modal_content = ""
     graph = None
     relations = None
+    cycle_table = None
 
     try:
         if ctx.triggered:
@@ -122,4 +124,6 @@ def click_train_test(
 
     return create_graph_figure(graph), \
            create_causal_relation_table(relations), \
-           modal_is_open, modal_content
+           cycle_table, \
+           modal_is_open, \
+           modal_content

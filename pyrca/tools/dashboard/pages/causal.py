@@ -186,6 +186,7 @@ def create_right_column() -> html.Div:
             html.Div(
                 id="result_table_card",
                 children=[
+                    html.Div(id="causal-cycle-table"),
                     html.B("Causal Relationships"),
                     html.Hr(),
                     html.Div(id="causal-relationship-table")
