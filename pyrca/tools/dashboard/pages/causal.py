@@ -205,7 +205,9 @@ def create_right_column() -> html.Div:
                                 id="cytoscape",
                                 elements=create_graph_figure(),
                                 stylesheet=default_stylesheet,
-                                style={"height": "60vh", "width": "100%"}
+                                style={"height": "60vh", "width": "100%"},
+                                minZoom=0.5,
+                                maxZoom=2.0
                             )
                         ]
                     )
