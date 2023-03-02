@@ -5,10 +5,11 @@
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
 import dash
-from dash import Input, Output, State, callback
+from dash import html, Input, Output, State, callback
 from ..utils.file_manager import FileManager
 from ..pages.utils import create_param_table
-from ..pages.causal import create_graph_figure, create_causal_relation_table
+from ..pages.causal import create_graph_figure, \
+    create_causal_relation_table, create_cycle_table
 from ..models.causal import CausalDiscovery
 
 file_manager = FileManager()
@@ -98,6 +99,7 @@ def click_train_test(
     modal_content = ""
     graph = None
     relations = None
+    causal_levels = None
     cycle_table = None
 
     try:
@@ -114,15 +116,18 @@ def click_train_test(
                 df = causal_method.load_data(filename)
                 graph, graph_df, relations = causal_method.run(df, algorithm, params)
                 causal_levels, cycles = causal_method.causal_order(graph_df)
-
-                import pprint
-                pprint.pprint(causal_levels)
+                if cycles is not None:
+                    cycle_table = html.Div(children=[
+                        html.B("Cyclic Paths"),
+                        html.Hr(),
+                        create_cycle_table(cycles)
+                    ])
 
     except Exception as e:
         modal_is_open = True
         modal_content = str(e)
 
-    return create_graph_figure(graph), \
+    return create_graph_figure(graph, causal_levels), \
            create_causal_relation_table(relations), \
            cycle_table, \
            modal_is_open, \

@@ -19,7 +19,7 @@ default_stylesheet = [
         'style': {
             'label': 'data(id)',
             'opacity': 'data(weight)',
-            'background-color': 'blue',
+            'background-color': '#1f77b4',
         }
     },
     {
@@ -30,14 +30,14 @@ default_stylesheet = [
             'target-arrow-shape': 'triangle',
             'arrow-scale': 1,
             'line-color': 'black',
-            'opacity': 0.3,
+            'opacity': 0.6,
             'width': 0.5
         }
     },
 ]
 
 
-def build_cyto_graph(graph):
+def build_cyto_graph(graph, levels):
     cy_edges = []
     cy_nodes = []
     for node in graph.nodes():
@@ -47,10 +47,10 @@ def build_cyto_graph(graph):
     return cy_nodes + cy_edges
 
 
-def create_graph_figure(graph=None):
+def create_graph_figure(graph=None, levels=None):
     if graph is None:
         graph = nx.random_geometric_graph(5, 0.5)
-    fig = build_cyto_graph(graph)
+    fig = build_cyto_graph(graph, levels)
     return fig
 
 
@@ -62,12 +62,40 @@ def create_causal_relation_table(relations=None, height=200):
                 for (i, j), v in relations.items()]
 
     table = dash_table.DataTable(
-        id="metric-stats",
+        id="causal-relations",
         data=data,
         columns=[
             {"id": "Node A", "name": "Node A"},
             {"id": "Relation", "name": "Relation"},
             {"id": "Node B", "name": "Node B"}
+        ],
+        editable=False,
+        sort_action="native",
+        style_header_conditional=[{"textAlign": "center"}],
+        style_cell_conditional=[{"textAlign": "center"}],
+        style_header=dict(backgroundColor=TABLE_HEADER_COLOR),
+        style_data=dict(backgroundColor=TABLE_DATA_COLOR),
+        style_table={
+            "overflowX": "scroll",
+            "overflowY": "scroll",
+            "height": height
+        },
+    )
+    return table
+
+
+def create_cycle_table(cycles, height=100):
+    if cycles is None or len(cycles) == 0:
+        data = [{"Cyclic Path": ""}]
+    else:
+        data = [{"Cyclic Path": " --> ".join([str(node) for node in path])}
+                for path in cycles]
+
+    table = dash_table.DataTable(
+        id="causal-cycles",
+        data=data,
+        columns=[
+            {"id": "Cyclic Path", "name": "Cyclic Path"},
         ],
         editable=False,
         sort_action="native",
