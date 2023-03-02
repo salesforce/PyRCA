@@ -4,13 +4,14 @@ import json
 import logging
 import inspect
 import importlib
+import numpy as np
 import pandas as pd
 import networkx as nx
 from enum import Enum
-from collections import OrderedDict
+from collections import OrderedDict, defaultdict
 
 from ..utils.log import DashLogger
-from pyrca.graphs.causal.base import BaseModel, BaseConfig
+from pyrca.graphs.causal.base import CausalModel, BaseConfig
 
 dash_logger = DashLogger(stream=sys.stdout)
 
@@ -39,7 +40,7 @@ class CausalDiscovery:
         module = importlib.import_module("pyrca.graphs.causal")
         for name, obj in inspect.getmembers(module):
             if inspect.isclass(obj):
-                if issubclass(obj, BaseModel):
+                if issubclass(obj, CausalModel):
                     method_names.append(name)
                     method_classes.append(obj)
                 elif issubclass(obj, BaseConfig):
@@ -133,8 +134,38 @@ class CausalDiscovery:
                         if (j, i) not in relations:
                             relations[(i, j)] = "---"
         relations = {(names[i], names[j]): v for (i, j), v in relations.items()}
-        return nx.from_pandas_adjacency(graph_df), relations
+        return nx.from_pandas_adjacency(graph_df), graph_df, relations
 
     @staticmethod
-    def causal_order(graph):
-        pass
+    def causal_order(graph_df):
+        names = list(graph_df.columns)
+        cycles = CausalModel.check_cycles(graph_df)
+        if len(cycles) > 0:
+            return None, cycles
+
+        def _find_root_nodes(graph):
+            _roots = []
+            for i in range(graph.shape[0]):
+                if np.sum(graph[:, i]) == 0:
+                    _roots.append(i)
+            if len(_roots) == 0:
+                _roots.append(0)
+            return _roots
+
+        def _assign_level(node, level, graph, level_map):
+            level_map[node] = max(level_map[node], level)
+            if np.sum(graph[node, :]) == 0:
+                return
+            for j in range(graph.shape[0]):
+                if graph[node, j] == 1:
+                    _assign_level(j, level_map[node] + 1, graph, level_map)
+
+        roots = _find_root_nodes(graph_df.values)
+        levels = np.zeros(graph_df.shape[0], dtype=int)
+        for root in roots:
+            _assign_level(root, 0, graph_df.values, levels)
+
+        level_info = defaultdict(list)
+        for i, v in enumerate(levels):
+            level_info[v].append(names[i])
+        return level_info, None

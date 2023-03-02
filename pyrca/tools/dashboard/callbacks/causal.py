@@ -110,7 +110,11 @@ def click_train_test(
                     params={p["Parameter"]: p["Value"] for p in param_table["props"]["data"]},
                 )
                 df = causal_method.load_data(filename)
-                graph, relations = causal_method.run(df, algorithm, params)
+                graph, graph_df, relations = causal_method.run(df, algorithm, params)
+                causal_levels, cycles = causal_method.causal_order(graph_df)
+
+                import pprint
+                pprint.pprint(causal_levels)
 
     except Exception as e:
         modal_is_open = True
