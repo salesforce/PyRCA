@@ -45,9 +45,9 @@ def build_cyto_graph(graph, levels):
             for i, node in enumerate(nodes):
                 node2pos[node] = (key * scales[0], i * scales[1])
     else:
-        positions = nx.circular_layout(graph)
+        positions = nx.shell_layout(graph, scale=5)
         for node, pos in positions.items():
-            node2pos[node] = (int((pos[0] + 1) * scales[0]), int((pos[1] + 1) * scales[1]))
+            node2pos[node] = (int(pos[0] * scales[0]), int(pos[1] * scales[1]))
 
     cy_edges = []
     cy_nodes = []
