@@ -38,18 +38,24 @@ default_stylesheet = [
 
 
 def build_cyto_graph(graph, levels):
-    node2level = {}
+    scales = (50, 80)
+    node2pos = {}
     if levels is not None:
         for key, nodes in levels.items():
             for i, node in enumerate(nodes):
-                node2level[node] = (key, i)
+                node2pos[node] = (key * scales[0], i * scales[1])
+    else:
+        positions = nx.circular_layout(graph)
+        for node, pos in positions.items():
+            node2pos[node] = (int((pos[0] + 1) * scales[0]), int((pos[1] + 1) * scales[1]))
 
     cy_edges = []
     cy_nodes = []
     for node in graph.nodes():
-        data = {"data": {"id": node, "label": node}}
-        if node2level:
-            data["position"] = {"x": node2level[node][0], "y": node2level[node][1]}
+        data = {
+            "data": {"id": node, "label": node},
+            "position": {"x": node2pos[node][1], "y": node2pos[node][0]}
+        }
         cy_nodes.append(data)
     for edge in graph.edges():
         cy_edges.append({"data": {"source": edge[0], "target": edge[1]}})
@@ -216,7 +222,8 @@ def create_right_column() -> html.Div:
                                 stylesheet=default_stylesheet,
                                 style={"height": "60vh", "width": "100%"},
                                 minZoom=0.5,
-                                maxZoom=2.0
+                                maxZoom=2.0,
+                                layout={'name': 'preset'}
                             )
                         ]
                     )
