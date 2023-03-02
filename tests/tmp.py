@@ -3,7 +3,6 @@ import dash_bootstrap_components as dbc
 import dash_cytoscape as cyto
 from dash.dependencies import Input, Output, State
 import json
-from dash.exceptions import PreventUpdate
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 

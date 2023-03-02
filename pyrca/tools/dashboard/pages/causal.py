@@ -38,10 +38,19 @@ default_stylesheet = [
 
 
 def build_cyto_graph(graph, levels):
+    node2level = {}
+    if levels is not None:
+        for key, nodes in levels.items():
+            for i, node in enumerate(nodes):
+                node2level[node] = (key, i)
+
     cy_edges = []
     cy_nodes = []
     for node in graph.nodes():
-        cy_nodes.append({"data": {"id": node, "label": node}})
+        data = {"data": {"id": node, "label": node}}
+        if node2level:
+            data["position"] = {"x": node2level[node][0], "y": node2level[node][1]}
+        cy_nodes.append(data)
     for edge in graph.edges():
         cy_edges.append({"data": {"source": edge[0], "target": edge[1]}})
     return cy_nodes + cy_edges
