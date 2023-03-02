@@ -70,6 +70,7 @@ def create_causal_relation_table(relations=None, height=200):
             {"id": "Node B", "name": "Node B"}
         ],
         editable=False,
+        sort_action="native",
         style_header_conditional=[{"textAlign": "center"}],
         style_cell_conditional=[{"textAlign": "center"}],
         style_header=dict(backgroundColor=TABLE_HEADER_COLOR),
