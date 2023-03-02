@@ -1,12 +1,12 @@
 """
 epsilon-Diagnosis algorithm.
 """
-
 from dataclasses import dataclass
 import pandas as pd
 import numpy as np
-from rca.base import BaseConfig
 from itertools import combinations
+
+from pyrca.base import BaseConfig
 from pyrca.analyzers.base import BaseRCA, RCAResults
 
 
@@ -21,7 +21,7 @@ class EpsilonDiagnosisConfig(BaseConfig):
     bootstrap_time: int = 200
 
 
-class EpsilonDiagnosis(EpsilonDiagnosisConfig):
+class EpsilonDiagnosis(BaseRCA):
     """
     The epsilon-diagnosis method for Root Cause Analysis.
 
@@ -48,7 +48,7 @@ class EpsilonDiagnosis(EpsilonDiagnosisConfig):
             return np.random.choice(array, (array.shape[0], times))
 
         # bootstrapping to calculate the p-value
-        normal_df_msample = np.apply_along_axis(_samples, 0, normal_df.values, times=self.bootstrap_time)
+        normal_df_msample = np.apply_along_axis(_samples, 0, normal_df.values, times=self.config.bootstrap_time)
         normal_correlations = np.empty((int((normal_df_msample.shape[1] * (normal_df_msample.shape[1] - 1) / 2)),
                            normal_df_msample.shape[2]))
         for k in range(normal_df_msample.shape[2]):
@@ -60,7 +60,7 @@ class EpsilonDiagnosis(EpsilonDiagnosisConfig):
                 else:
                     normal_correlations[idx, k] = np.square(cov_matrix[i, j]) / (cov_matrix[i, i] * cov_matrix[j, j])
                 idx += 1
-        self.statistics = dict(zip(normal_df.columns, np.apply_along_axis(np.quantile, 0, normal_correlations, q=1-self.alpha)))
+        self.statistics = dict(zip(normal_df.columns, np.apply_along_axis(np.quantile, 0, normal_correlations, q=1-self.config.alpha)))
 
     def find_root_causes(
             self,
