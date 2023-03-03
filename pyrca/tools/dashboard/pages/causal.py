@@ -37,7 +37,7 @@ default_stylesheet = [
 ]
 
 
-def build_cyto_graph(graph, levels, max_node_name_length=15):
+def build_cyto_graph(graph, levels, positions, max_node_name_length=15):
     scales = (50, 80)
     node2pos = {}
     if levels is not None:
@@ -45,9 +45,9 @@ def build_cyto_graph(graph, levels, max_node_name_length=15):
             for i, node in enumerate(nodes):
                 node2pos[node] = (key * scales[0], i * scales[1])
     else:
-        positions = nx.shell_layout(graph, scale=5)
-        for node, pos in positions.items():
+        for node, pos in nx.shell_layout(graph, scale=5).items():
             node2pos[node] = (pos[0] * scales[0], pos[1] * scales[1])
+    positions = {} if positions is None else positions
 
     cy_edges = []
     cy_nodes = []
@@ -57,7 +57,8 @@ def build_cyto_graph(graph, levels, max_node_name_length=15):
             label = label[:max_node_name_length] + "*"
         data = {
             "data": {"id": node, "label": label},
-            "position": {"x": int(node2pos[node][1]), "y": int(node2pos[node][0])}
+            "position": positions.get(
+                node, {"x": int(node2pos[node][1]), "y": int(node2pos[node][0])})
         }
         cy_nodes.append(data)
     for edge in graph.edges():
@@ -65,10 +66,10 @@ def build_cyto_graph(graph, levels, max_node_name_length=15):
     return cy_nodes + cy_edges
 
 
-def create_graph_figure(graph=None, levels=None):
+def create_graph_figure(graph=None, levels=None, positions=None):
     if graph is None:
         graph = nx.random_geometric_graph(5, 0.5)
-    return build_cyto_graph(graph, levels)
+    return build_cyto_graph(graph, levels, positions)
 
 
 def create_causal_relation_table(relations=None, height=200):

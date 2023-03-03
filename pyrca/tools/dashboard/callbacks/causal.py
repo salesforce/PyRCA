@@ -78,7 +78,8 @@ def select_algorithm(algorithm):
         State("causal-select-file", "value"),
         State("select-causal-method", "value"),
         State("causal-param-table", "children"),
-        State("causal-state", "data")
+        State("causal-state", "data"),
+        State("cytoscape", "elements")
     ],
     running=[
         (Output("causal-run-btn", "disabled"), True, False),
@@ -95,7 +96,8 @@ def click_train_test(
     filename,
     algorithm,
     param_table,
-    causal_state
+    causal_state,
+    cyto_elements
 ):
     ctx = dash.callback_context
     modal_is_open = False
@@ -107,7 +109,7 @@ def click_train_test(
         if ctx.triggered:
             prop_id = ctx.triggered_id
             if prop_id == "causal-run-btn" and run_clicks > 0:
-                assert filename, "The data file is empty!"
+                assert filename, "The data file is empty."
                 assert algorithm, "Please select a causal discovery algorithm."
 
                 params = causal_method.parse_parameters(
@@ -120,6 +122,13 @@ def click_train_test(
                 state["graph"] = create_graph_figure(graph, causal_levels)
                 state["relations"] = relations
                 state["cycles"] = cycles
+
+                positions = {}
+                if len(cyto_elements) > 0:
+                    for element in cyto_elements:
+                        if "position" in element:
+                            positions[element["data"]["id"]] = element["position"]
+                state["positions"] = positions
 
     except Exception as e:
         modal_is_open = True
@@ -148,6 +157,8 @@ def hover_graph_node(data):
 def update_view(data):
     state = json.loads(data) \
         if data is not None else {}
+    graph = state.get("graph", [])
+    positions = state.get("positions", {})
 
     if state.get("cycles", None) is not None:
         cycle_table = html.Div(children=[
@@ -158,6 +169,11 @@ def update_view(data):
     else:
         cycle_table = None
 
-    return state.get("graph", []), \
+    for element in graph:
+        if "position" in element:
+            element["position"] = \
+                positions.get(element["data"]["id"], element["position"])
+
+    return graph, \
         create_causal_relation_table(state.get("relations", None)), \
         cycle_table
