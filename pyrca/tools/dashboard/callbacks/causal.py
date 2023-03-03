@@ -87,6 +87,7 @@ def select_algorithm(algorithm):
     cancel=[Input("causal-cancel-btn", "n_clicks")],
     background=True,
     manager=file_manager.get_long_callback_manager(),
+    prevent_initial_call=True
 )
 def click_train_test(
     run_clicks,
@@ -141,7 +142,8 @@ def hover_graph_node(data):
     Output("cytoscape", "elements"),
     Output("causal-relationship-table", "children"),
     Output("causal-cycle-table", "children"),
-    Input("causal-state", "data")
+    Input("causal-state", "data"),
+    prevent_initial_call=True
 )
 def update_view(data):
     state = json.loads(data) \
