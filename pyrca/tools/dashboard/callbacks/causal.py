@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
+import json
 import dash
 from dash import html, Input, Output, State, callback
 from ..utils.file_manager import FileManager
@@ -65,6 +66,7 @@ def select_algorithm(algorithm):
 
 
 @callback(
+    Output("causal-state", "data"),
     Output("cytoscape", "elements"),
     Output("causal-relationship-table", "children"),
     Output("causal-cycle-table", "children"),
@@ -78,6 +80,7 @@ def select_algorithm(algorithm):
         State("causal-select-file", "value"),
         State("select-causal-method", "value"),
         State("causal-param-table", "children"),
+        State("causal-state", "data")
     ],
     running=[
         (Output("causal-run-btn", "disabled"), True, False),
@@ -93,14 +96,14 @@ def click_train_test(
     filename,
     algorithm,
     param_table,
+    causal_state
 ):
     ctx = dash.callback_context
     modal_is_open = False
     modal_content = ""
-    graph = None
-    relations = None
-    causal_levels = None
     cycle_table = None
+    state = json.loads(causal_state) \
+        if causal_state is not None else {}
 
     try:
         if ctx.triggered:
@@ -116,19 +119,24 @@ def click_train_test(
                 df = causal_method.load_data(filename)
                 graph, graph_df, relations = causal_method.run(df, algorithm, params)
                 causal_levels, cycles = causal_method.causal_order(graph_df)
-                if cycles is not None:
-                    cycle_table = html.Div(children=[
-                        html.B("Cyclic Paths"),
-                        html.Hr(),
-                        create_cycle_table(cycles)
-                    ])
+                state["graph"] = create_graph_figure(graph, causal_levels)
+                state["relations"] = relations
+                state["cycles"] = cycles
 
     except Exception as e:
         modal_is_open = True
         modal_content = str(e)
 
-    return create_graph_figure(graph, causal_levels), \
-           create_causal_relation_table(relations), \
+    if state.get("cycles", None) is not None:
+        cycle_table = html.Div(children=[
+            html.B("Cyclic Paths"),
+            html.Hr(),
+            create_cycle_table(state["cycles"])
+        ])
+
+    return json.dumps(state),\
+           state.get("graph", []), \
+           create_causal_relation_table(state.get("relations", None)), \
            cycle_table, \
            modal_is_open, \
            modal_content

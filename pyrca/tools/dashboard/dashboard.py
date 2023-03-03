@@ -29,6 +29,7 @@ app.layout = html.Div([
     dcc.Location(id="url", refresh=False),
     html.Div(id="page-content"),
     dcc.Store(id="data-state"),
+    dcc.Store(id="causal-state"),
 ])
 server = app.server
 
@@ -51,14 +52,8 @@ def _display_page(pathname):
 @app.callback(
     Output("plots", "children"),
     Input("tabs", "value"),
-    [
-        State("data-state", "data"),
-    ]
 )
-def _click_tab(
-        tab,
-        data_state,
-):
+def _click_tab(tab):
     if tab == "file-manager":
         return create_data_layout()
     elif tab == "causal-graph":

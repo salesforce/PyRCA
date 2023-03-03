@@ -47,14 +47,14 @@ def build_cyto_graph(graph, levels):
     else:
         positions = nx.shell_layout(graph, scale=5)
         for node, pos in positions.items():
-            node2pos[node] = (int(pos[0] * scales[0]), int(pos[1] * scales[1]))
+            node2pos[node] = (pos[0] * scales[0], pos[1] * scales[1])
 
     cy_edges = []
     cy_nodes = []
     for node in graph.nodes():
         data = {
             "data": {"id": node, "label": node},
-            "position": {"x": node2pos[node][1], "y": node2pos[node][0]}
+            "position": {"x": int(node2pos[node][1]), "y": int(node2pos[node][0])}
         }
         cy_nodes.append(data)
     for edge in graph.edges():
@@ -73,8 +73,10 @@ def create_causal_relation_table(relations=None, height=200):
     if relations is None or len(relations) == 0:
         data = [{"Node A": "", "Relation": "", "Node B": ""}]
     else:
-        data = [{"Node A": i, "Relation": v, "Node B": j}
-                for (i, j), v in relations.items()]
+        data = []
+        for key, val in relations.items():
+            i, j = key.split("<split>")
+            data.append({"Node A": i, "Relation": val, "Node B": j})
 
     table = dash_table.DataTable(
         id="causal-relations",
@@ -218,7 +220,7 @@ def create_right_column() -> html.Div:
                         children=[
                             cyto.Cytoscape(
                                 id="cytoscape",
-                                elements=create_graph_figure(),
+                                elements=[],
                                 stylesheet=default_stylesheet,
                                 style={"height": "60vh", "width": "100%"},
                                 minZoom=0.5,

@@ -133,9 +133,9 @@ class CausalDiscovery:
                     else:
                         if (j, i) not in relations:
                             relations[(i, j)] = "---"
-        relations = {(names[i], names[j]): v for (i, j), v in relations.items()}
-        return nx.from_pandas_adjacency(graph_df, create_using=nx.DiGraph()), \
-               graph_df, relations
+        relations = {f"{names[i]}<split>{names[j]}": v for (i, j), v in relations.items()}
+        nx_graph = nx.from_pandas_adjacency(graph_df, create_using=nx.DiGraph())
+        return nx_graph, graph_df, relations
 
     @staticmethod
     def causal_order(graph_df):
