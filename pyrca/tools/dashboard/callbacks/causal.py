@@ -67,9 +67,6 @@ def select_algorithm(algorithm):
 
 @callback(
     Output("causal-state", "data"),
-    Output("cytoscape", "elements"),
-    Output("causal-relationship-table", "children"),
-    Output("causal-cycle-table", "children"),
     Output("causal-exception-modal", "is_open"),
     Output("causal-exception-modal-content", "children"),
     [
@@ -101,7 +98,6 @@ def click_train_test(
     ctx = dash.callback_context
     modal_is_open = False
     modal_content = ""
-    cycle_table = None
     state = json.loads(causal_state) \
         if causal_state is not None else {}
 
@@ -127,16 +123,28 @@ def click_train_test(
         modal_is_open = True
         modal_content = str(e)
 
+    return json.dumps(state), modal_is_open, modal_content
+
+
+@callback(
+    Output("cytoscape", "elements"),
+    Output("causal-relationship-table", "children"),
+    Output("causal-cycle-table", "children"),
+    Input("causal-state", "data")
+)
+def update_view(data):
+    state = json.loads(data) \
+        if data is not None else {}
+
     if state.get("cycles", None) is not None:
         cycle_table = html.Div(children=[
             html.B("Cyclic Paths"),
             html.Hr(),
             create_cycle_table(state["cycles"])
         ])
+    else:
+        cycle_table = None
 
-    return json.dumps(state),\
-           state.get("graph", []), \
-           create_causal_relation_table(state.get("relations", None)), \
-           cycle_table, \
-           modal_is_open, \
-           modal_content
+    return state.get("graph", []), \
+        create_causal_relation_table(state.get("relations", None)), \
+        cycle_table
