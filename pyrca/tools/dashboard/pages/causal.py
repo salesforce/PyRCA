@@ -178,9 +178,6 @@ def create_control_panel() -> html.Div:
                         style={"width": "100%"}
                     )]
             ),
-
-            html.Br(),
-            html.P("Algorithm Setting"),
             html.Div(
                 id="causal-param-table",
                 children=[create_param_table()]
