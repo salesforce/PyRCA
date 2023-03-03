@@ -6,7 +6,8 @@
 #
 import json
 import dash
-from dash import html, Input, Output, State, callback
+from dash import html, Input, Output, State, \
+    callback, no_update
 from ..utils.file_manager import FileManager
 from ..pages.utils import create_param_table
 from ..pages.causal import create_graph_figure, \
@@ -124,6 +125,16 @@ def click_train_test(
         modal_content = str(e)
 
     return json.dumps(state), modal_is_open, modal_content
+
+
+@callback(
+    Output("cytoscape-hover-output", "children"),
+    Input("cytoscape", "mouseoverNodeData"),
+)
+def hover_graph_node(data):
+    if data is None:
+        return no_update
+    return f"Node ID: {data['id']}"
 
 
 @callback(

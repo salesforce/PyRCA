@@ -17,7 +17,7 @@ default_stylesheet = [
     {
         'selector': 'node',
         'style': {
-            'label': 'data(id)',
+            'label': 'data(label)',
             'opacity': 'data(weight)',
             'background-color': '#1f77b4',
         }
@@ -37,7 +37,7 @@ default_stylesheet = [
 ]
 
 
-def build_cyto_graph(graph, levels):
+def build_cyto_graph(graph, levels, max_node_name_length=15):
     scales = (50, 80)
     node2pos = {}
     if levels is not None:
@@ -52,8 +52,11 @@ def build_cyto_graph(graph, levels):
     cy_edges = []
     cy_nodes = []
     for node in graph.nodes():
+        label = str(node)
+        if len(label) > max_node_name_length:
+            label = label[:max_node_name_length] + "*"
         data = {
-            "data": {"id": node, "label": node},
+            "data": {"id": node, "label": label},
             "position": {"x": int(node2pos[node][1]), "y": int(node2pos[node][0])}
         }
         cy_nodes.append(data)
@@ -65,8 +68,7 @@ def build_cyto_graph(graph, levels):
 def create_graph_figure(graph=None, levels=None):
     if graph is None:
         graph = nx.random_geometric_graph(5, 0.5)
-    fig = build_cyto_graph(graph, levels)
-    return fig
+    return build_cyto_graph(graph, levels)
 
 
 def create_causal_relation_table(relations=None, height=200):
@@ -223,7 +225,8 @@ def create_right_column() -> html.Div:
                                 minZoom=0.5,
                                 maxZoom=4.0,
                                 layout={"name": "preset"}
-                            )
+                            ),
+                            html.B(id="cytoscape-hover-output")
                         ]
                     )
                 ]
