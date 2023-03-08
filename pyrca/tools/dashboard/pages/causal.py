@@ -195,6 +195,92 @@ def create_control_panel() -> html.Div:
                 style={"textAlign": "center"}
             ),
 
+            html.Br(),
+            html.Hr(),
+            html.P("Domain Knowledge"),
+            html.Label("Root or Leaf"),
+            html.Div(children=[
+                html.Div(
+                    id="add-root-leaf-node-parent",
+                    children=[dcc.Dropdown(id="add-root-leaf-node", options=[])],
+                    style={"width": "80%"}
+                ),
+                html.Div(
+                    id="add-root-leaf-node-parent",
+                    children=[
+                        dcc.Checklist(
+                            id="root-leaf-check",
+                            options=[
+                                {"label": " Is Root", "value": "root"},
+                            ],
+                            value=["root"]
+                        )
+                    ],
+                    style={"width": "20%", "margin-left": "15px"}
+                )],
+                style=dict(display="flex")
+            ),
+            html.Div(
+                id="root-leaf-table",
+                children=[create_param_table()]
+            ),
+            html.Br(),
+            html.Div(
+                children=[
+                    html.Button(id="add-root-leaf-btn", children="Add", n_clicks=0),
+                    html.Button(id="delete-root-leaf-btn", children="Delete", style={"margin-left": "15px"}),
+                ],
+                style={"textAlign": "center"}
+            ),
+
+            html.Br(),
+            html.Label("Forbidden or Required Links"),
+            html.Div(
+                id="add-node-A-parent",
+                children=[
+                    dcc.Dropdown(
+                        id="add-node-A",
+                        options=[],
+                        placeholder="Node A",
+                        style={"width": "100%"}
+                    )]
+            ),
+            html.Div(
+                children=dcc.RadioItems(
+                    id="link_radio_button",
+                    options=[
+                        {"label": " ⇒ (Required)", "value": "Forbidden"},
+                        {"label": " ⇏ (Forbidden)", "value": "Required"}
+                    ],
+                    value="Required",
+                    inline=True,
+                    inputStyle={"margin-left": "20px"}
+                )
+            ),
+            html.Div(
+                id="add-node-B-parent",
+                children=[
+                    dcc.Dropdown(
+                        id="add-node-B",
+                        options=[],
+                        placeholder="Node B",
+                        style={"width": "100%"}
+                    )]
+            ),
+            html.Div(
+                id="link-table",
+                children=[create_param_table()]
+            ),
+            html.Br(),
+            html.Div(
+                children=[
+                    html.Button(id="add-link-btn", children="Add", n_clicks=0),
+                    html.Button(id="delete-link-btn", children="Delete", style={"margin-left": "15px"}),
+                ],
+                style={"textAlign": "center"}
+            ),
+            html.Br(),
+
             create_modal(
                 modal_id="causal-exception-modal",
                 header="An Exception Occurred",
