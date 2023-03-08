@@ -30,6 +30,7 @@ app.layout = html.Div([
     html.Div(id="page-content"),
     dcc.Store(id="data-state"),
     dcc.Store(id="causal-state"),
+    dcc.Store(id="causal-data-state")
 ])
 server = app.server
 

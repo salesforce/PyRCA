@@ -132,7 +132,7 @@ def create_cycle_table(cycles, height=100):
     return table
 
 
-def create_root_leaf_table(metrics=None, height=60):
+def create_root_leaf_table(metrics=None, height=80):
     if metrics is None or len(metrics) == 0:
         data = [{"Metric": "", "Type": ""}]
     else:
@@ -140,7 +140,6 @@ def create_root_leaf_table(metrics=None, height=60):
                 for metric in metrics]
 
     table = dash_table.DataTable(
-        id="root-leaf-table",
         data=data,
         columns=[
             {"id": "Metric", "name": "Metric"},
@@ -161,7 +160,7 @@ def create_root_leaf_table(metrics=None, height=60):
     return table
 
 
-def create_link_table(links=None, height=60):
+def create_link_table(links=None, height=80):
     if links is None or len(links) == 0:
         data = [{"Node A": "", "Type": "", "Node B": ""}]
     else:
@@ -169,7 +168,6 @@ def create_link_table(links=None, height=60):
                 for link in links]
 
     table = dash_table.DataTable(
-        id="link-table",
         data=data,
         columns=[
             {"id": "Node A", "name": "Node A"},
@@ -242,7 +240,7 @@ def create_control_panel() -> html.Div:
             ),
             html.Div(
                 id="causal-param-table",
-                children=[create_param_table(height=60)]
+                children=[create_param_table(height=80)]
             ),
 
             html.Br(),
@@ -308,8 +306,8 @@ def create_control_panel() -> html.Div:
                 children=dcc.RadioItems(
                     id="link_radio_button",
                     options=[
-                        {"label": " ⇒ (Required)", "value": "Forbidden"},
-                        {"label": " ⇏ (Forbidden)", "value": "Required"}
+                        {"label": " ⇒ (Required)", "value": "Required"},
+                        {"label": " ⇏ (Forbidden)", "value": "Forbidden"}
                     ],
                     value="Required",
                     inline=True,

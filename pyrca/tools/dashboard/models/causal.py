@@ -114,12 +114,18 @@ class CausalDiscovery:
                 kwargs[name] = json.loads(value)
         return kwargs
 
-    def run(self, df, algorithm, params):
+    def run(self, df, algorithm, params, constraints=None):
+        if constraints is None:
+            constraints = {}
         df = df.dropna()
         method_class = self.get_supported_methods()[algorithm]["class"]
         config_class = self.get_supported_methods()[algorithm]["config_class"]
         method = method_class(config_class.from_dict(params))
-        graph_df = method.train(df)
+        graph_df = method.train(
+            df=df,
+            forbids=constraints.get("forbidden", []),
+            requires=constraints.get("required", [])
+        )
 
         relations = {}
         names = list(graph_df.columns)
