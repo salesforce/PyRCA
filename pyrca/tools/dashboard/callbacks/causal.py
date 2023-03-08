@@ -91,6 +91,7 @@ def _build_constraints(metrics, root_leaf_table, link_table):
     constraints = {"forbidden": forbids, "required": requires}
     return constraints
 
+
 @callback(
     Output("causal-state", "data"),
     Output("causal-data-state", "data"),
@@ -120,16 +121,16 @@ def _build_constraints(metrics, root_leaf_table, link_table):
     prevent_initial_call=True
 )
 def click_train_test(
-    run_clicks,
-    modal_close,
-    filename,
-    algorithm,
-    param_table,
-    causal_state,
-    data_state,
-    cyto_elements,
-    root_leaf_table,
-    link_table
+        run_clicks,
+        modal_close,
+        filename,
+        algorithm,
+        param_table,
+        causal_state,
+        data_state,
+        cyto_elements,
+        root_leaf_table,
+        link_table
 ):
     ctx = dash.callback_context
     modal_is_open = False
