@@ -57,12 +57,12 @@ def update_method_dropdown(n_clicks):
     Input("select-causal-method", "value")
 )
 def select_algorithm(algorithm):
-    param_table = create_param_table()
+    param_table = create_param_table(height=60)
     ctx = dash.callback_context
     prop_id = ctx.triggered_id
     if prop_id == "select-causal-method" and algorithm is not None:
         param_info = causal_method.get_parameter_info(algorithm)
-        param_table = create_param_table(param_info)
+        param_table = create_param_table(param_info, height=60)
     return param_table
 
 

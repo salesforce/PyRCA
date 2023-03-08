@@ -132,6 +132,65 @@ def create_cycle_table(cycles, height=100):
     return table
 
 
+def create_root_leaf_table(metrics=None, height=60):
+    if metrics is None or len(metrics) == 0:
+        data = [{"Metric": "", "Type": ""}]
+    else:
+        data = [{"Metric": metric["name"], "Type": metric["type"]}
+                for metric in metrics]
+
+    table = dash_table.DataTable(
+        id="root-leaf-table",
+        data=data,
+        columns=[
+            {"id": "Metric", "name": "Metric"},
+            {"id": "Type", "name": "Type"},
+        ],
+        editable=False,
+        sort_action="native",
+        style_header_conditional=[{"textAlign": "center"}],
+        style_cell_conditional=[{"textAlign": "center"}],
+        style_header=dict(backgroundColor=TABLE_HEADER_COLOR),
+        style_data=dict(backgroundColor=TABLE_DATA_COLOR),
+        style_table={
+            "overflowX": "scroll",
+            "overflowY": "scroll",
+            "height": height
+        },
+    )
+    return table
+
+
+def create_link_table(links=None, height=60):
+    if links is None or len(links) == 0:
+        data = [{"Node A": "", "Type": "", "Node B": ""}]
+    else:
+        data = [{"Node A": link["A"], "Type": link["type"], "Node B": link["B"]}
+                for link in links]
+
+    table = dash_table.DataTable(
+        id="link-table",
+        data=data,
+        columns=[
+            {"id": "Node A", "name": "Node A"},
+            {"id": "Type", "name": "Type"},
+            {"id": "Node B", "name": "Node B"},
+        ],
+        editable=False,
+        sort_action="native",
+        style_header_conditional=[{"textAlign": "center"}],
+        style_cell_conditional=[{"textAlign": "center"}],
+        style_header=dict(backgroundColor=TABLE_HEADER_COLOR),
+        style_data=dict(backgroundColor=TABLE_DATA_COLOR),
+        style_table={
+            "overflowX": "scroll",
+            "overflowY": "scroll",
+            "height": height
+        },
+    )
+    return table
+
+
 def create_control_panel() -> html.Div:
     return html.Div(
         id="control-card",
@@ -183,7 +242,7 @@ def create_control_panel() -> html.Div:
             ),
             html.Div(
                 id="causal-param-table",
-                children=[create_param_table()]
+                children=[create_param_table(height=60)]
             ),
 
             html.Br(),
@@ -222,7 +281,7 @@ def create_control_panel() -> html.Div:
             ),
             html.Div(
                 id="root-leaf-table",
-                children=[create_param_table()]
+                children=[create_root_leaf_table()]
             ),
             html.Br(),
             html.Div(
@@ -269,7 +328,7 @@ def create_control_panel() -> html.Div:
             ),
             html.Div(
                 id="link-table",
-                children=[create_param_table()]
+                children=[create_link_table()]
             ),
             html.Br(),
             html.Div(
