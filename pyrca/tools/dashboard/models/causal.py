@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+import yaml
 import logging
 import inspect
 import importlib
@@ -176,3 +177,11 @@ class CausalDiscovery:
         for i, v in enumerate(levels):
             level_info[v].append(names[i])
         return level_info, None
+
+    def dump_results(self, output_dir, graph_df, domain_knowledge):
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+        graph_df.to_pickle(os.path.join(output_dir, "adjacency_df.pkl"))
+        CausalModel.dump_to_tetrad_json(graph_df, output_dir)
+        with open(os.path.join(output_dir, "domain_knowledge.yaml"), "w") as outfile:
+            yaml.dump(domain_knowledge, outfile, default_flow_style=False)

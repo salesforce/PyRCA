@@ -247,7 +247,9 @@ def create_control_panel() -> html.Div:
             html.Div(
                 children=[
                     html.Button(id="causal-run-btn", children="Run", n_clicks=0),
-                    html.Button(id="causal-cancel-btn", children="Cancel", style={"margin-left": "15px"}),
+                    html.Button(id="causal-cancel-btn", children="Cancel", style={"margin-left": "10px"}),
+                    html.Button(id="causal-download-btn", children="Download", style={"margin-left": "10px"}),
+                    dcc.Download(id="download-data")
                 ],
                 style={"textAlign": "center"}
             ),
@@ -344,6 +346,13 @@ def create_control_panel() -> html.Div:
                 content="An exception occurred. Please click OK to continue.",
                 content_id="causal-exception-modal-content",
                 button_id="causal-exception-modal-close"
+            ),
+            create_modal(
+                modal_id="data-download-exception-modal",
+                header="An Exception Occurred",
+                content="An exception occurred. Please click OK to continue.",
+                content_id="data-download-exception-modal-content",
+                button_id="data-download-exception-modal-close",
             ),
         ],
     )

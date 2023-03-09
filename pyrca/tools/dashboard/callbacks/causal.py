@@ -4,10 +4,11 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 #
+import os
 import json
 import dash
 from dash import html, Input, Output, State, \
-    callback, no_update
+    callback, no_update, dcc
 from ..utils.file_manager import FileManager
 from ..pages.utils import create_param_table
 from ..pages.causal import create_graph_figure, \
@@ -92,6 +93,34 @@ def _build_constraints(metrics, root_leaf_table, link_table):
     return constraints
 
 
+def _dump_results(output_folder, graph_df, root_leaf_table, link_table):
+    roots, leaves = [], []
+    forbids, requires = [], []
+    for p in root_leaf_table["props"]["data"]:
+        node = p["Metric"]
+        if node:
+            if p["Type"] == "root":
+                roots.append(node)
+            else:
+                leaves.append(node)
+    for p in link_table["props"]["data"]:
+        if p["Node A"] and p["Node B"]:
+            if p["Type"] == "⇒":
+                requires.append([p["Node A"], p["Node B"]])
+            else:
+                forbids.append([p["Node A"], p["Node B"]])
+
+    domain_knowledge = {
+        "causal-graph": {
+            "root-nodes": roots,
+            "leaf-nodes": leaves,
+            "forbids": forbids,
+            "requires": requires
+        }
+    }
+    causal_method.dump_results(output_folder, graph_df, domain_knowledge)
+
+
 @callback(
     Output("causal-state", "data"),
     Output("causal-data-state", "data"),
@@ -154,6 +183,10 @@ def click_train_test(
                 df = causal_method.load_data(filename)
                 constraints = _build_constraints(list(df.columns), root_leaf_table, link_table)
                 graph, graph_df, relations = causal_method.run(df, algorithm, params, constraints)
+
+                output_dir = os.path.join(file_manager.model_directory, filename.split(".")[0])
+                _dump_results(output_dir, graph_df, root_leaf_table, link_table)
+
                 causal_levels, cycles = causal_method.causal_order(graph_df)
                 state["graph"] = create_graph_figure(graph, causal_levels)
                 state["relations"] = relations
@@ -319,3 +352,34 @@ def add_link(add_click, delete_click, node_a, node_b, link_type, table):
 
     links = [{"A": a, "B": b, "type": t} for (a, b), t in links.items()]
     return create_link_table(links, height=80)
+
+
+@callback(
+    Output("download-data", "data"),
+    Output("data-download-exception-modal", "is_open"),
+    Output("data-download-exception-modal-content", "children"),
+    [
+        Input("causal-download-btn", "n_clicks"),
+        Input("data-download-exception-modal-close", "n_clicks")
+    ],
+    State("causal-select-file", "value")
+)
+def download(btn_click, modal_close, filename):
+    ctx = dash.callback_context
+    data = None
+    modal_is_open = False
+    modal_content = ""
+
+    if ctx.triggered:
+        prop_id = ctx.triggered_id
+        if prop_id == "causal-download-btn" and btn_click > 0:
+            try:
+                assert filename, "Please select the dataset name " \
+                                 "to download the generated causal graph."
+                name = filename.split(".")[0]
+                path = file_manager.get_model_download_path(name)
+                data = dcc.send_file(path)
+            except Exception as e:
+                modal_is_open = True
+                modal_content = str(e)
+    return data, modal_is_open, modal_content
