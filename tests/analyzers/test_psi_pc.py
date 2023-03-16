@@ -1,3 +1,4 @@
+import os
 import unittest
 import pandas as pd
 import pickle as pkl
@@ -17,9 +18,10 @@ class TestEplisonDiagnosis(unittest.TestCase):
         # results = model.find_root_causes(normal_df, anomalous_df)
         # print(results)
 
-        with open("../data/estimated_dag.pkl", "rb") as f:
+        directory = os.path.dirname(os.path.abspath(__file__))
+        with open(os.path.join(directory, "../data/estimated_dag.pkl"), "rb") as f:
             graph = pkl.load(f)
-        path = f'../data/synthetic0.pkl'
+        path = os.path.join(directory, "../data/synthetic0.pkl")
 
         # load data and meta configuration
         with open(path, "rb") as input_file:
