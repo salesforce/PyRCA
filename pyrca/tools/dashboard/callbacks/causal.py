@@ -175,6 +175,19 @@ def click_train_test(
     data_state = json.loads(data_state) \
         if data_state is not None else {}
 
+    def _update_states(graph, graph_df, relations):
+        causal_levels, cycles = causal_method.causal_order(graph_df)
+        state["graph"] = create_graph_figure(graph, causal_levels)
+        state["relations"] = relations
+        state["cycles"] = cycles
+        data_state["columns"] = list(graph_df.columns)
+        positions = {}
+        if len(cyto_elements) > 0:
+            for element in cyto_elements:
+                if "position" in element:
+                    positions[element["data"]["id"]] = element["position"]
+        state["positions"] = positions
+
     try:
         if ctx.triggered:
             prop_id = ctx.triggered_id
@@ -192,19 +205,7 @@ def click_train_test(
 
                 output_dir = os.path.join(file_manager.model_directory, filename.split(".")[0])
                 _dump_results(output_dir, graph_df, root_leaf_table, link_table)
-
-                causal_levels, cycles = causal_method.causal_order(graph_df)
-                state["graph"] = create_graph_figure(graph, causal_levels)
-                state["relations"] = relations
-                state["cycles"] = cycles
-                data_state["columns"] = list(df.columns)
-
-                positions = {}
-                if len(cyto_elements) > 0:
-                    for element in cyto_elements:
-                        if "position" in element:
-                            positions[element["data"]["id"]] = element["position"]
-                state["positions"] = positions
+                _update_states(graph, graph_df, relations)
 
             elif upload_graph_file is not None and upload_graph_content is not None:
                 filename = None
@@ -214,12 +215,7 @@ def click_train_test(
                         filename = name
                 if filename:
                     graph, graph_df, relations = causal_method.load_graph(filename)
-                    causal_levels, cycles = causal_method.causal_order(graph_df)
-                    state["graph"] = create_graph_figure(graph, causal_levels)
-                    state["relations"] = relations
-                    state["cycles"] = cycles
-                    state["positions"] = {}
-                    data_state["columns"] = list(graph_df.columns)
+                    _update_states(graph, graph_df, relations)
 
     except Exception as e:
         modal_is_open = True
