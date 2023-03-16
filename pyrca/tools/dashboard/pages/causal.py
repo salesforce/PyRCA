@@ -351,6 +351,7 @@ def create_control_panel() -> html.Div:
                 style={"textAlign": "center"}
             ),
             html.Br(),
+            html.Hr(),
 
             html.P(id="label", children="Open Causal Graph"),
             dcc.Upload(
