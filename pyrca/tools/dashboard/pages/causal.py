@@ -194,7 +194,7 @@ def create_control_panel() -> html.Div:
         id="control-card",
         children=[
             html.Br(),
-            html.P(id="label", children="Upload Time Series Data File"),
+            html.P(id="label", children="Upload Time Series Data / Domain Knowledge File"),
             dcc.Upload(
                 id="causal-upload-data",
                 children=html.Div(
@@ -244,6 +244,18 @@ def create_control_panel() -> html.Div:
             ),
 
             html.Br(),
+            html.P("Select Domain Knowledge File"),
+            html.Div(
+                id="select-domain-parent",
+                children=[
+                    dcc.Dropdown(
+                        id="select-domain",
+                        options=[],
+                        style={"width": "100%"}
+                    )]
+            ),
+
+            html.Br(),
             html.Div(
                 children=[
                     html.Button(id="causal-run-btn", children="Run", n_clicks=0),
@@ -256,7 +268,7 @@ def create_control_panel() -> html.Div:
 
             html.Br(),
             html.Hr(),
-            html.P("Domain Knowledge"),
+            html.P("Edit Domain Knowledge"),
             html.Label("Root or Leaf"),
             html.Div(children=[
                 html.Div(
@@ -339,6 +351,27 @@ def create_control_panel() -> html.Div:
                 style={"textAlign": "center"}
             ),
             html.Br(),
+
+            html.P(id="label", children="Open Causal Graph"),
+            dcc.Upload(
+                id="upload-graph",
+                children=html.Div(
+                    children=[
+                        html.Img(src="../assets/upload.svg"),
+                        html.Div(),
+                    ]
+                ),
+                style={
+                    "height": "50px",
+                    "lineHeight": "50px",
+                    "borderWidth": "1px",
+                    "borderStyle": "dashed",
+                    "borderRadius": "5px",
+                    "textAlign": "center",
+                    "margin": "5px",
+                },
+                multiple=True,
+            ),
 
             create_modal(
                 modal_id="causal-exception-modal",

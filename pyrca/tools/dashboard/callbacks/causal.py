@@ -22,22 +22,24 @@ causal_method = CausalDiscovery(folder=file_manager.data_directory)
 
 @callback(
     Output("causal-select-file", "options"),
-    Output("causal-select-file", "value"),
+    Output("select-domain", "options"),
     [
         Input("causal-upload-data", "filename"),
         Input("causal-upload-data", "contents")
     ],
 )
 def upload_file(filenames, contents):
-    name = None
     if filenames is not None and contents is not None:
         for name, data in zip(filenames, contents):
             file_manager.save_file(name, data)
-    options = []
+    file_options, domain_options = [], []
     files = file_manager.uploaded_files()
     for filename in files:
-        options.append({"label": filename, "value": filename})
-    return options, name
+        if filename.endswith(".csv"):
+            file_options.append({"label": filename, "value": filename})
+        elif filename.endswith(".yml") or filename.endswith(".yaml"):
+            domain_options.append({"label": filename, "value": filename})
+    return file_options, domain_options
 
 
 @callback(
@@ -296,6 +298,7 @@ def update_node_b_dropdown(n_clicks, data_state):
 
 @callback(
     Output("root-leaf-table", "children"),
+    Input("select-domain", "value"),
     Input("add-root-leaf-btn", "n_clicks"),
     Input("delete-root-leaf-btn", "n_clicks"),
     [
@@ -304,7 +307,7 @@ def update_node_b_dropdown(n_clicks, data_state):
         State("root-leaf-table", "children")
     ]
 )
-def add_delete_root_leaf_node(add_click, delete_click, metric, is_root, table):
+def add_delete_root_leaf_node(domain_file, add_click, delete_click, metric, is_root, table):
     ctx = dash.callback_context
     metrics = {}
     if table is not None:
@@ -314,7 +317,16 @@ def add_delete_root_leaf_node(add_click, delete_click, metric, is_root, table):
 
     if ctx.triggered:
         prop_id = ctx.triggered_id
-        if prop_id == "add-root-leaf-btn" and add_click > 0 and metric:
+        if prop_id == "select-domain" and domain_file:
+            metrics = {}
+            root_nodes, leaf_nodes, _, _ = causal_method.parse_domain_knowledge(domain_file)
+            if root_nodes:
+                for metric in root_nodes:
+                    metrics[metric] = "root"
+            if leaf_nodes:
+                for metric in leaf_nodes:
+                    metrics[metric] = "leaf"
+        elif prop_id == "add-root-leaf-btn" and add_click > 0 and metric:
             metrics[metric] = "root" if len(is_root) > 0 else "leaf"
         elif prop_id == "delete-root-leaf-btn" and delete_click > 0 and metric:
             metrics.pop(metric, None)
@@ -325,6 +337,7 @@ def add_delete_root_leaf_node(add_click, delete_click, metric, is_root, table):
 
 @callback(
     Output("link-table", "children"),
+    Input("select-domain", "value"),
     Input("add-link-btn", "n_clicks"),
     Input("delete-link-btn", "n_clicks"),
     [
@@ -334,7 +347,7 @@ def add_delete_root_leaf_node(add_click, delete_click, metric, is_root, table):
         State("link-table", "children")
     ]
 )
-def add_link(add_click, delete_click, node_a, node_b, link_type, table):
+def add_link(domain_file, add_click, delete_click, node_a, node_b, link_type, table):
     ctx = dash.callback_context
     links = {}
     if table is not None:
@@ -345,7 +358,16 @@ def add_link(add_click, delete_click, node_a, node_b, link_type, table):
 
     if ctx.triggered:
         prop_id = ctx.triggered_id
-        if prop_id == "add-link-btn" and add_click > 0 and node_a and node_b:
+        if prop_id == "select-domain" and domain_file:
+            links = {}
+            _, _, forbids, requires = causal_method.parse_domain_knowledge(domain_file)
+            if forbids:
+                for node_a, node_b in forbids:
+                    links[(node_a, node_b)] = "⇏"
+            if requires:
+                for node_a, node_b in requires:
+                    links[(node_a, node_b)] = "⇒"
+        elif prop_id == "add-link-btn" and add_click > 0 and node_a and node_b:
             links[(node_a, node_b)] = "⇒" if link_type == "Required" else "⇏"
         elif prop_id == "delete-link-btn" and delete_click > 0 and node_a and node_b:
             links.pop((node_a, node_b), None)

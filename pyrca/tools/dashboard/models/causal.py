@@ -13,6 +13,7 @@ from collections import OrderedDict, defaultdict
 
 from ..utils.log import DashLogger
 from pyrca.graphs.causal.base import CausalModel, BaseConfig
+from pyrca.utils.domain import DomainParser
 
 dash_logger = DashLogger(stream=sys.stdout)
 
@@ -185,3 +186,11 @@ class CausalDiscovery:
         CausalModel.dump_to_tetrad_json(graph_df, output_dir)
         with open(os.path.join(output_dir, "domain_knowledge.yaml"), "w") as outfile:
             yaml.dump(domain_knowledge, outfile, default_flow_style=False)
+
+    def parse_domain_knowledge(self, file_name):
+        domain = DomainParser(os.path.join(self.folder, file_name))
+        root_nodes = domain.get_root_nodes()
+        leaf_nodes = domain.get_leaf_nodes()
+        forbids = domain.get_forbid_links(process_root_leaf=False)
+        requires = domain.get_require_links()
+        return root_nodes, leaf_nodes, forbids, requires
