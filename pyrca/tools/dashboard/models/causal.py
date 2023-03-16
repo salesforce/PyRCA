@@ -204,10 +204,9 @@ class CausalDiscovery:
         if filename.endswith(".pkl"):
             graph_df = pd.read_pickle(filepath)
         elif filename.endswith(".json"):
-            pass
+            graph_df = CausalModel.load_from_tetrad_json(filename)
         else:
             raise ValueError(f"Unknown file extension for {filename}")
-
         relations = self._extract_relations(graph_df)
         nx_graph = nx.from_pandas_adjacency(graph_df, create_using=nx.DiGraph())
         return nx_graph, graph_df, relations
