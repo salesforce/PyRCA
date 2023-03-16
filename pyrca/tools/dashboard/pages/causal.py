@@ -72,7 +72,7 @@ def create_graph_figure(graph=None, levels=None, positions=None):
     return build_cyto_graph(graph, levels, positions)
 
 
-def create_causal_relation_table(relations=None, height=200):
+def create_causal_relation_table(relations=None, height=500):
     if relations is None or len(relations) == 0:
         data = [{"Node A": "", "Relation": "", "Node B": ""}]
     else:
