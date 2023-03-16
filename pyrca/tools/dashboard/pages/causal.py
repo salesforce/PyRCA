@@ -37,7 +37,7 @@ default_stylesheet = [
 ]
 
 
-def build_cyto_graph(graph, levels, positions, max_node_name_length=15):
+def build_cyto_graph(graph, levels, positions, max_node_name_length=20):
     scales = (50, 80)
     node2pos = {}
     if levels is not None:

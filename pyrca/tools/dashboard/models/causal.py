@@ -116,19 +116,8 @@ class CausalDiscovery:
                 kwargs[name] = json.loads(value)
         return kwargs
 
-    def run(self, df, algorithm, params, constraints=None):
-        if constraints is None:
-            constraints = {}
-        df = df.dropna()
-        method_class = self.get_supported_methods()[algorithm]["class"]
-        config_class = self.get_supported_methods()[algorithm]["config_class"]
-        method = method_class(config_class.from_dict(params))
-        graph_df = method.train(
-            df=df,
-            forbids=constraints.get("forbidden", []),
-            requires=constraints.get("required", [])
-        )
-
+    @staticmethod
+    def _extract_relations(graph_df):
         relations = {}
         names = list(graph_df.columns)
         for i in range(len(names)):
@@ -142,6 +131,21 @@ class CausalDiscovery:
                         if (j, i) not in relations:
                             relations[(i, j)] = "---"
         relations = {f"{names[i]}<split>{names[j]}": v for (i, j), v in relations.items()}
+        return relations
+
+    def run(self, df, algorithm, params, constraints=None):
+        if constraints is None:
+            constraints = {}
+        df = df.dropna()
+        method_class = self.get_supported_methods()[algorithm]["class"]
+        config_class = self.get_supported_methods()[algorithm]["config_class"]
+        method = method_class(config_class.from_dict(params))
+        graph_df = method.train(
+            df=df,
+            forbids=constraints.get("forbidden", []),
+            requires=constraints.get("required", [])
+        )
+        relations = self._extract_relations(graph_df)
         nx_graph = nx.from_pandas_adjacency(graph_df, create_using=nx.DiGraph())
         return nx_graph, graph_df, relations
 
@@ -187,10 +191,23 @@ class CausalDiscovery:
         with open(os.path.join(output_dir, "domain_knowledge.yaml"), "w") as outfile:
             yaml.dump(domain_knowledge, outfile, default_flow_style=False)
 
-    def parse_domain_knowledge(self, file_name):
-        domain = DomainParser(os.path.join(self.folder, file_name))
+    def parse_domain_knowledge(self, filename):
+        domain = DomainParser(os.path.join(self.folder, filename))
         root_nodes = domain.get_root_nodes()
         leaf_nodes = domain.get_leaf_nodes()
         forbids = domain.get_forbid_links(process_root_leaf=False)
         requires = domain.get_require_links()
         return root_nodes, leaf_nodes, forbids, requires
+
+    def load_graph(self, filename):
+        filepath = os.path.join(self.folder, filename)
+        if filename.endswith(".pkl"):
+            graph_df = pd.read_pickle(filepath)
+        elif filename.endswith(".json"):
+            pass
+        else:
+            raise ValueError(f"Unknown file extension for {filename}")
+
+        relations = self._extract_relations(graph_df)
+        nx_graph = nx.from_pandas_adjacency(graph_df, create_using=nx.DiGraph())
+        return nx_graph, graph_df, relations

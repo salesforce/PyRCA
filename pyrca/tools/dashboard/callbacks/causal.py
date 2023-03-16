@@ -131,6 +131,8 @@ def _dump_results(output_folder, graph_df, root_leaf_table, link_table):
     [
         Input("causal-run-btn", "n_clicks"),
         Input("causal-exception-modal-close", "n_clicks"),
+        Input("upload-graph", "filename"),
+        Input("upload-graph", "contents")
     ],
     [
         State("causal-select-file", "value"),
@@ -154,6 +156,8 @@ def _dump_results(output_folder, graph_df, root_leaf_table, link_table):
 def click_train_test(
         run_clicks,
         modal_close,
+        upload_graph_file,
+        upload_graph_content,
         filename,
         algorithm,
         param_table,
@@ -201,6 +205,21 @@ def click_train_test(
                         if "position" in element:
                             positions[element["data"]["id"]] = element["position"]
                 state["positions"] = positions
+
+            elif upload_graph_file is not None and upload_graph_content is not None:
+                filename = None
+                for name, data in zip(upload_graph_file, upload_graph_content):
+                    if name.endswith(".json") or name.endswith(".pkl"):
+                        file_manager.save_file(name, data)
+                        filename = name
+                if filename:
+                    graph, graph_df, relations = causal_method.load_graph(filename)
+                    causal_levels, cycles = causal_method.causal_order(graph_df)
+                    state["graph"] = create_graph_figure(graph, causal_levels)
+                    state["relations"] = relations
+                    state["cycles"] = cycles
+                    state["positions"] = {}
+                    data_state["columns"] = list(graph_df.columns)
 
     except Exception as e:
         modal_is_open = True
