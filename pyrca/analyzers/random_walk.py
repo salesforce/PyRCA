@@ -1,5 +1,5 @@
 """
-The RCA method based on random walk.
+The RCA method based on random walk
 """
 import pickle
 import numpy as np

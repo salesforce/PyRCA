@@ -10,6 +10,9 @@ pyrca.analyzers package
    base
    bayesian
    random_walk
+   epsilon_diagnosis
+   psi_pc
+   rht
 
 pyrca.analyzers.base module
 ---------------------------

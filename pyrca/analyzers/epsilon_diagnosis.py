@@ -1,5 +1,5 @@
 """
-epsilon-Diagnosis algorithm.
+The epsilon-Diagnosis algorithm.
 """
 from dataclasses import dataclass
 import pandas as pd

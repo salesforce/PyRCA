@@ -1,5 +1,5 @@
 """
-RHT algorithm
+The RHT algorithm
 """
 from dataclasses import dataclass
 import pickle
