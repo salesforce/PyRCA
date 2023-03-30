@@ -43,6 +43,7 @@ class EpsilonDiagnosis(BaseRCA):
     ):
         """
         Two variable correlation analysis given the training time series.
+
         :param normal_df: Dataframe of normal data.
         """
         self.normal_df = normal_df
