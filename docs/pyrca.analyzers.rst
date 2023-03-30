@@ -36,7 +36,7 @@ pyrca.analyzers.random_walk module
    :show-inheritance:
 
 pyrca.analyzers.epsilon_diagnosis module
-----------------------------------
+----------------------------------------
 
 .. automodule:: pyrca.analyzers.epsilon_diagnosis
    :members:

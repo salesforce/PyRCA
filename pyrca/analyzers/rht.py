@@ -21,11 +21,11 @@ class RHTConfig(BaseConfig):
 
     :param graphs: The adjacency matrix of the causal graphs,
         which can be a pandas dataframe or a file path of a CSV file or a pickled file.
-    :param aggregator: aggregate the node score from all the abnormal data.
+    :param aggregator: The function for aggregating the node score from all the abnormal data.
     :param root_cause_top_k: The maximum number of root causes in the results.
     """
     graph: Union[pd.DataFrame, str] = None
-    aggregator = max
+    aggregator: str = "max"
     root_cause_top_k: int = 3
 
 
@@ -55,6 +55,17 @@ class RHT(BaseRCA):
         self.adjacency_mat = graph
         self.graph = nx.from_pandas_adjacency(graph, create_using=nx.DiGraph())
         self.regressors_dict: Dict[str, List[LinearRegression, StandardScaler]] = {}
+
+    @staticmethod
+    def _get_aggregator(name):
+        if name == "max":
+            return max
+        elif name == "min":
+            return min
+        elif name == "sum":
+            return sum
+        else:
+            raise f"Unknown aggregator {name}"
 
     def train(
             self,
@@ -92,7 +103,7 @@ class RHT(BaseRCA):
         """
         Finds the root causes given the abnormal dataset.
 
-        :param df: DataFrame of abnormal data.
+        :param abnormal_df: DataFrame of abnormal data.
         :param anomalous_metrics: the name of detected anomalous metrics, it is used to print the path from root nodes.
         :param adjustment: whether to perform descendant adjustment.
         :return: A list of the found root causes.
@@ -107,9 +118,8 @@ class RHT(BaseRCA):
                 scores = self.regressors_dict[node][1].transform(abnormal_err.reshape(-1, 1))[:, 0]
             else:
                 scores = self.regressors_dict[node][1].transform(abnormal_y.reshape(-1, 1))[:, 0]
-            score = self.config.aggregator(abs(scores))
+            score = self._get_aggregator(self.config.aggregator)(abs(scores))
             conf = 1 - 2 * norm.cdf(-abs(score))
-            #root_causes.append({'root_cause': node, 'score': score, 'conf': conf})
             node_scores[node] = [score, conf]
         if adjustment:
             # start from node with 0 children
