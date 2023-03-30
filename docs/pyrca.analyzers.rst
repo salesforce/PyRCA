@@ -34,3 +34,27 @@ pyrca.analyzers.random_walk module
    :members:
    :undoc-members:
    :show-inheritance:
+
+pyrca.analyzers.epsilon_diagnosis module
+----------------------------------
+
+.. automodule:: pyrca.analyzers.epsilon_diagnosis
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyrca.analyzers.psi_pc module
+----------------------------------
+
+.. automodule:: pyrca.analyzers.psi_pc
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyrca.analyzers.rht module
+----------------------------------
+
+.. automodule:: pyrca.analyzers.rht
+   :members:
+   :undoc-members:
+   :show-inheritance:

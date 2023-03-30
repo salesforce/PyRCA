@@ -1,6 +1,11 @@
 PyRCA: A Library for Root Cause Analysis
 ========================================
 
+Library Design
+--------------
+
+xxx
+
 .. automodule:: pyrca
    :members:
    :undoc-members:
@@ -13,5 +18,28 @@ Anomaly detectors
    :maxdepth: 4
 
    pyrca.outliers
-   pyrca.analyzers
+
+Algorithms for building topology/causal graphs
+----------------------------------------------
+
+.. toctree::
+   :maxdepth: 4
+
    pyrca.graphs
+
+Supported RCA methods
+---------------------
+
+.. toctree::
+   :maxdepth: 4
+
+   pyrca.analyzers
+
+A visualization tool
+--------------------
+
+.. toctree::
+   :maxdepth: 4
+
+   pyrca.tools
+

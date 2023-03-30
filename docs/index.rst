@@ -6,8 +6,25 @@
 Welcome to PyRCA's documentation!
 ========================================
 
+Installation
+############
+
+You can install :py:mod:`pyrca` from PyPI by calling ``pip install pyrca``. You may install from source by
+cloning the PyRCA repo, navigating to the root directory, and calling
+``pip install .``, or ``pip install -e .`` to install in editable mode. You may install additional dependencies:
+
+- **For plotting & visualization**: Calling ``pip install pyrca[plot]``, or ``pip install .[plot]`` from the
+  root directory of the repo.
+
+Getting Started
+###############
+
+xxxx
+
 Introduction
 ############
+
+xxxx
 
 .. toctree::
    :maxdepth: 4
