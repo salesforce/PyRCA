@@ -25,7 +25,7 @@ cloning the PyRCA repo, navigating to the root directory, and calling
   root directory of the repo.
 - **Install all the dependencies**: Calling ``pip install pyrca[all]``, or ``pip install .[all]`` from the
   root directory of the repo.
-- 
+
 ## Getting Started
 
 ## How to Contribute
