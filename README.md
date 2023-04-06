@@ -62,7 +62,8 @@ to specify
 - **Some detected anomalous KPI metrics**: Some RCA methods require the anomalous KPI metrics detected by
   certain anomaly detector.
 
-Let's take ``EpsilonDiagnosis`` as an example.
+Let's take ``BayesianNetwork`` as an example. Suppose that ``graph_df`` is a pandas dataframe representing
+the causal graph.
 
 ## How to Contribute
 
