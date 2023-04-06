@@ -113,7 +113,8 @@ This command will launch a Dash app for time series data analysis and causal dis
 The dashboard allows you to try different causal discovery methods, change causal discovery parameters,
 add domain knowledge constraints (e.g., root/leaf nodes, forbidden/required links), and visualize
 the generated causal graph. It makes easier for manually updating causal graphs with domain knowledge.
-
+If you satisfy with the results after several iterations, you can download the results that can be
+used by the RCA methods supported in PyRCA.
 
 ## Benchmarks
 
