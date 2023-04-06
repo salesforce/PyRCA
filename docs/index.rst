@@ -162,6 +162,7 @@ PyRCA has four key subpackages:
 The following figure demonstrates the main architecture of the library.
 
 .. image:: _static/design.png
+   :width: 600px
 
 How to Contribute
 #################
