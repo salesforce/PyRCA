@@ -64,7 +64,26 @@ to specify
 
 Let's take ``BayesianNetwork`` as an example. Suppose that ``graph_df`` is a pandas dataframe encoding
 the causal graph representing causal relationships between metrics (how to construct such causal graph
-will be discussed later).
+will be discussed later), and ``df`` is a pandas dataframe containing the historical observed time series 
+data (e.g., the index is the timestamp and each column represents one monitored metric). To train a 
+``BayesianNetwork``, you can simply run the following code:
+
+```python
+from pyrca.analyzers.bayesian import BayesianNetwork, BayesianNetworkConfig
+model = BayesianNetwork(config=BayesianNetworkConfig(graph=graph_df))
+model.train(df)
+model.save("model_folder")
+```
+
+After the model is trained, you can use it for root cause analysis given a list of detected anomalous
+metrics by a certain anomaly detector, e.g.,
+
+```python
+from pyrca.analyzers.bayesian import BayesianNetwork
+model = BayesianNetwork.load("model_folder")
+results = model.find_root_causes(["observed_anomalous_metric", ...])
+print(results.to_dict())
+```
 
 ## How to Contribute
 
