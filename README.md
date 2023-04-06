@@ -56,10 +56,10 @@ PyRCA provides a unified interface for training RCA models and finding root caus
 to specify 
 
 - **The select RCA method**: e.g., ``BayesianNetwork``, ``EpsilonDiagnosis``.
-- **The corresponding configuration**: e.g., ``BayesianNetworkConfig``, ``EpsilonDiagnosisConfig``.
-- **The time series data used to initialize or train the RCA model**: e.g., A time series data in a 
+- **The RCA configuration**: e.g., ``BayesianNetworkConfig``, ``EpsilonDiagnosisConfig``.
+- **Time series data for initialization or training**: e.g., A time series data in a 
   pandas dataframe.
-- **The observed anomalous metrics**: Some RCA methods require the anomalous KPI metrics detected by
+- **Some detected anomalous KPI metrics**: Some RCA methods require the anomalous KPI metrics detected by
   certain anomaly detector.
 
 Let's take ``EpsilonDiagnosis`` as an example.
