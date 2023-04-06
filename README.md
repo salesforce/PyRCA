@@ -116,6 +116,46 @@ the generated causal graph. It makes easier for manually updating causal graphs 
 If you satisfy with the results after several iterations, you can download the results that can be
 used by the RCA methods supported in PyRCA.
 
+Instead of using this dashboard, you can also write code for causal discovery. The package 
+``pyrca.graphs.causal`` includes several causal discovery methods you can use. All of these methods
+are adjusted to support domain knowledge constraints. Suppose ``df`` is the monitored time series data
+and you want to apply PC for discovering causal graphs, then the following code will help:
+
+```python
+from pyrca.graphs.causal.pc import PC
+model = PC(PC.config_class())
+graph_df = model.train(df)
+```
+
+If you have some domain knowledge constraints, you may run:
+
+```python
+from pyrca.graphs.causal.pc import PC
+model = PC(PC.config_class(domain_knowledge_file="file_path"))
+graph_df = model.train(df)
+```
+
+The domain knowledge file has a YAML format, e.g.,
+
+```yaml
+causal-graph:
+  root-nodes: ["A", "B"]
+  leaf-nodes: ["E", "F"]
+  forbids:
+    - ["A", "E"]
+  requires: 
+    - ["A", "C"]
+```
+
+This domain knowledge file says that: 
+1. Metrics A and B must the root nodes, 
+2. Metrics E and F must be the leaf nodes,
+3. There is no connection from A to E, and 
+4. There is a connection from A to C. 
+
+You can modify this file according to your domain knowledge for generating more reliable causal
+graphs.
+
 ## Benchmarks
 
 ## How to Contribute
