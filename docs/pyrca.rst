@@ -1,11 +1,6 @@
 PyRCA: A Library for Root Cause Analysis
 ========================================
 
-Library Design
---------------
-
-xxx
-
 .. automodule:: pyrca
    :members:
    :undoc-members:

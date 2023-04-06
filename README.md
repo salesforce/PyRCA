@@ -10,9 +10,8 @@
 2. [Installation](#installation)
 3. [Getting Started](#getting-started)
 4. [Documentation](https://xxx)
-5. [Tutorials](https://xxx)
-6. [Benchmarks](#benchmarks)
-7. [How to Contribute](#how-to-contribute)
+5. [Benchmarks](#benchmarks)
+6. [How to Contribute](#how-to-contribute)
 
 ## Introduction
 
