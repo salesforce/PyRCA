@@ -1,5 +1,5 @@
 """
-The RCA method based on Bayesian inference.
+The RCA method based on Bayesian inference
 """
 import os
 import pickle

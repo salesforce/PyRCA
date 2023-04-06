@@ -1,5 +1,5 @@
 """
-phi-pc algorithm
+The Phi-PC algorithm
 """
 
 from dataclasses import dataclass
