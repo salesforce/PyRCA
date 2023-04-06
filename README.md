@@ -85,6 +85,25 @@ results = model.find_root_causes(["observed_anomalous_metric", ...])
 print(results.to_dict())
 ```
 
+For other RCA methods, you can use similar code for discovering root causes. For example, if you want
+to try ``EpsilonDiagnosis``, you can initalize ``EpsilonDiagnosis`` as follows:
+
+```python
+from pyrca.analyzers.epsilon_diagnosis import EpsilonDiagnosis
+model = EpsilonDiagnosis(config=EpsilonDiagnosis.config_class(alpha=0.01))
+model.train(normal_data)
+```
+
+Here ``normal_data`` is the historical observed time series data without anomalies. To find root causes,
+you can run:
+
+```python
+results = model.find_root_causes(abnormal_data)
+print(results.to_dict())
+```
+
+where ``abnormal_data`` is the time series data in an incident window.
+
 ## How to Contribute
 
 ## Contact Us
