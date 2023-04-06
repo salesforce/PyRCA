@@ -25,9 +25,20 @@ PyRCA is a Python machine-learning library designed for metric-based RCA, offeri
 algorithms and an end-to-end pipeline for building RCA solutions. PyRCA includes two types of algorithms: 1. 
 Identifying anomalous metrics in parallel with the observed anomaly via metric data analysis, e.g., ε-diagnosis,
 and 2. Identifying root causes based a topology/causal graph representing the causal relationships between 
-the observed metrics, e.g., Bayesian inference, Random Walk. Besides, PyRCA also provides a convenient tool
+the observed metrics, e.g., Bayesian inference, Random Walk. Besides, PyRCA provides a convenient tool
 for building causal graphs from the observed time series data and domain knowledge, helping users to develop
-topology/causal graph based solutions quickly.
+topology/causal graph based solutions quickly. PyRCA also provides a benchmark for evaluating various RCA
+methods, which is valuable for industry and academic research.
+
+The following list shows the supported RCA methods and features in our library:
+1. ε-Diagnosis
+2. Bayesian Inference-based Root Cause Analysis
+3. Random Walk-based Root Cause Analysis
+4. Ψ-PC-based Root Cause Analysis
+5. Causal Inference-based Root Cause Analysis (CIRCA)
+
+We will continue improving this library to make it more comprehensive in the future.
+
 
 ## Installation
 
