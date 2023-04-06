@@ -11,7 +11,8 @@
 3. [Getting Started](#getting-started)
 4. [Documentation](https://xxx)
 5. [Tutorials](https://xxx)
-6. [How to Contribute](#how-to-contribute)
+6. [Benchmarks](#benchmarks)
+7. [How to Contribute](#how-to-contribute)
 
 ## Introduction
 
@@ -107,7 +108,7 @@ where ``abnormal_data`` is the time series data in an incident window.
 As mentioned above, some RCA methods require causal graphs as their inputs. To construct such causal
 graphs from the observed time series data, you can utilize our tool by running ``python -m pyrca.tools``.
 
-
+## Benchmarks
 
 ## How to Contribute
 
