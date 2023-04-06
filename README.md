@@ -69,8 +69,8 @@ data (e.g., the index is the timestamp and each column represents one monitored 
 ``BayesianNetwork``, you can simply run the following code:
 
 ```python
-from pyrca.analyzers.bayesian import BayesianNetwork, BayesianNetworkConfig
-model = BayesianNetwork(config=BayesianNetworkConfig(graph=graph_df))
+from pyrca.analyzers.bayesian import BayesianNetwork
+model = BayesianNetwork(config=BayesianNetwork.config_class(graph=graph_df))
 model.train(df)
 model.save("model_folder")
 ```
