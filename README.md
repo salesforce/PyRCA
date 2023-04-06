@@ -147,7 +147,7 @@ causal-graph:
     - ["A", "C"]
 ```
 
-This domain knowledge file says that: 
+This domain knowledge file states that: 
 1. Metrics A and B must the root nodes, 
 2. Metrics E and F must be the leaf nodes,
 3. There is no connection from A to E, and 
@@ -159,6 +159,29 @@ graphs.
 ## Benchmarks
 
 ## How to Contribute
+
+We welcome the contribution from the open-source community to improve the library!
+Before you get started, clone this repo, run `pip install pre-commit`, and run `pre-commit install` 
+from the root directory of the repo. This will ensure all files are formatted correctly and contain 
+the appropriate license headers whenever you make a commit. 
+
+To add a new RCA method into the library, you may follow the steps below:
+1. Create a new python script file for this RCA method in the ``pyrca/analyzers`` folder.
+2. Create the configuration class that inherits from ``pyrca.base.BaseConfig``.
+3. Create the method class that inherits from ``pyrca.analyzers.base.BaseRCA``. The constructor for the new 
+method takes the new configuration instance as its input.
+4. Implement the ``train`` function that trains or initializes the new method.
+5. Implement the ``find_root_causes`` function that returns a ``pyrca.analyzers.base.RCAResults`` 
+instance storing root cause analysis results.
+
+To add a new causal discovery method, you may follow the following steps:
+1. Create a new python script file for this RCA method in the ``pyrca/graphs/causal`` folder.
+2. Create the configuration class that inherits from ``pyrca.graphs.causal.base.CausalModelConfig``.
+3. Create the method class that inherits from ``pyrca.graphs.causal.base.CausalModel``. 
+The constructor for the new method takes the new configuration instance as its input.
+4. Implement the ``_train`` function that returns the discovered casual graph. The input parameters
+of ``_train`` are the time series dataframe, the lists of forbidden and required links, and other
+additional parameters.
 
 ## Contact Us
 If you have any questions, comments or suggestions, please do not hesitate to contact us at pyrca@salesforce.com.
