@@ -39,7 +39,6 @@ The following list shows the supported RCA methods and features in our library:
 
 We will continue improving this library to make it more comprehensive in the future.
 
-
 ## Installation
 
 You can install ``pyrca`` from PyPI by calling ``pip install pyrca``. You may install from source by
@@ -52,6 +51,18 @@ cloning the PyRCA repo, navigating to the root directory, and calling
   root directory of the repo.
 
 ## Getting Started
+
+PyRCA provides a unified interface for training RCA models and finding root causes, you only need
+to specify 
+
+- **The select RCA method**: e.g., ``BayesianNetwork``, ``EpsilonDiagnosis``.
+- **The corresponding configuration**: e.g., ``BayesianNetworkConfig``, ``EpsilonDiagnosisConfig``.
+- **The time series data used to initialize or train the RCA model**: e.g., A time series data in a 
+  pandas dataframe.
+- **The observed anomalous metrics**: Some RCA methods require the anomalous KPI metrics detected by
+  certain anomaly detector.
+
+Let's take ``EpsilonDiagnosis`` as an example.
 
 ## How to Contribute
 
