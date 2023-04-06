@@ -15,6 +15,20 @@
 
 ## Introduction
 
+With the rapidly growing adoption of microservices architectures, multi-service applications become the standard 
+paradigm in real-world IT applications. A multi-service application usually contains hundreds of interacting 
+services, making it harder to detect service failures and identify the root causes. Root cause analysis (RCA) 
+methods leverage the KPI metrics monitored on those services to determine the root causes when a system failure 
+is detected, helping engineers and SREs in the troubleshooting process.
+
+PyRCA is a Python machine-learning library designed for metric-based RCA, offering multiple state-of-the-art RCA
+algorithms and an end-to-end pipeline for building RCA solutions. PyRCA includes two types of algorithms: 1. 
+Identifying anomalous metrics in parallel with the observed anomaly via metric data analysis, e.g., ε-diagnosis,
+and 2. Identifying root causes based a topology/causal graph representing the causal relationships between 
+the observed metrics, e.g., Bayesian inference, Random Walk. Besides, PyRCA also provides a convenient tool
+for building causal graphs from the observed time series data and domain knowledge, helping users to develop
+topology/causal graph based solutions quickly.
+
 ## Installation
 
 You can install ``pyrca`` from PyPI by calling ``pip install pyrca``. You may install from source by
