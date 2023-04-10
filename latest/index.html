@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to PyRCA’s documentation! &mdash; PyRCA  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="PyRCA: A Library for Root Cause Analysis" href="pyrca.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            PyRCA
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pyrca.html">PyRCA: A Library for Root Cause Analysis</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">PyRCA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Welcome to PyRCA’s documentation!</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="welcome-to-pyrca-s-documentation">
+<h1>Welcome to PyRCA’s documentation!<a class="headerlink" href="#welcome-to-pyrca-s-documentation" title="Permalink to this heading"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<p>With the rapidly growing adoption of microservices architectures, multi-service applications become the standard
+paradigm in real-world IT applications. A multi-service application usually contains hundreds of interacting
+services, making it harder to detect service failures and identify the root causes. Root cause analysis (RCA)
+methods leverage the KPI metrics monitored on those services to determine the root causes when a system failure
+is detected, helping engineers and SREs in the troubleshooting process.</p>
+<p>PyRCA is a Python machine-learning library designed for metric-based RCA, offering multiple state-of-the-art RCA
+algorithms and an end-to-end pipeline for building RCA solutions. PyRCA includes two types of algorithms: 1.
+Identifying anomalous metrics in parallel with the observed anomaly via metric data analysis, e.g., ε-diagnosis,
+and 2. Identifying root causes based a topology/causal graph representing the causal relationships between
+the observed metrics, e.g., Bayesian inference, Random Walk. Besides, PyRCA provides a convenient tool
+for building causal graphs from the observed time series data and domain knowledge, helping users to develop
+topology/causal graph based solutions quickly. PyRCA also provides a benchmark for evaluating various RCA
+methods, which is valuable for industry and academic research.</p>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h2>
+<p>You can install <a class="reference internal" href="pyrca.html#module-pyrca" title="pyrca"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyrca</span></code></a> from PyPI by calling <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pyrca</span></code>. You may install from source by
+cloning the PyRCA repo, navigating to the root directory, and calling
+<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">.</span></code>, or <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code> to install in editable mode. You may install additional dependencies:</p>
+<ul class="simple">
+<li><p><strong>For plotting &amp; visualization</strong>: Calling <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pyrca[plot]</span></code>, or <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">.[plot]</span></code> from the
+root directory of the repo.</p></li>
+<li><p><strong>Install all the dependencies</strong>: Calling <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pyrca[all]</span></code>, or <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">.[all]</span></code> from the
+root directory of the repo.</p></li>
+</ul>
+</section>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading"></a></h2>
+<p>PyRCA provides a unified interface for training RCA models and finding root causes, you only need
+to specify</p>
+<ul class="simple">
+<li><p><strong>The select RCA method</strong>: e.g., <a class="reference internal" href="pyrca.analyzers.html#pyrca.analyzers.bayesian.BayesianNetwork" title="pyrca.analyzers.bayesian.BayesianNetwork"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyrca.analyzers.bayesian.BayesianNetwork</span></code></a>,
+<a class="reference internal" href="pyrca.analyzers.html#pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosis" title="pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosis"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosis</span></code></a>.</p></li>
+<li><p><strong>The RCA configuration</strong>: e.g., <a class="reference internal" href="pyrca.analyzers.html#pyrca.analyzers.bayesian.BayesianNetworkConfig" title="pyrca.analyzers.bayesian.BayesianNetworkConfig"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyrca.analyzers.bayesian.BayesianNetworkConfig</span></code></a>,
+<a class="reference internal" href="pyrca.analyzers.html#pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosisConfig" title="pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosisConfig"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosisConfig</span></code></a>.</p></li>
+<li><p><strong>Time series data for initialization or training</strong>: e.g., A time series data in a
+pandas dataframe.</p></li>
+<li><p><strong>Some detected anomalous KPI metrics</strong>: Some RCA methods require the anomalous KPI metrics detected by
+certain anomaly detector.</p></li>
+</ul>
+<p>Let’s take <code class="docutils literal notranslate"><span class="pre">BayesianNetwork</span></code> as an example. Suppose that <code class="docutils literal notranslate"><span class="pre">graph_df</span></code> is a pandas dataframe encoding
+the causal graph representing causal relationships between metrics (how to construct such causal graph
+will be discussed later), and <code class="docutils literal notranslate"><span class="pre">df</span></code> is a pandas dataframe containing the historical observed time series
+data (e.g., the index is the timestamp and each column represents one monitored metric). To train a
+<code class="docutils literal notranslate"><span class="pre">BayesianNetwork</span></code>, you can simply run the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyrca.analyzers.bayesian</span> <span class="kn">import</span> <span class="n">BayesianNetwork</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">BayesianNetwork</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">BayesianNetwork</span><span class="o">.</span><span class="n">config_class</span><span class="p">(</span><span class="n">graph</span><span class="o">=</span><span class="n">graph_df</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;model_folder&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>After the model is trained, you can use it for root cause analysis given a list of detected anomalous
+metrics by a certain anomaly detector, e.g.,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyrca.analyzers.bayesian</span> <span class="kn">import</span> <span class="n">BayesianNetwork</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">BayesianNetwork</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;model_folder&quot;</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">find_root_causes</span><span class="p">([</span><span class="s2">&quot;observed_anomalous_metric&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>For other RCA methods, you can use similar code for discovering root causes. For example, if you want
+to try <code class="docutils literal notranslate"><span class="pre">EpsilonDiagnosis</span></code>, you can initalize <code class="docutils literal notranslate"><span class="pre">EpsilonDiagnosis</span></code> as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyrca.analyzers.epsilon_diagnosis</span> <span class="kn">import</span> <span class="n">EpsilonDiagnosis</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">EpsilonDiagnosis</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">EpsilonDiagnosis</span><span class="o">.</span><span class="n">config_class</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.01</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">normal_data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here <code class="docutils literal notranslate"><span class="pre">normal_data</span></code> is the historical observed time series data without anomalies. To find root causes,
+you can run:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">find_root_causes</span><span class="p">(</span><span class="n">abnormal_data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">abnormal_data</span></code> is the time series data in an incident window.</p>
+<p>As mentioned above, some RCA methods require causal graphs as their inputs. To construct such causal
+graphs from the observed time series data, you can utilize our tool by running <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pyrca.tools</span></code>.
+This command will launch a Dash app for time series data analysis and causal discovery.</p>
+<img alt="_images/dashboard.png" src="_images/dashboard.png" />
+<p>The dashboard allows you to try different causal discovery methods, change causal discovery parameters,
+add domain knowledge constraints (e.g., root/leaf nodes, forbidden/required links), and visualize
+the generated causal graph. It makes easier for manually updating causal graphs with domain knowledge.
+If you satisfy with the results after several iterations, you can download the results that can be
+used by the RCA methods supported in PyRCA.</p>
+<p>Instead of using this dashboard, you can also write code for causal discovery. The package
+<a class="reference internal" href="pyrca.graphs.causal.html#module-pyrca.graphs.causal" title="pyrca.graphs.causal"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyrca.graphs.causal</span></code></a> includes several causal discovery methods you can use. All of these methods
+are adjusted to support domain knowledge constraints. Suppose <code class="docutils literal notranslate"><span class="pre">df</span></code> is the monitored time series data
+and you want to apply PC for discovering causal graphs, then the following code will help:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyrca.graphs.causal.pc</span> <span class="kn">import</span> <span class="n">PC</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">PC</span><span class="p">(</span><span class="n">PC</span><span class="o">.</span><span class="n">config_class</span><span class="p">())</span>
+<span class="n">graph_df</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you have some domain knowledge constraints, you may run:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyrca.graphs.causal.pc</span> <span class="kn">import</span> <span class="n">PC</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">PC</span><span class="p">(</span><span class="n">PC</span><span class="o">.</span><span class="n">config_class</span><span class="p">(</span><span class="n">domain_knowledge_file</span><span class="o">=</span><span class="s2">&quot;file_path&quot;</span><span class="p">))</span>
+<span class="n">graph_df</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The domain knowledge file has a YAML format, e.g.,</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">causal-graph</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">root-nodes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;A&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;B&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">leaf-nodes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;E&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;F&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">forbids</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;A&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;E&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">requires</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;A&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+<p>This domain knowledge file states that:</p>
+<ol class="arabic simple">
+<li><p>Metrics A and B must the root nodes,</p></li>
+<li><p>Metrics E and F must be the leaf nodes,</p></li>
+<li><p>There is no connection from A to E, and</p></li>
+<li><p>There is a connection from A to C.</p></li>
+</ol>
+<p>You can modify this file according to your domain knowledge for generating more reliable causal
+graphs.</p>
+</section>
+<section id="library-design">
+<h2>Library Design<a class="headerlink" href="#library-design" title="Permalink to this heading"></a></h2>
+<p>PyRCA has four key subpackages:</p>
+<ul class="simple">
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyrca.graph</span></code>: This package contains the methods for discovering causal graphs from time series data.</p></li>
+<li><p><a class="reference internal" href="pyrca.outliers.html#module-pyrca.outliers" title="pyrca.outliers"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyrca.outliers</span></code></a>: This package contains some statistical based anomaly detectors used for detecting
+anomalous metrics. We will include more methods in this package in the future.</p></li>
+<li><p><a class="reference internal" href="pyrca.analyzers.html#module-pyrca.analyzers" title="pyrca.analyzers"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyrca.analyzers</span></code></a>: This package contains all the supported RCA methods, e.g., Bayesian inference,
+Random walk, etc.</p></li>
+<li><p><a class="reference internal" href="pyrca.tools.html#module-pyrca.tools" title="pyrca.tools"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyrca.tools</span></code></a>: This includes the dashboard tools for analyzing time series and building
+causal graphs.</p></li>
+</ul>
+<p>The following figure demonstrates the main architecture of the library.</p>
+<a class="reference internal image-reference" href="_images/design.png"><img alt="_images/design.png" src="_images/design.png" style="width: 600px;" /></a>
+</section>
+<section id="how-to-contribute">
+<h2>How to Contribute<a class="headerlink" href="#how-to-contribute" title="Permalink to this heading"></a></h2>
+<p>We welcome the contribution from the open-source community to improve the library!
+Before you get started, clone this repo, run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pre-commit</span></code>, and run <code class="docutils literal notranslate"><span class="pre">pre-commit</span> <span class="pre">install</span></code>
+from the root directory of the repo. This will ensure all files are formatted correctly and contain
+the appropriate license headers whenever you make a commit.</p>
+<p>To add a new RCA method into the library, you may follow the steps below:
+1. Create a new python script file for this RCA method in the <code class="docutils literal notranslate"><span class="pre">pyrca/analyzers</span></code> folder.
+2. Create the configuration class that inherits from <code class="docutils literal notranslate"><span class="pre">pyrca.base.BaseConfig</span></code>.
+3. Create the method class that inherits from <a class="reference internal" href="pyrca.analyzers.html#pyrca.analyzers.base.BaseRCA" title="pyrca.analyzers.base.BaseRCA"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyrca.analyzers.base.BaseRCA</span></code></a>. The constructor for the new
+method takes the new configuration instance as its input.
+4. Implement the <code class="docutils literal notranslate"><span class="pre">train</span></code> function that trains or initializes the new method.
+5. Implement the <code class="docutils literal notranslate"><span class="pre">find_root_causes</span></code> function that returns a <a class="reference internal" href="pyrca.analyzers.html#pyrca.analyzers.base.RCAResults" title="pyrca.analyzers.base.RCAResults"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyrca.analyzers.base.RCAResults</span></code></a>
+instance storing root cause analysis results.</p>
+<p>To add a new causal discovery method, you may follow the following steps:
+1. Create a new python script file for this RCA method in the <code class="docutils literal notranslate"><span class="pre">pyrca/graphs/causal</span></code> folder.
+2. Create the configuration class that inherits from <code class="xref py py-mod docutils literal notranslate"><span class="pre">pyrca.graphs.causal.base.CausalModelConfig</span></code>.
+3. Create the method class that inherits from <code class="xref py py-mod docutils literal notranslate"><span class="pre">pyrca.graphs.causal.base.CausalModel</span></code>.
+The constructor for the new method takes the new configuration instance as its input.
+4. Implement the <code class="docutils literal notranslate"><span class="pre">_train</span></code> function that returns the discovered casual graph. The input parameters
+of <code class="docutils literal notranslate"><span class="pre">_train</span></code> are the time series dataframe, the lists of forbidden and required links, and other
+additional parameters.</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pyrca.html">PyRCA: A Library for Root Cause Analysis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pyrca.html#anomaly-detectors">Anomaly detectors</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pyrca.outliers.html">pyrca.outliers package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pyrca.outliers.html#module-pyrca.outliers.base">pyrca.outliers.base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyrca.outliers.html#module-pyrca.outliers.stats">pyrca.outliers.stats module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pyrca.html#algorithms-for-building-topology-causal-graphs">Algorithms for building topology/causal graphs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pyrca.graphs.html">pyrca.graphs package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pyrca.graphs.html#causal-discovery-for-building-causal-graphs">Causal discovery for building causal graphs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pyrca.html#supported-rca-methods">Supported RCA methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pyrca.analyzers.html">pyrca.analyzers package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pyrca.analyzers.html#module-pyrca.analyzers.base">pyrca.analyzers.base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyrca.analyzers.html#module-pyrca.analyzers.bayesian">pyrca.analyzers.bayesian module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyrca.analyzers.html#module-pyrca.analyzers.random_walk">pyrca.analyzers.random_walk module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyrca.analyzers.html#module-pyrca.analyzers.epsilon_diagnosis">pyrca.analyzers.epsilon_diagnosis module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyrca.analyzers.html#module-pyrca.analyzers.psi_pc">pyrca.analyzers.psi_pc module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyrca.analyzers.html#module-pyrca.analyzers.rht">pyrca.analyzers.rht module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pyrca.html#a-visualization-tool">A visualization tool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pyrca.tools.html">pyrca.tools package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pyrca.html" class="btn btn-neutral float-right" title="PyRCA: A Library for Root Cause Analysis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, salesforce.com, inc..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Versions</span>
+      latest
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      <dl>
+        <dt>Versions</dt>
+        
+           <strong> 
+          <dd><a href="">latest</a></dd>
+           </strong> 
+        
+      </dl>
+      
+    </div>
+  </div>
+
+ <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
