@@ -86,6 +86,7 @@
 <li class="toctree-l6"><a class="reference internal" href="#pyrca.analyzers.bayesian.BayesianNetwork.find_root_causes"><code class="docutils literal notranslate"><span class="pre">BayesianNetwork.find_root_causes()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="#pyrca.analyzers.bayesian.BayesianNetwork.save"><code class="docutils literal notranslate"><span class="pre">BayesianNetwork.save()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="#pyrca.analyzers.bayesian.BayesianNetwork.load"><code class="docutils literal notranslate"><span class="pre">BayesianNetwork.load()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#pyrca.analyzers.bayesian.BayesianNetwork.print_probabilities"><code class="docutils literal notranslate"><span class="pre">BayesianNetwork.print_probabilities()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -226,7 +227,7 @@
 <td><p>Base classes for all RCA algorithms</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#module-pyrca.analyzers.bayesian" title="pyrca.analyzers.bayesian"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bayesian</span></code></a></p></td>
-<td><p>The RCA method based on Bayesian inference</p></td>
+<td><p>The RCA method based on Bayesian inference.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#module-pyrca.analyzers.random_walk" title="pyrca.analyzers.random_walk"><code class="xref py py-obj docutils literal notranslate"><span class="pre">random_walk</span></code></a></p></td>
 <td><p>The RCA method based on random walk</p></td>
@@ -328,7 +329,7 @@ This class should not be used directly, Use dervied class instead.</p>
 </section>
 <section id="module-pyrca.analyzers.bayesian">
 <span id="pyrca-analyzers-bayesian-module"></span><h2>pyrca.analyzers.bayesian module<a class="headerlink" href="#module-pyrca.analyzers.bayesian" title="Permalink to this heading"></a></h2>
-<p>The RCA method based on Bayesian inference</p>
+<p>The RCA method based on Bayesian inference.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyrca.analyzers.bayesian.BayesianNetworkConfig">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyrca.analyzers.bayesian.</span></span><span class="sig-name descname"><span class="pre">BayesianNetworkConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thres_win_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thres_reduce_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigmas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">infer_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'posterior'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root_cause_top_k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.analyzers.bayesian.BayesianNetworkConfig" title="Permalink to this definition"></a></dt>
@@ -447,18 +448,23 @@ we set <cite>target_node = A</cite>, <cite>parent_nodes = [C, D]</cite> and <cit
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyrca.analyzers.bayesian.BayesianNetwork.find_root_causes">
-<span class="sig-name descname"><span class="pre">find_root_causes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">anomalous_metrics</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.analyzers.bayesian.BayesianNetwork.find_root_causes" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">find_root_causes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">anomalous_metrics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set_zero_path_score_for_normal_metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_zero_score_node_in_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.analyzers.bayesian.BayesianNetwork.find_root_causes" title="Permalink to this definition"></a></dt>
 <dd><p>Finds the root causes given the observed anomalous metrics.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>anomalous_metrics</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>]) – A list of anomalous metrics. <code class="docutils literal notranslate"><span class="pre">anomalous_metrics</span></code> is either a list
-[‘metric_A’, ‘metric_B’, …] or a dict {‘metric_A’: 1, ‘metric_B’: 1}.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>anomalous_metrics</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>]) – A list of anomalous metrics. <code class="docutils literal notranslate"><span class="pre">anomalous_metrics</span></code> is either a list
+[‘metric_A’, ‘metric_B’, …] or a dict {‘metric_A’: 1, ‘metric_B’: 1}.</p></li>
+<li><p><strong>set_zero_path_score_for_normal_metrics</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Whether to set the scores of normal metrics
+(metrics that are not in <code class="docutils literal notranslate"><span class="pre">anomalous_metrics</span></code>) to zeros when computing root cause path scores.</p></li>
+<li><p><strong>remove_zero_score_node_in_path</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Whether to remove the nodes with zero scores from the paths.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="#pyrca.analyzers.base.RCAResults" title="pyrca.analyzers.base.RCAResults"><code class="xref py py-class docutils literal notranslate"><span class="pre">RCAResults</span></code></a></p>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The found root causes in a <code class="docutils literal notranslate"><span class="pre">RCAResults</span></code> object.</p>
+<dd class="field-odd"><p>A list of the found root causes.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -490,6 +496,11 @@ we set <cite>target_node = A</cite>, <cite>parent_nodes = [C, D]</cite> and <cit
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrca.analyzers.bayesian.BayesianNetwork.print_probabilities">
+<span class="sig-name descname"><span class="pre">print_probabilities</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.analyzers.bayesian.BayesianNetwork.print_probabilities" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
