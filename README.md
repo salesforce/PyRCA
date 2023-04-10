@@ -9,7 +9,7 @@
 1. [Introduction](#introduction)
 2. [Installation](#installation)
 3. [Getting Started](#getting-started)
-4. [Documentation](https://xxx)
+4. [Documentation](https://fuzzy-disco-r42n6p1.pages.github.io/)
 5. [Benchmarks](#benchmarks)
 6. [How to Contribute](#how-to-contribute)
 
