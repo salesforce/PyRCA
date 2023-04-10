@@ -1,0 +1,30 @@
+causal-graph:
+  root-nodes: ["db", "conn_pool", "jetty", "gen_size", "pod", "request"]
+  leaf-nodes: ["apt"]
+  forbids:
+    - ["db", "pod"]
+    - ["db","avg_cpu"]
+    - ["db","gc"]
+    - ["jetty","gc"]
+    - ["jetty","avg_cpu"]
+  requires:
+    - ["db","apt"]
+    - ["jetty", "apt"]
+    - ["avg_cpu", "apt"]
+    - ["gc", "avg_cpu"]
+    - ["pod", "avg_cpu"]
+    - ["gen_size", "gc"]
+    - ["request", "avg_cpu"]
+    - ["conn_pool", "apt"]
+    - ["pod","apt"]
+
+root-causes:
+  - name: "ROOT_db"
+    P(r=1): 0.52
+    metrics:
+    - name: "db"
+
+  - name: "ROOT_pod"
+    P(r=1): 0.51
+    metrics:
+    - name: "pod"

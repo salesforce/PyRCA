@@ -33,9 +33,20 @@ class FGES(CausalModel):
     The fast greedy equivalence search (FGES) algorithm for causal discovery.
     """
     config_class = FGESConfig
+    causal = None
 
     def __init__(self, config: FGESConfig):
         self.config = config
+
+    @staticmethod
+    def initialize():
+        from pycausal.pycausal import pycausal as pc
+        FGES.causal = pc()
+        FGES.causal.start_vm()
+
+    @staticmethod
+    def finish():
+        FGES.causal.stop_vm()
 
     def _train(
             self,
@@ -45,11 +56,16 @@ class FGES(CausalModel):
             start_vm: bool = True,
             **kwargs
     ):
-        from pyrca.thirdparty.pycausal import search, prior
-        from pyrca.thirdparty.pycausal.pycausal import pycausal as pc
+        from ...utils.misc import is_pycausal_available
+        assert is_pycausal_available(), \
+            "pycausal is not installed. Please install it from github repo: " \
+            "https://github.com/bd2kccd/py-causal."
+
+        from pycausal import search, prior
+        from pycausal.pycausal import pycausal as pc
 
         var_names, n = df.columns, df.shape[1]
-        if start_vm:
+        if start_vm and FGES.causal is None:
             causal = pc()
             causal.start_vm()
 
@@ -83,7 +99,7 @@ class FGES(CausalModel):
                 graph[column_name2idx[b], column_name2idx[a]] = 1
             else:
                 raise ValueError('Unknown direction: {}'.format(items[1]))
-        if start_vm:
+        if start_vm and FGES.causal is None:
             causal.stop_vm()
 
         adjacency_mat = graph.astype(int)

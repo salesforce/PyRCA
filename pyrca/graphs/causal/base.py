@@ -30,6 +30,14 @@ class CausalModelConfig(BaseConfig):
 
 class CausalModel(BaseModel):
 
+    @staticmethod
+    def initialize():
+        pass
+
+    @staticmethod
+    def finish():
+        pass
+
     @abstractmethod
     def _train(
             self,
@@ -55,19 +63,10 @@ class CausalModel(BaseModel):
             if self.config.max_num_points is not None else df
         parser = DomainParser(self.config.domain_knowledge_file)
 
-        forbids = parser.get_forbid_links(df.columns)
-        if "forbids" in kwargs:
-            forbids += kwargs["forbids"]
-            kwargs.pop("forbids")
-        requires = parser.get_require_links()
-        if "requires" in kwargs:
-            requires += kwargs["requires"]
-            kwargs.pop("requires")
-
         adjacency_df = self._train(
             df=df,
-            forbids=forbids,
-            requires=requires,
+            forbids=parser.get_forbid_links(df.columns),
+            requires=parser.get_require_links(),
             **kwargs
         )
         var_names = adjacency_df.columns
