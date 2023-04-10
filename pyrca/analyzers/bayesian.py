@@ -1,5 +1,5 @@
 """
-The RCA method based on Bayesian inference
+The RCA method based on Bayesian inference.
 """
 import os
 import pickle
@@ -210,7 +210,7 @@ class BayesianNetwork(BaseRCA):
             ))
         else:
             v = cpd.values.reshape((2, -1))
-            u = np.zeros(v.shape, dtype=np.float)
+            u = np.zeros(v.shape, dtype=float)
             u[0, :] = root_cause_probs[1]
             u[1, :] = 1 - root_cause_probs[1]
             evidence = [root_cause_name] + cpd.variables[1:]
@@ -233,7 +233,10 @@ class BayesianNetwork(BaseRCA):
                 self._add_root_cause(
                     root_cause_name=r["name"],
                     metric_name=metric["name"],
-                    root_cause_probs=[metric["P(m=0|r=0)"], metric["P(m=0|r=1)"]],
+                    root_cause_probs=[
+                        metric.get("P(m=0|r=0)", 0.99),
+                        metric.get("P(m=0|r=1)", 0.01)
+                    ],
                     root_prob=r["P(r=1)"])
 
     def update_probability(self, target_node: str, parent_nodes: List, prob: float):
@@ -291,13 +294,17 @@ class BayesianNetwork(BaseRCA):
                 flags[p] = True
         return paths
 
-    def _get_path_root_cause_scores(self, paths, evidence, node_scores):
+    def _get_path_root_cause_scores(self, paths, evidence, node_scores, overwrite_scores=None):
+        if overwrite_scores is None:
+            overwrite_scores = {}
         for path in paths:
             for node in path:
                 if node in node_scores:
                     continue
                 if node in evidence:
                     prob = evidence[node]
+                elif node in overwrite_scores:
+                    prob = overwrite_scores[node]
                 else:
                     prob = self._infer(variables=[node], evidence=evidence).values[1]
                 node_scores[node] = prob
@@ -310,23 +317,18 @@ class BayesianNetwork(BaseRCA):
         score_paths = sorted(score_paths, key=lambda x: x[0], reverse=True)
         return score_paths
 
-    def find_root_causes(
-            self,
-            anomalous_metrics: Union[List, Dict],
-            **kwargs
-    ) -> RCAResults:
-        """
-        Finds the root causes given the observed anomalous metrics.
+    def _argument_root_nodes(self):
+        existing_roots = [
+            str(node).replace("ROOT_", "") for node in self.root_nodes]
 
-        :param anomalous_metrics: A list of anomalous metrics. ``anomalous_metrics`` is either a list
-            ['metric_A', 'metric_B', ...] or a dict {'metric_A': 1, 'metric_B': 1}.
-        :return: The found root causes in a ``RCAResults`` object.
-        """
-        if len(self.root_nodes) == 0:
-            nodes = []
-            for i, values in enumerate(self.graph.values.T):
-                if np.sum(values) == 0:
+        nodes = []
+        for i, values in enumerate(self.graph.values.T):
+            if np.sum(values) == 0:
+                name = str(self.graph.columns[i])
+                if name not in existing_roots:
                     nodes.append(self.graph.columns[i])
+
+        if len(nodes) > 0:
             root_nodes = [
                 {
                     "name": f"ROOT_{node}",
@@ -335,6 +337,39 @@ class BayesianNetwork(BaseRCA):
                 } for node in nodes
             ]
             self.add_root_causes(root_nodes)
+
+    def _post_process(self, all_paths):
+        paths, flags = [], {}
+        for path_score, path in all_paths:
+            filtered_path = []
+            for node, node_score in path:
+                if node_score > 0:
+                    filtered_path.append((node, node_score))
+            signature = "->".join(str(node) for node, _ in filtered_path)
+            if signature in flags:
+                continue
+            flags[signature] = True
+            paths.append((path_score, filtered_path))
+        return paths
+
+    def find_root_causes(
+            self,
+            anomalous_metrics: Union[List, Dict],
+            set_zero_path_score_for_normal_metrics: bool = False,
+            remove_zero_score_node_in_path: bool = True,
+            **kwargs
+    ) -> List:
+        """
+        Finds the root causes given the observed anomalous metrics.
+
+        :param anomalous_metrics: A list of anomalous metrics. ``anomalous_metrics`` is either a list
+            ['metric_A', 'metric_B', ...] or a dict {'metric_A': 1, 'metric_B': 1}.
+        :param set_zero_path_score_for_normal_metrics: Whether to set the scores of normal metrics
+            (metrics that are not in ``anomalous_metrics``) to zeros when computing root cause path scores.
+        :param remove_zero_score_node_in_path: Whether to remove the nodes with zero scores from the paths.
+        :return: A list of the found root causes.
+        """
+        self._argument_root_nodes()
 
         if isinstance(anomalous_metrics, Dict):
             evidence = {metric: v for metric, v in anomalous_metrics.items()
@@ -357,6 +392,12 @@ class BayesianNetwork(BaseRCA):
                             break
             except Exception as e:
                 print(e)
+
+        overwrite_scores = {}
+        if set_zero_path_score_for_normal_metrics:
+            for node in self.bayesian_model.nodes():
+                if node not in anomalous_metrics and node not in self.root_nodes:
+                    overwrite_scores[node] = 0
 
         # Compute the root cause scores
         root_scores = []
@@ -399,3 +440,7 @@ class BayesianNetwork(BaseRCA):
         with open(os.path.join(directory, f"{filename}_info.pkl"), "rb") as f:
             model.__setstate__(pickle.load(f))
         return model
+
+    def print_probabilities(self):
+        for node in self.bayesian_model.nodes():
+            print(self.bayesian_model.get_cpds(node))

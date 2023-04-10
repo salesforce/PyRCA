@@ -1,0 +1,12 @@
+bayesian:
+  default_sigma: 3.0
+  thres_win_size: 5
+  thres_reduce_func: "mean"
+
+
+stats_detector:
+  default_sigma: 4.0
+  thres_win_size: 5
+  thres_reduce_func: "mean"
+  score_win_size: 3
+  anomaly_threshold: 0.5
