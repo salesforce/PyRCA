@@ -3,6 +3,9 @@
   <a href="#">
   <img src="https://img.shields.io/badge/Python-3.7, 3.8, 3.9, 3.10-blue">
   </a>
+  <a href="https://opensource.salesforce.com/PyRCA">
+  <img alt="Documentation" src="https://github.com/salesforce/PyRCA/actions/workflows/docs.yml/badge.svg"/>
+  </a>
 </div>
 
 ## Table of Contents
