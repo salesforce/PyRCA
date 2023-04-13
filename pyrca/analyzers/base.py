@@ -1,3 +1,8 @@
+#
+# Copyright (c) 2023 salesforce.com, inc.
+# All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 """Base classes for all RCA algorithms"""
 from abc import abstractmethod
 from dataclasses import dataclass, field, asdict
@@ -18,6 +23,7 @@ class RCAResults:
         following format: (path_score, [(path_node_a, score_a), (path_node_b, score_b), ...]).
         If ``path_node_a`` has no score, ``score_a`` is set to None.
     """
+
     root_cause_nodes: list = field(default_factory=lambda: [])
     root_cause_paths: dict = field(default_factory=lambda: {})
 
@@ -33,11 +39,7 @@ class RCAResults:
         """
         results = []
         for node, score in self.root_cause_nodes:
-            results.append({
-                "root_cause": node,
-                "score": score,
-                "paths": self.root_cause_paths.get(node, None)
-            })
+            results.append({"root_cause": node, "score": score, "paths": self.root_cause_paths.get(node, None)})
         return results
 
 

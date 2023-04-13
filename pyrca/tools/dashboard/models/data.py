@@ -1,3 +1,8 @@
+#
+# Copyright (c) 2023 salesforce.com, inc.
+# All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 import os
 import sys
 import logging
@@ -13,7 +18,6 @@ dash_logger = DashLogger(stream=sys.stdout)
 
 
 class DataAnalyzer:
-
     def __init__(self, folder):
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.DEBUG)
@@ -30,11 +34,14 @@ class DataAnalyzer:
     @staticmethod
     def get_stats(df):
         stats = {
-            "@global": OrderedDict({
-                "NO. of Variables": len(df.columns),
-                "Time Series Length": df.shape[0],
-                "Has NaNs": bool(df.isnull().values.any())}),
-            "@columns": list(df.columns)
+            "@global": OrderedDict(
+                {
+                    "NO. of Variables": len(df.columns),
+                    "Time Series Length": df.shape[0],
+                    "Has NaNs": bool(df.isnull().values.any()),
+                }
+            ),
+            "@columns": list(df.columns),
         }
         for col in df.columns:
             info = df[col].describe()

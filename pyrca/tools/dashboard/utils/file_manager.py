@@ -1,3 +1,8 @@
+#
+# Copyright (c) 2023 salesforce.com, inc.
+# All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 import os
 import base64
 import zipfile
@@ -14,10 +19,8 @@ class SingletonClass:
 
 
 class FileManager(SingletonClass):
-
     def __init__(self, directory=None):
-        self.directory = os.path.join(str(Path.home()), "pyrca") \
-            if directory is None else directory
+        self.directory = os.path.join(str(Path.home()), "pyrca") if directory is None else directory
         if not os.path.exists(self.directory):
             os.makedirs(self.directory)
 
@@ -30,8 +33,7 @@ class FileManager(SingletonClass):
             os.makedirs(self.model_folder)
 
         self.cache_folder = os.path.join(self.directory, "cache")
-        self.long_callback_manager = DiskcacheLongCallbackManager(
-            diskcache.Cache(self.cache_folder))
+        self.long_callback_manager = DiskcacheLongCallbackManager(diskcache.Cache(self.cache_folder))
 
     def save_file(self, name, content):
         data = content.encode("utf8").split(b";base64,")[1]

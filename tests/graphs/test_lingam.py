@@ -1,3 +1,8 @@
+#
+# Copyright (c) 2023 salesforce.com, inc.
+# All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 import unittest
 import numpy as np
 import pandas as pd
@@ -5,11 +10,10 @@ from pyrca.graphs.causal.lingam import LiNGAM
 
 
 class TestLINGAM(unittest.TestCase):
-
     def setUp(self) -> None:
         np.random.seed(0)
         sample_size = 1000
-        columns = ['x0', 'x1', 'x2', 'x3', 'x4', 'x5']
+        columns = ["x0", "x1", "x2", "x3", "x4", "x5"]
         x3 = np.random.uniform(size=sample_size)
         x0 = 3.0 * x3 + np.random.uniform(size=sample_size)
         x2 = 6.0 * x3 + np.random.uniform(size=sample_size)
@@ -24,8 +28,10 @@ class TestLINGAM(unittest.TestCase):
                 [0, 1, 0, 0, 1, 0],
                 [1, 0, 1, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0]
-            ], columns=columns, index=columns
+                [0, 0, 0, 0, 0, 0],
+            ],
+            columns=columns,
+            index=columns,
         )
 
     def test(self):

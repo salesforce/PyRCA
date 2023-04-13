@@ -1,3 +1,8 @@
+#
+# Copyright (c) 2023 salesforce.com, inc.
+# All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 """
 The RCA method based on random walk
 """
@@ -26,6 +31,7 @@ class RandomWalkConfig(BaseConfig):
     :param num_repeats: The number of random walk runs.
     :param root_cause_top_k: The maximum number of root causes in the results.
     """
+
     graph: Union[pd.DataFrame, str] = None
     use_partial_corr: bool = False
     rho: float = 0.1
@@ -38,6 +44,7 @@ class RandomWalk(BaseRCA):
     """
     The RCA method based on random walk on the topology/causal graph.
     """
+
     config_class = RandomWalkConfig
 
     def __init__(self, config: RandomWalkConfig):
@@ -50,9 +57,7 @@ class RandomWalk(BaseRCA):
                 with open(config.graph, "rb") as f:
                     graph = pickle.load(f)
             else:
-                raise RuntimeError(
-                    "The graph file format is not supported, "
-                    "please choose a csv or pickle file.")
+                raise RuntimeError("The graph file format is not supported, " "please choose a csv or pickle file.")
         else:
             graph = config.graph
         self.adjacency_mat = graph
@@ -62,6 +67,7 @@ class RandomWalk(BaseRCA):
     @staticmethod
     def _partial_correlation(df: pd.DataFrame, x, y, z, add_noise=True):
         import pingouin as pg
+
         if add_noise:
             noise = np.random.normal(0, 1e-8, size=df.shape)
             df = df.add(pd.DataFrame(noise, columns=df.columns, index=df.index))
@@ -70,8 +76,7 @@ class RandomWalk(BaseRCA):
         if not np.isnan(p_val):
             return corr["r"].values[0]
         else:
-            raise RuntimeError("The p-value for partial correlation is NaN, "
-                               "please add more data points.")
+            raise RuntimeError("The p-value for partial correlation is NaN, " "please add more data points.")
 
     @staticmethod
     def _correlation(df: pd.DataFrame, x, y):
@@ -86,8 +91,11 @@ class RandomWalk(BaseRCA):
         if self.use_partial_corr:
             z = list(self.graph.predecessors(anomaly)) + list(self.graph.predecessors(metric))
             ps = list(set([p for p in z if p != metric and p != anomaly]))
-            weight = abs(self._partial_correlation(df, anomaly, metric, ps)) if len(ps) > 0 \
+            weight = (
+                abs(self._partial_correlation(df, anomaly, metric, ps))
+                if len(ps) > 0
                 else abs(self._correlation(df, anomaly, metric))
+            )
         else:
             weight = abs(self._correlation(df, anomaly, metric))
         return weight
@@ -155,6 +163,7 @@ class RandomWalk(BaseRCA):
     @staticmethod
     def _find_all_paths(graph, u, v):
         from collections import deque
+
         q, paths = deque([(u, [])]), []
         while q:
             node, path = q.popleft()
@@ -197,12 +206,7 @@ class RandomWalk(BaseRCA):
         """
         pass
 
-    def find_root_causes(
-            self,
-            anomalous_metrics: Union[List, Dict],
-            df: pd.DataFrame,
-            **kwargs
-    ) -> RCAResults:
+    def find_root_causes(self, anomalous_metrics: Union[List, Dict], df: pd.DataFrame, **kwargs) -> RCAResults:
         """
         Finds the root causes given the observed anomalous metrics.
 
@@ -217,8 +221,11 @@ class RandomWalk(BaseRCA):
         graph = self._build_weighted_graph(df, anomalous_metrics, self.config.rho)
         counts = {
             anomaly: self._random_walk(
-                graph, anomaly, self.config.num_steps, self.config.num_repeats,
-                random_seed=kwargs.get("random_seed", None)
+                graph,
+                anomaly,
+                self.config.num_steps,
+                self.config.num_repeats,
+                random_seed=kwargs.get("random_seed", None),
             )
             for anomaly in anomalous_metrics
         }
@@ -244,6 +251,4 @@ class RandomWalk(BaseRCA):
                     paths.append((path_score, [(node, None) for node in nodes]))
             root_cause_paths[root] = paths
 
-        return RCAResults(
-            root_cause_nodes=root_cause_nodes,
-            root_cause_paths=root_cause_paths)
+        return RCAResults(root_cause_nodes=root_cause_nodes, root_cause_paths=root_cause_paths)

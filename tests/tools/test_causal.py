@@ -1,15 +1,19 @@
+#
+# Copyright (c) 2023 salesforce.com, inc.
+# All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 import unittest
 import pandas as pd
 from pyrca.tools.dashboard.models.causal import CausalDiscovery
 
 
 class TestCausal(unittest.TestCase):
-
     def test_1(self):
         graph = pd.DataFrame(
             [[0, 1, 0, 0], [0, 0, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0]],
             columns=["a", "b", "c", "d"],
-            index=["a", "b", "c", "d"]
+            index=["a", "b", "c", "d"],
         )
         levels, cycles = CausalDiscovery.causal_order(graph)
         self.assertEqual(levels, None)
@@ -19,7 +23,7 @@ class TestCausal(unittest.TestCase):
         graph = pd.DataFrame(
             [[0, 1, 0, 0], [0, 0, 0, 0], [0, 0, 0, 1], [0, 0, 0, 0]],
             columns=["a", "b", "c", "d"],
-            index=["a", "b", "c", "d"]
+            index=["a", "b", "c", "d"],
         )
         levels, cycles = CausalDiscovery.causal_order(graph)
         self.assertEqual(cycles, None)
@@ -30,7 +34,7 @@ class TestCausal(unittest.TestCase):
         graph = pd.DataFrame(
             [[0, 1, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 1, 0], [0, 0, 0, 0, 1], [0, 0, 1, 0, 0]],
             columns=["a", "b", "c", "d", "e"],
-            index=["a", "b", "c", "d", "e"]
+            index=["a", "b", "c", "d", "e"],
         )
         levels, cycles = CausalDiscovery.causal_order(graph)
         self.assertEqual(levels, None)

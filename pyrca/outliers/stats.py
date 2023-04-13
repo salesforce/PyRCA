@@ -1,3 +1,8 @@
+#
+# Copyright (c) 2023 salesforce.com, inc.
+# All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 """
 The statistical-based anomaly detector.
 """
@@ -10,8 +15,7 @@ from copy import deepcopy
 from dataclasses import dataclass
 
 from pyrca.base import BaseConfig
-from pyrca.outliers.base import BaseDetector, \
-    DetectorMixin, DetectionResults
+from pyrca.outliers.base import BaseDetector, DetectorMixin, DetectionResults
 from pyrca.utils.utils import estimate_thresholds
 
 
@@ -36,6 +40,7 @@ class StatsDetectorConfig(BaseConfig):
     :param custom_anomaly_thresholds: Variable-specific anomaly detection thresholds other than
         default for certain variables.
     """
+
     default_sigma: float = 4.0
     thres_win_size: int = 5
     thres_reduce_func: str = "mean"
@@ -56,6 +61,7 @@ class StatsDetector(BaseDetector, DetectorMixin):
     that abs(x - mean) > sigma * std. If this percentage is greater than a certain threshold, the timestamp t
     is considered as an anomaly.
     """
+
     config_class = StatsDetectorConfig
 
     def __init__(self, config: StatsDetectorConfig):
@@ -68,11 +74,7 @@ class StatsDetector(BaseDetector, DetectorMixin):
         """
         Converts a trained detector into a python dictionary.
         """
-        return {
-            "config": self.config.to_dict(),
-            "bounds": deepcopy(self.bounds),
-            "mean_stds": deepcopy(self.mean_stds)
-        }
+        return {"config": self.config.to_dict(), "bounds": deepcopy(self.bounds), "mean_stds": deepcopy(self.mean_stds)}
 
     @classmethod
     def from_dict(cls, d: Dict) -> StatsDetector:
@@ -89,17 +91,15 @@ class StatsDetector(BaseDetector, DetectorMixin):
             self.logger.warning("The training data contains NaN.")
             df = df.dropna()
 
-        sigmas = {} if self.config.sigmas is None else \
-            self.config.sigmas
-        manual_thresholds = {} if self.config.manual_thresholds is None else \
-            self.config.manual_thresholds
+        sigmas = {} if self.config.sigmas is None else self.config.sigmas
+        manual_thresholds = {} if self.config.manual_thresholds is None else self.config.manual_thresholds
         lowers, uppers, means, stds = estimate_thresholds(
             df=df,
             sigmas=sigmas,
             default_sigma=self.config.default_sigma,
             win_size=self.config.thres_win_size,
             reduce=self.config.thres_reduce_func,
-            return_mean_std=True
+            return_mean_std=True,
         )
         for i, col in enumerate(df.columns):
             lower_bound = lowers[i]
@@ -118,9 +118,12 @@ class StatsDetector(BaseDetector, DetectorMixin):
         for i in range(len(df)):
             scores = []
             for col in df.columns:
-                w = self.config.custom_win_sizes.get(col, self.config.score_win_size) \
-                    if self.config.custom_win_sizes else self.config.score_win_size
-                x = df[col].values[max(0, i - w): i + w]
+                w = (
+                    self.config.custom_win_sizes.get(col, self.config.score_win_size)
+                    if self.config.custom_win_sizes
+                    else self.config.score_win_size
+                )
+                x = df[col].values[max(0, i - w) : i + w]
                 y = (x < self.bounds[col][0]).astype(int) + (x > self.bounds[col][1]).astype(int)
                 scores.append(y.sum() / len(y))
             all_scores.append(scores)
@@ -137,8 +140,11 @@ class StatsDetector(BaseDetector, DetectorMixin):
 
         anomalous_metrics = []
         for metric, score in zip(df.columns, max_scores):
-            thres = self.config.custom_anomaly_thresholds.get(metric, self.config.anomaly_threshold) \
-                if self.config.custom_anomaly_thresholds else self.config.anomaly_threshold
+            thres = (
+                self.config.custom_anomaly_thresholds.get(metric, self.config.anomaly_threshold)
+                if self.config.custom_anomaly_thresholds
+                else self.config.anomaly_threshold
+            )
             if score > thres:
                 anomalous_metrics.append(metric)
 
@@ -158,24 +164,28 @@ class StatsDetector(BaseDetector, DetectorMixin):
             anomaly_info[col] = {
                 "normal_range": self.bounds[col],
                 "mean_std": self.mean_stds.get(col, None),
-                "anomalies": []
+                "anomalies": [],
             }
             for t in range(len(y)):
                 if y[t] > 0:
-                    anomaly_info[col]["anomalies"].append({
-                        "timestamp": timestamps[t],
-                        "value": x[t],
-                        "absolute_deviation": np.abs(x[t] - self.mean_stds[col][0])
-                        if col in self.mean_stds else None,
-                        "z_score": np.abs(x[t] - self.mean_stds[col][0]) / (self.mean_stds[col][1] + 1e-5)
-                        if col in self.mean_stds else None
-                    })
+                    anomaly_info[col]["anomalies"].append(
+                        {
+                            "timestamp": timestamps[t],
+                            "value": x[t],
+                            "absolute_deviation": np.abs(x[t] - self.mean_stds[col][0])
+                            if col in self.mean_stds
+                            else None,
+                            "z_score": np.abs(x[t] - self.mean_stds[col][0]) / (self.mean_stds[col][1] + 1e-5)
+                            if col in self.mean_stds
+                            else None,
+                        }
+                    )
 
         return DetectionResults(
             anomalous_metrics=anomalous_metrics,
             anomaly_timestamps=anomaly_timestamps,
             anomaly_labels=anomaly_labels,
-            anomaly_info=anomaly_info
+            anomaly_info=anomaly_info,
         )
 
     def update_bounds(self, d: Dict):

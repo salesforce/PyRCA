@@ -1,3 +1,8 @@
+#
+# Copyright (c) 2023 salesforce.com, inc.
+# All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 """
 Base classes for all outliers.
 """
@@ -17,6 +22,7 @@ class BaseDetector(BaseModel):
     Base class for Outlier (Anomaly) Detectors.
     This class should not be used directly, Use dervied class instead.
     """
+
     config_class = None
 
     def __init__(self):
@@ -87,29 +93,33 @@ class DetectorMixin:
     """
     Check data quality and train
     """
+
     @staticmethod
     def _check_nan(df, **kwargs):
-        assert not bool(df.isnull().values.any()), \
-            "The input dataframe contains NaNs."
+        assert not bool(df.isnull().values.any()), "The input dataframe contains NaNs."
 
     @staticmethod
     def _check_column_names(df, **kwargs):
         for col in df.columns:
-            assert isinstance(col, str), \
-                f"The column name must be a string instead of {type(col)}."
+            assert isinstance(col, str), f"The column name must be a string instead of {type(col)}."
             assert " " not in col, f"The column name cannot contains a SPACE: {col}."
             assert "#" not in col, f"The column name cannot contains #: {col}."
 
     @staticmethod
     def _check_length(df, min_length=3000, **kwargs):
-        assert len(df) >= min_length, \
-            f"The number of data points is less than {min_length}."
+        assert len(df) >= min_length, f"The number of data points is less than {min_length}."
 
     @staticmethod
     def _check_data_type(df, **kwargs):
         for t in df.dtypes:
-            assert t in [np.int, np.int32, np.int64, np.float, np.float32, np.float64], \
-                f"The data type {t} is not int or float."
+            assert t in [
+                np.int,
+                np.int32,
+                np.int64,
+                np.float,
+                np.float32,
+                np.float64,
+            ], f"The data type {t} is not int or float."
 
     def check_data_and_train(self, df, **kwargs):
         """
@@ -131,6 +141,7 @@ class DetectionResults:
     """
     The class for storing anomaly detection results.
     """
+
     anomalous_metrics: list = field(default_factory=lambda: [])
     anomaly_timestamps: dict = field(default_factory=lambda: {})
     anomaly_labels: dict = field(default_factory=lambda: {})
@@ -151,12 +162,8 @@ class DetectionResults:
         :return: The merged ``DetectionResults`` object.
         """
         res = DetectionResults()
-        res.anomalous_metrics = list(itertools.chain(
-            *[r.anomalous_metrics for r in results]))
-        res.anomaly_timestamps = dict(itertools.chain(
-            *[r.anomaly_timestamps.items() for r in results]))
-        res.anomaly_labels = dict(itertools.chain(
-            *[r.anomaly_labels.items() for r in results]))
-        res.anomaly_info = dict(itertools.chain(
-            *[r.anomaly_info.items() for r in results]))
+        res.anomalous_metrics = list(itertools.chain(*[r.anomalous_metrics for r in results]))
+        res.anomaly_timestamps = dict(itertools.chain(*[r.anomaly_timestamps.items() for r in results]))
+        res.anomaly_labels = dict(itertools.chain(*[r.anomaly_labels.items() for r in results]))
+        res.anomaly_info = dict(itertools.chain(*[r.anomaly_info.items() for r in results]))
         return res

@@ -1,3 +1,8 @@
+#
+# Copyright (c) 2023 salesforce.com, inc.
+# All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 """
 The base class for causal discovery methods.
 """
@@ -23,13 +28,13 @@ class CausalModelConfig(BaseConfig):
     :param run_pdag2dag: Whether to convert a partial DAG to a DAG.
     :param max_num_points: The maximum number of data points in causal discovery.
     """
+
     domain_knowledge_file: str = None
     run_pdag2dag: bool = True
     max_num_points: int = 5000000
 
 
 class CausalModel(BaseModel):
-
     @staticmethod
     def initialize():
         pass
@@ -39,45 +44,28 @@ class CausalModel(BaseModel):
         pass
 
     @abstractmethod
-    def _train(
-            self,
-            df: pd.DataFrame,
-            forbids: List,
-            requires: List,
-            **kwargs
-    ):
+    def _train(self, df: pd.DataFrame, forbids: List, requires: List, **kwargs):
         raise NotImplementedError
 
-    def train(
-            self,
-            df: pd.DataFrame,
-            **kwargs
-    ) -> pd.DataFrame:
+    def train(self, df: pd.DataFrame, **kwargs) -> pd.DataFrame:
         """
         Builds the causal graph given the training dataset.
 
         :param df: The training dataset.
         :return: The adjacency matrix.
         """
-        df = df.iloc[:self.config.max_num_points] \
-            if self.config.max_num_points is not None else df
+        df = df.iloc[: self.config.max_num_points] if self.config.max_num_points is not None else df
         parser = DomainParser(self.config.domain_knowledge_file)
 
         adjacency_df = self._train(
-            df=df,
-            forbids=parser.get_forbid_links(df.columns),
-            requires=parser.get_require_links(),
-            **kwargs
+            df=df, forbids=parser.get_forbid_links(df.columns), requires=parser.get_require_links(), **kwargs
         )
         var_names = adjacency_df.columns
         if self.config.run_pdag2dag:
             dag, flag = CausalModel.pdag2dag(adjacency_df.values)
             if flag is False:
                 raise RuntimeError("Orientation of the undirected edges failed.")
-            adjacency_df = pd.DataFrame(
-                {var_names[i]: dag[:, i] for i in range(len(var_names))},
-                index=var_names
-            )
+            adjacency_df = pd.DataFrame({var_names[i]: dag[:, i] for i in range(len(var_names))}, index=var_names)
         return adjacency_df
 
     @staticmethod
@@ -131,10 +119,7 @@ class CausalModel(BaseModel):
             return r, True
 
     @staticmethod
-    def check_cycles(
-            adjacency_df: pd.DataFrame,
-            direct_only: bool = False
-    ) -> List:
+    def check_cycles(adjacency_df: pd.DataFrame, direct_only: bool = False) -> List:
         """
         Checks if the generated causal graph has cycles.
 
@@ -170,8 +155,7 @@ class CausalModel(BaseModel):
         """
         var_names = adjacency_df.columns
         graph = adjacency_df.values
-        parents = {name: [var_names[j] for j, v in enumerate(graph[:, i]) if v > 0]
-                   for i, name in enumerate(var_names)}
+        parents = {name: [var_names[j] for j, v in enumerate(graph[:, i]) if v > 0] for i, name in enumerate(var_names)}
         return parents
 
     @staticmethod
@@ -184,16 +168,13 @@ class CausalModel(BaseModel):
         """
         var_names = adjacency_df.columns
         graph = adjacency_df.values
-        children = {name: [var_names[j] for j, v in enumerate(graph[i, :]) if v > 0]
-                    for i, name in enumerate(var_names)}
+        children = {
+            name: [var_names[j] for j, v in enumerate(graph[i, :]) if v > 0] for i, name in enumerate(var_names)
+        }
         return children
 
     @staticmethod
-    def dump_to_tetrad_json(
-            adjacency_df: pd.DataFrame,
-            output_dir: str,
-            filename: str = "graph.json"
-    ):
+    def dump_to_tetrad_json(adjacency_df: pd.DataFrame, output_dir: str, filename: str = "graph.json"):
         """
         Dumps the graph into a Tetrad format.
 
@@ -225,9 +206,7 @@ class CausalModel(BaseModel):
             "namesHash": {},
             "pattern": False,
             "pag": False,
-            "attributes": {
-                "BIC": 0.0
-            }
+            "attributes": {"BIC": 0.0},
         }
         for node in var_names:
             r = {
@@ -236,7 +215,7 @@ class CausalModel(BaseModel):
                 "centerX": 100,
                 "centerY": 100,
                 "attributes": {},
-                "name": node
+                "name": node,
             }
             graph["nodes"].append(r)
             graph["namesHash"][node] = r
@@ -251,7 +230,7 @@ class CausalModel(BaseModel):
                     "centerX": 100,
                     "centerY": 100,
                     "attributes": {},
-                    "name": a
+                    "name": a,
                 },
                 "node2": {
                     "nodeType": {"ordinal": 0},
@@ -259,13 +238,13 @@ class CausalModel(BaseModel):
                     "centerX": 100,
                     "centerY": 100,
                     "attributes": {},
-                    "name": b
+                    "name": b,
                 },
                 "endpoint1": {"ordinal": 0},
                 "endpoint2": {"ordinal": e},
                 "bold": False,
                 "properties": [],
-                "edgeTypeProbabilities": []
+                "edgeTypeProbabilities": [],
             }
             graph["edgesSet"].append(r)
             graph["edgeLists"][a].append(r)
@@ -299,10 +278,7 @@ class CausalModel(BaseModel):
             if endpoint2 == 0:
                 mat[name_to_index[b]][name_to_index[a]] = 1
 
-        return pd.DataFrame(
-            {var_names[i]: mat[:, i] for i in range(len(var_names))},
-            index=var_names
-        )
+        return pd.DataFrame({var_names[i]: mat[:, i] for i in range(len(var_names))}, index=var_names)
 
     @staticmethod
     def plot_causal_graph_networkx(adjacency_df):
@@ -319,7 +295,7 @@ class CausalModel(BaseModel):
         for x in sorted(nx.simple_cycles(graph)):
             flag = True
             for i in range(1, len(x)):
-                a, b = node2idx[x[i-1]], node2idx[x[i]]
+                a, b = node2idx[x[i - 1]], node2idx[x[i]]
                 if adjacency_mat[a][b] == 1 and adjacency_mat[b][a] == 1:
                     flag = False
                     break
@@ -331,9 +307,9 @@ class CausalModel(BaseModel):
         nx.draw_networkx_edges(
             graph,
             pos,
-            arrowstyle='->',
+            arrowstyle="->",
             arrowsize=15,
-            edge_color='c',
+            edge_color="c",
             width=1.5,
         )
         nx.draw_networkx_labels(graph, pos, labels={c: c for c in adjacency_df.columns})

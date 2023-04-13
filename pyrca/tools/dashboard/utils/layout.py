@@ -1,26 +1,21 @@
 #
-# Copyright (c) 2022 salesforce.com, inc.
+# Copyright (c) 2023 salesforce.com, inc.
 # All rights reserved.
 # SPDX-License-Identifier: BSD-3-Clause
-# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
-#
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 from dash import dcc
 from dash import html
 
 
-tab_style = {
-    'borderBottom': '1px solid #d6d6d6',
-    'padding': '6px',
-    'fontWeight': 'bold'
-}
+tab_style = {"borderBottom": "1px solid #d6d6d6", "padding": "6px", "fontWeight": "bold"}
 
 tab_selected_style = {
-    'borderTop': '1px solid #d6d6d6',
-    'borderBottom': '1px solid #d6d6d6',
-    'backgroundColor': '#119DFF',
-    'color': 'white',
-    'padding': '6px',
-    'fontWeight': 'bold'
+    "borderTop": "1px solid #d6d6d6",
+    "borderBottom": "1px solid #d6d6d6",
+    "backgroundColor": "#119DFF",
+    "color": "white",
+    "padding": "6px",
+    "fontWeight": "bold",
 }
 
 
@@ -28,8 +23,7 @@ def create_banner(app):
     return html.Div(
         id="banner",
         className="banner",
-        children=[html.Img(src=app.get_asset_url("logo.png")),
-                  html.Plaintext("  Powered by Salesforce AI Research")],
+        children=[html.Img(src=app.get_asset_url("logo.png")), html.Plaintext("  Powered by Salesforce AI Research")],
     )
 
 
@@ -37,26 +31,17 @@ def create_layout() -> html.Div:
     children, values = [], []
     # Data analysis tab
     children.append(
-        dcc.Tab(label="Data Analysis", value="file-manager",
-                style=tab_style, selected_style=tab_selected_style)
+        dcc.Tab(label="Data Analysis", value="file-manager", style=tab_style, selected_style=tab_selected_style)
     )
     values.append("file-manager")
     # Causal graph tab
     children.append(
-        dcc.Tab(label="Causal Discovery", value="causal-graph",
-                style=tab_style, selected_style=tab_selected_style)
+        dcc.Tab(label="Causal Discovery", value="causal-graph", style=tab_style, selected_style=tab_selected_style)
     )
     values.append("causal-graph")
 
     layout = html.Div(
         id="app-content",
-        children=[
-            dcc.Tabs(
-                id="tabs",
-                value=values[0] if values else "none",
-                children=children
-            ),
-            html.Div(id="plots")
-        ],
+        children=[dcc.Tabs(id="tabs", value=values[0] if values else "none", children=children), html.Div(id="plots")],
     )
     return layout

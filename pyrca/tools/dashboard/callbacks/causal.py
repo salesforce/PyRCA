@@ -1,19 +1,21 @@
 #
-# Copyright (c) 2022 salesforce.com, inc.
+# Copyright (c) 2023 salesforce.com, inc.
 # All rights reserved.
 # SPDX-License-Identifier: BSD-3-Clause
-# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
-#
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 import os
 import json
 import dash
-from dash import html, Input, Output, State, \
-    callback, no_update, dcc
+from dash import html, Input, Output, State, callback, no_update, dcc
 from ..utils.file_manager import FileManager
 from ..pages.utils import create_param_table
-from ..pages.causal import create_graph_figure, \
-    create_causal_relation_table, create_cycle_table, \
-    create_root_leaf_table, create_link_table
+from ..pages.causal import (
+    create_graph_figure,
+    create_causal_relation_table,
+    create_cycle_table,
+    create_root_leaf_table,
+    create_link_table,
+)
 from ..models.causal import CausalDiscovery
 
 file_manager = FileManager()
@@ -23,10 +25,7 @@ causal_method = CausalDiscovery(folder=file_manager.data_directory)
 @callback(
     Output("causal-select-file", "options"),
     Output("select-domain", "options"),
-    [
-        Input("causal-upload-data", "filename"),
-        Input("causal-upload-data", "contents")
-    ],
+    [Input("causal-upload-data", "filename"), Input("causal-upload-data", "contents")],
 )
 def upload_file(filenames, contents):
     if filenames is not None and contents is not None:
@@ -42,10 +41,7 @@ def upload_file(filenames, contents):
     return file_options, domain_options
 
 
-@callback(
-    Output("select-causal-method", "options"),
-    Input("select-causal-method-parent", "n_clicks")
-)
+@callback(Output("select-causal-method", "options"), Input("select-causal-method-parent", "n_clicks"))
 def update_method_dropdown(n_clicks):
     options = []
     ctx = dash.callback_context
@@ -56,10 +52,7 @@ def update_method_dropdown(n_clicks):
     return options
 
 
-@callback(
-    Output("causal-param-table", "children"),
-    Input("select-causal-method", "value")
-)
+@callback(Output("causal-param-table", "children"), Input("select-causal-method", "value"))
 def select_algorithm(algorithm):
     param_table = create_param_table(height=80)
     ctx = dash.callback_context
@@ -113,12 +106,7 @@ def _dump_results(output_folder, graph_df, root_leaf_table, link_table):
                 forbids.append([p["Node A"], p["Node B"]])
 
     domain_knowledge = {
-        "causal-graph": {
-            "root-nodes": roots,
-            "leaf-nodes": leaves,
-            "forbids": forbids,
-            "requires": requires
-        }
+        "causal-graph": {"root-nodes": roots, "leaf-nodes": leaves, "forbids": forbids, "requires": requires}
     }
     causal_method.dump_results(output_folder, graph_df, domain_knowledge)
 
@@ -132,7 +120,7 @@ def _dump_results(output_folder, graph_df, root_leaf_table, link_table):
         Input("causal-run-btn", "n_clicks"),
         Input("causal-exception-modal-close", "n_clicks"),
         Input("upload-graph", "filename"),
-        Input("upload-graph", "contents")
+        Input("upload-graph", "contents"),
     ],
     [
         State("causal-select-file", "value"),
@@ -142,7 +130,7 @@ def _dump_results(output_folder, graph_df, root_leaf_table, link_table):
         State("causal-data-state", "data"),
         State("cytoscape", "elements"),
         State("root-leaf-table", "children"),
-        State("link-table", "children")
+        State("link-table", "children"),
     ],
     running=[
         (Output("causal-run-btn", "disabled"), True, False),
@@ -151,29 +139,27 @@ def _dump_results(output_folder, graph_df, root_leaf_table, link_table):
     cancel=[Input("causal-cancel-btn", "n_clicks")],
     background=True,
     manager=file_manager.get_long_callback_manager(),
-    prevent_initial_call=True
+    prevent_initial_call=True,
 )
 def click_train_test(
-        run_clicks,
-        modal_close,
-        upload_graph_file,
-        upload_graph_content,
-        filename,
-        algorithm,
-        param_table,
-        causal_state,
-        data_state,
-        cyto_elements,
-        root_leaf_table,
-        link_table
+    run_clicks,
+    modal_close,
+    upload_graph_file,
+    upload_graph_content,
+    filename,
+    algorithm,
+    param_table,
+    causal_state,
+    data_state,
+    cyto_elements,
+    root_leaf_table,
+    link_table,
 ):
     ctx = dash.callback_context
     modal_is_open = False
     modal_content = ""
-    state = json.loads(causal_state) \
-        if causal_state is not None else {}
-    data_state = json.loads(data_state) \
-        if data_state is not None else {}
+    state = json.loads(causal_state) if causal_state is not None else {}
+    data_state = json.loads(data_state) if data_state is not None else {}
 
     def _update_states(graph, graph_df, relations):
         causal_levels, cycles = causal_method.causal_order(graph_df)
@@ -239,37 +225,29 @@ def hover_graph_node(data):
     Output("causal-relationship-table", "children"),
     Output("causal-cycle-table", "children"),
     Input("causal-state", "data"),
-    prevent_initial_call=True
+    prevent_initial_call=True,
 )
 def update_view(data):
-    state = json.loads(data) \
-        if data is not None else {}
+    state = json.loads(data) if data is not None else {}
     graph = state.get("graph", [])
     positions = state.get("positions", {})
 
     if state.get("cycles", None) is not None:
-        cycle_table = html.Div(children=[
-            html.B("Cyclic Paths"),
-            html.Hr(),
-            create_cycle_table(state["cycles"])
-        ])
+        cycle_table = html.Div(children=[html.B("Cyclic Paths"), html.Hr(), create_cycle_table(state["cycles"])])
     else:
         cycle_table = None
 
     for element in graph:
         if "position" in element:
-            element["position"] = \
-                positions.get(element["data"]["id"], element["position"])
+            element["position"] = positions.get(element["data"]["id"], element["position"])
 
-    return graph, \
-        create_causal_relation_table(state.get("relations", None)), \
-        cycle_table
+    return graph, create_causal_relation_table(state.get("relations", None)), cycle_table
 
 
 @callback(
     Output("add-root-leaf-node", "options"),
     Input("add-root-leaf-node-parent", "n_clicks"),
-    State("causal-data-state", "data")
+    State("causal-data-state", "data"),
 )
 def update_root_leaf_dropdown(n_clicks, data_state):
     options = []
@@ -281,11 +259,7 @@ def update_root_leaf_dropdown(n_clicks, data_state):
     return options
 
 
-@callback(
-    Output("add-node-A", "options"),
-    Input("add-node-A-parent", "n_clicks"),
-    State("causal-data-state", "data")
-)
+@callback(Output("add-node-A", "options"), Input("add-node-A-parent", "n_clicks"), State("causal-data-state", "data"))
 def update_node_a_dropdown(n_clicks, data_state):
     options = []
     ctx = dash.callback_context
@@ -296,11 +270,7 @@ def update_node_a_dropdown(n_clicks, data_state):
     return options
 
 
-@callback(
-    Output("add-node-B", "options"),
-    Input("add-node-B-parent", "n_clicks"),
-    State("causal-data-state", "data")
-)
+@callback(Output("add-node-B", "options"), Input("add-node-B-parent", "n_clicks"), State("causal-data-state", "data"))
 def update_node_b_dropdown(n_clicks, data_state):
     options = []
     ctx = dash.callback_context
@@ -316,11 +286,7 @@ def update_node_b_dropdown(n_clicks, data_state):
     Input("select-domain", "value"),
     Input("add-root-leaf-btn", "n_clicks"),
     Input("delete-root-leaf-btn", "n_clicks"),
-    [
-        State("add-root-leaf-node", "value"),
-        State("root-leaf-check", "value"),
-        State("root-leaf-table", "children")
-    ]
+    [State("add-root-leaf-node", "value"), State("root-leaf-check", "value"), State("root-leaf-table", "children")],
 )
 def add_delete_root_leaf_node(domain_file, add_click, delete_click, metric, is_root, table):
     ctx = dash.callback_context
@@ -359,8 +325,8 @@ def add_delete_root_leaf_node(domain_file, add_click, delete_click, metric, is_r
         State("add-node-A", "value"),
         State("add-node-B", "value"),
         State("link_radio_button", "value"),
-        State("link-table", "children")
-    ]
+        State("link-table", "children"),
+    ],
 )
 def add_link(domain_file, add_click, delete_click, node_a, node_b, link_type, table):
     ctx = dash.callback_context
@@ -368,8 +334,7 @@ def add_link(domain_file, add_click, delete_click, node_a, node_b, link_type, ta
     if table is not None:
         if isinstance(table, list):
             table = table[0]
-        links = {(p["Node A"], p["Node B"]): p["Type"]
-                 for p in table["props"]["data"] if p["Node A"]}
+        links = {(p["Node A"], p["Node B"]): p["Type"] for p in table["props"]["data"] if p["Node A"]}
 
     if ctx.triggered:
         prop_id = ctx.triggered_id
@@ -395,11 +360,8 @@ def add_link(domain_file, add_click, delete_click, node_a, node_b, link_type, ta
     Output("download-data", "data"),
     Output("data-download-exception-modal", "is_open"),
     Output("data-download-exception-modal-content", "children"),
-    [
-        Input("causal-download-btn", "n_clicks"),
-        Input("data-download-exception-modal-close", "n_clicks")
-    ],
-    State("causal-select-file", "value")
+    [Input("causal-download-btn", "n_clicks"), Input("data-download-exception-modal-close", "n_clicks")],
+    State("causal-select-file", "value"),
 )
 def download(btn_click, modal_close, filename):
     ctx = dash.callback_context
@@ -411,8 +373,7 @@ def download(btn_click, modal_close, filename):
         prop_id = ctx.triggered_id
         if prop_id == "causal-download-btn" and btn_click > 0:
             try:
-                assert filename, "Please select the dataset name " \
-                                 "to download the generated causal graph."
+                assert filename, "Please select the dataset name " "to download the generated causal graph."
                 name = filename.split(".")[0]
                 path = file_manager.get_model_download_path(name)
                 data = dcc.send_file(path)

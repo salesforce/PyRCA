@@ -1,13 +1,12 @@
+#
+# Copyright (c) 2023 salesforce.com, inc.
+# All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 from setuptools import setup, find_namespace_packages
 
 extras_require = {
-    "plot": [
-        "plotly>=4",
-        "dash>=2.0",
-        "dash_bootstrap_components>=1.0",
-        "jupyter-dash>=0.4",
-        "dash[diskcache]"
-    ]
+    "plot": ["plotly>=4", "dash>=2.0", "dash_bootstrap_components>=1.0", "jupyter-dash>=0.4", "dash[diskcache]"]
 }
 extras_require["all"] = sum(extras_require.values(), [])
 
@@ -37,7 +36,7 @@ setup(
         "tqdm",
         "wheel",
         "packaging",
-        "javabridge>=1.0.11"
+        "javabridge>=1.0.11",
     ],
     extras_require=extras_require,
     python_requires=">=3.7,<4",

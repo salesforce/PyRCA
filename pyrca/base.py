@@ -1,3 +1,8 @@
+#
+# Copyright (c) 2023 salesforce.com, inc.
+# All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 """
 Base class for all Models.
 """
@@ -45,8 +50,7 @@ class BaseConfig(metaclass=AutodocABCMeta):
         """
         config = cls()
         for key, value in d.items():
-            assert key in config.__dict__, \
-                f"Class {cls.__name__} has no field named {key}."
+            assert key in config.__dict__, f"Class {cls.__name__} has no field named {key}."
             setattr(config, key, value)
         return config
 
@@ -104,12 +108,7 @@ class BaseModel(metaclass=AutodocABCMeta):
         for name, value in state.items():
             setattr(self, name, value)
 
-    def save(
-            self,
-            directory: str,
-            filename: str = None,
-            **kwargs
-    ):
+    def save(self, directory: str, filename: str = None, **kwargs):
         """
         Saves the initialized model.
 
@@ -127,12 +126,7 @@ class BaseModel(metaclass=AutodocABCMeta):
             dill.dump(state, f)
 
     @classmethod
-    def load(
-            cls,
-            directory: str,
-            filename: str = None,
-            **kwargs
-    ):
+    def load(cls, directory: str, filename: str = None, **kwargs):
         """
         Loads the dumped model.
 

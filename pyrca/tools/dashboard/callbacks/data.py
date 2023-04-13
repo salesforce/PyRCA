@@ -1,9 +1,8 @@
 #
-# Copyright (c) 2022 salesforce.com, inc.
+# Copyright (c) 2023 salesforce.com, inc.
 # All rights reserved.
 # SPDX-License-Identifier: BSD-3-Clause
-# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
-#
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 import json
 import dash
 from dash import Input, Output, State, callback
@@ -18,10 +17,7 @@ data_analyzer = DataAnalyzer(folder=file_manager.data_directory)
 @callback(
     Output("select-file", "options"),
     Output("select-file", "value"),
-    [
-        Input("upload-data", "filename"),
-        Input("upload-data", "contents")
-    ],
+    [Input("upload-data", "filename"), Input("upload-data", "contents")],
 )
 def upload_file(filenames, contents):
     name = None
@@ -46,7 +42,7 @@ def upload_file(filenames, contents):
         Input("data-btn", "n_clicks"),
         Input("thres-btn", "n_clicks"),
         Input("manual-btn", "n_clicks"),
-        Input("data-exception-modal-close", "n_clicks")
+        Input("data-exception-modal-close", "n_clicks"),
     ],
     [
         State("select-file", "value"),
@@ -54,20 +50,11 @@ def upload_file(filenames, contents):
         State("sigma", "value"),
         State("lower_bound", "value"),
         State("upper_bound", "value"),
-        State("data-state", "data")
-    ]
+        State("data-state", "data"),
+    ],
 )
 def click_run(
-        btn_click,
-        thres_click,
-        manual_click,
-        modal_close,
-        file_name,
-        thres_column,
-        sigma,
-        lower_bound,
-        upper_bound,
-        data
+    btn_click, thres_click, manual_click, modal_close, file_name, thres_column, sigma, lower_bound, upper_bound, data
 ):
     ctx = dash.callback_context
     stats = json.loads(data) if data is not None else {}
@@ -90,35 +77,21 @@ def click_run(
                 data_figure = DataAnalyzer.get_data_figure(df)
 
             elif prop_id == "thres-btn" and thres_click > 0:
-                data_figure = data_analyzer.estimate_threshold(
-                    column=thres_column,
-                    sigma=float(sigma)
-                )
+                data_figure = data_analyzer.estimate_threshold(column=thres_column, sigma=float(sigma))
 
             elif prop_id == "manual-btn" and manual_click > 0:
                 data_figure = data_analyzer.manual_threshold(
-                    column=thres_column,
-                    lower=float(lower_bound),
-                    upper=float(upper_bound)
+                    column=thres_column, lower=float(lower_bound), upper=float(upper_bound)
                 )
 
     except Exception as error:
         modal_is_open = True
         modal_content = str(error)
 
-    return stats_table, \
-           json.dumps(stats), \
-           data_table, \
-           data_figure, \
-           modal_is_open, \
-           modal_content
+    return stats_table, json.dumps(stats), data_table, data_figure, modal_is_open, modal_content
 
 
-@callback(
-    Output("select-column", "options"),
-    Input("select-column-parent", "n_clicks"),
-    State("data-state", "data")
-)
+@callback(Output("select-column", "options"), Input("select-column-parent", "n_clicks"), State("data-state", "data"))
 def update_metric_dropdown(n_clicks, data):
     options = []
     ctx = dash.callback_context
@@ -130,11 +103,7 @@ def update_metric_dropdown(n_clicks, data):
     return options
 
 
-@callback(
-    Output("metric-stats-table", "children"),
-    Input("select-column", "value"),
-    State("data-state", "data")
-)
+@callback(Output("metric-stats-table", "children"), Input("select-column", "value"), State("data-state", "data"))
 def update_metric_table(column, data):
     ctx = dash.callback_context
     metric_stats_table = create_metric_stats_table()
@@ -150,7 +119,7 @@ def update_metric_table(column, data):
 @callback(
     Output("select-thres-column", "options"),
     Input("select-thres-column-parent", "n_clicks"),
-    State("data-state", "data")
+    State("data-state", "data"),
 )
 def update_thres_dropdown(n_clicks, data):
     options = []
@@ -166,7 +135,7 @@ def update_thres_dropdown(n_clicks, data):
 @callback(
     Output("select-manual-column", "options"),
     Input("select-manual-column-parent", "n_clicks"),
-    State("data-state", "data")
+    State("data-state", "data"),
 )
 def update_manual_dropdown(n_clicks, data):
     options = []

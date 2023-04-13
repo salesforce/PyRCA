@@ -1,3 +1,8 @@
+#
+# Copyright (c) 2023 salesforce.com, inc.
+# All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 """
 The Phi-PC algorithm
 """
@@ -14,6 +19,7 @@ from pyrca.thirdparty.causallearn.utils.cit import chisq
 from pyrca.thirdparty.causallearn.utils.cit import CIT
 from pyrca.thirdparty.rcd import rcd
 
+
 @dataclass
 class PsiPCConfig(BaseConfig):
     """
@@ -29,6 +35,7 @@ class PsiPCConfig(BaseConfig):
     :param f_node: name of anomaly variable.
     :param verbose: True iff verbose output should be printed. Default: False.
     """
+
     start_alpha: float = 0.01
     alpha_step: float = 0.1
     alpha_limit: float = 1
@@ -36,7 +43,7 @@ class PsiPCConfig(BaseConfig):
     gamma: int = 5
     bins: int = 5
     k: int = None
-    f_node: str = 'F-node'
+    f_node: str = "F-node"
     verbose: bool = False
     ci_test: CIT = chisq
 
@@ -47,6 +54,7 @@ class PsiPC(BaseRCA):
 
     Root Cause Analysis of Failures in Microservices through Causal Discovery
     """
+
     config_class = PsiPCConfig
 
     def __init__(self, config: PsiPCConfig):
@@ -59,18 +67,11 @@ class PsiPC(BaseRCA):
         """
         pass
 
-    def find_root_causes(
-            self,
-            normal_df: pd.DataFrame,
-            abnormal_df: pd.DataFrame,
-            **kwargs
-    ):
+    def find_root_causes(self, normal_df: pd.DataFrame, abnormal_df: pd.DataFrame, **kwargs):
         """
         Finds the root causes given the abnormal dataset.
         :return: A list of the found root causes.
         """
         result, _ = rcd.run_multi_phase(normal_df, abnormal_df, self.config.to_dict())
-        root_cause_nodes =[(key, None) for key in result[:self.config.k]]
-        return RCAResults(
-            root_cause_nodes=root_cause_nodes)
-
+        root_cause_nodes = [(key, None) for key in result[: self.config.k]]
+        return RCAResults(root_cause_nodes=root_cause_nodes)

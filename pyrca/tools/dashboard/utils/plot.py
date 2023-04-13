@@ -1,3 +1,8 @@
+#
+# Copyright (c) 2023 salesforce.com, inc.
+# All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 import plotly
 import plotly.graph_objects as go
 import pandas as pd
@@ -9,8 +14,7 @@ from ..settings import *
 def data_table(df, n=1000, page_size=10):
     if df is not None:
         df = df.head(n)
-        columns = [{"name": "Index", "id": "Index"}] + \
-                  [{"name": c, "id": c} for c in df.columns]
+        columns = [{"name": "Index", "id": "Index"}] + [{"name": c, "id": c} for c in df.columns]
         data = []
         for i in range(df.shape[0]):
             d = {c: v for c, v in zip(df.columns, df.values[i])}
@@ -29,7 +33,7 @@ def data_table(df, n=1000, page_size=10):
             page_size=page_size,
             page_current=0,
             style_header=dict(backgroundColor=TABLE_HEADER_COLOR),
-            style_data=dict(backgroundColor=TABLE_DATA_COLOR)
+            style_data=dict(backgroundColor=TABLE_DATA_COLOR),
         )
         return table
     else:
@@ -46,13 +50,9 @@ def plot_timeseries(ts, figure_height=750):
         for i in range(ts.shape[1]):
             v = ts[[ts.columns[i]]]
             color = color_list[index % len(color_list)]
-            traces.append(go.Scatter(
-                name=ts.columns[i],
-                x=v.index,
-                y=v.values.flatten(),
-                mode="lines",
-                line=dict(color=color)
-            ))
+            traces.append(
+                go.Scatter(name=ts.columns[i], x=v.index, y=v.values.flatten(), mode="lines", line=dict(color=color))
+            )
             index += 1
 
     layout = dict(
@@ -70,7 +70,7 @@ def plot_timeseries(ts, figure_height=750):
                         dict(step="all"),
                     ]
                 )
-            )
+            ),
         ),
     )
     fig = make_subplots(figure=go.Figure(layout=layout))

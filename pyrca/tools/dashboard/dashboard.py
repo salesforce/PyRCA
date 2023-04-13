@@ -1,9 +1,8 @@
 #
-# Copyright (c) 2022 salesforce.com, inc.
+# Copyright (c) 2023 salesforce.com, inc.
 # All rights reserved.
 # SPDX-License-Identifier: BSD-3-Clause
-# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
-#
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 import dash
 import dash_bootstrap_components as dbc
 from dash import dcc
@@ -25,28 +24,23 @@ app = dash.Dash(
     title="PyRCA Dashboard",
 )
 app.config["suppress_callback_exceptions"] = True
-app.layout = html.Div([
-    dcc.Location(id="url", refresh=False),
-    html.Div(id="page-content"),
-    dcc.Store(id="data-state"),
-    dcc.Store(id="causal-state"),
-    dcc.Store(id="causal-data-state")
-])
+app.layout = html.Div(
+    [
+        dcc.Location(id="url", refresh=False),
+        html.Div(id="page-content"),
+        dcc.Store(id="data-state"),
+        dcc.Store(id="causal-state"),
+        dcc.Store(id="causal-data-state"),
+    ]
+)
 server = app.server
 
 
-@app.callback(
-    Output("page-content", "children"),
-    [Input("url", "pathname")]
-)
+@app.callback(Output("page-content", "children"), [Input("url", "pathname")])
 def _display_page(pathname):
     return html.Div(
         id="app-container",
-        children=[
-            create_banner(app),
-            html.Br(),
-            create_layout()
-        ],
+        children=[create_banner(app), html.Br(), create_layout()],
     )
 
 

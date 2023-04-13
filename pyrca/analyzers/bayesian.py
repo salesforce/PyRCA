@@ -1,3 +1,8 @@
+#
+# Copyright (c) 2023 salesforce.com, inc.
+# All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 """
 The RCA method based on Bayesian inference.
 """
@@ -40,6 +45,7 @@ class BayesianNetworkConfig(BaseConfig):
     :param infer_method: Use "posterior" or "likelihood" when doing Bayesian inference.
     :param root_cause_top_k: The maximum number of root causes in the results.
     """
+
     graph: Union[pd.DataFrame, str] = None
     default_sigma: float = 4.0
     thres_win_size: int = 5
@@ -53,6 +59,7 @@ class BayesianNetwork(BaseRCA):
     """
     The RCA method based on Bayesian inference.
     """
+
     config_class = BayesianNetworkConfig
 
     def __init__(self, config: BayesianNetworkConfig):
@@ -65,9 +72,7 @@ class BayesianNetwork(BaseRCA):
                 with open(config.graph, "rb") as f:
                     self.graph = pickle.load(f)
             else:
-                raise RuntimeError(
-                    "The graph file format is not supported, "
-                    "please choose a csv or pickle file.")
+                raise RuntimeError("The graph file format is not supported, " "please choose a csv or pickle file.")
         else:
             self.graph = config.graph
         self.bayesian_model = self._build_bayesian_network(self.graph)
@@ -87,12 +92,7 @@ class BayesianNetwork(BaseRCA):
             return BayesianModel(ebunch=edges)
         return None
 
-    def train(
-            self,
-            dfs: Union[pd.DataFrame, List[pd.DataFrame]],
-            detector: BaseModel = None,
-            **kwargs
-    ):
+    def train(self, dfs: Union[pd.DataFrame, List[pd.DataFrame]], detector: BaseModel = None, **kwargs):
         """
         Estimates Bayesian network parameters given the training time series.
 
@@ -106,8 +106,7 @@ class BayesianNetwork(BaseRCA):
             dfs = [dfs]
 
         if detector is None:
-            sigmas = {} if self.config.sigmas is None else \
-                self.config.sigmas
+            sigmas = {} if self.config.sigmas is None else self.config.sigmas
             all_scores = []
             for df in dfs:
                 lowers, uppers = estimate_thresholds(
@@ -115,7 +114,7 @@ class BayesianNetwork(BaseRCA):
                     sigmas=sigmas,
                     default_sigma=self.config.default_sigma,
                     win_size=self.config.thres_win_size,
-                    reduce=self.config.thres_reduce_func
+                    reduce=self.config.thres_reduce_func,
                 )
                 scores = (df.values > uppers).astype(int) + (df.values < lowers).astype(int)
                 all_scores.append(scores)
@@ -136,8 +135,7 @@ class BayesianNetwork(BaseRCA):
         # Set lower and upper bounds
         for node in self.bayesian_model.nodes():
             cpd = self.bayesian_model.get_cpds(node)
-            assert cpd.values.shape[0] == 2, \
-                f"The cardinality of the variable {cpd.variable} should be = 2."
+            assert cpd.values.shape[0] == 2, f"The cardinality of the variable {cpd.variable} should be = 2."
             cpd.values = np.clip(cpd.values, lower_bound, 1.0 - lower_bound)
 
         # Make sure that P(m=1|Sa) >= P(m=1|Sb) when Sa >= Sb
@@ -158,17 +156,19 @@ class BayesianNetwork(BaseRCA):
             values = cpd.values.reshape((2, -1))
             if values.shape[1] > 2:
                 num_vars, mem = len(cpd.variables) - 1, {}
-                _refine(2 ** num_vars - 1, values, num_vars, mem)
+                _refine(2**num_vars - 1, values, num_vars, mem)
                 new_values = np.zeros_like(values)
                 new_values[1, :] = [mem[k] for k in range(values.shape[1])]
                 new_values[0, :] = 1.0 - new_values[1, :]
-                self.bayesian_model.add_cpds(TabularCPD(
-                    variable=cpd.variable,
-                    variable_card=2,
-                    values=new_values,
-                    evidence=cpd.variables[1:],
-                    evidence_card=cpd.cardinality[1:]
-                ))
+                self.bayesian_model.add_cpds(
+                    TabularCPD(
+                        variable=cpd.variable,
+                        variable_card=2,
+                        values=new_values,
+                        evidence=cpd.variables[1:],
+                        evidence_card=cpd.cardinality[1:],
+                    )
+                )
 
     def _infer(self, variables, evidence):
         model_infer = VariableElimination(self.bayesian_model)
@@ -188,8 +188,9 @@ class BayesianNetwork(BaseRCA):
         :param root_cause_probs: [P(metric=0 | root=0), P(metric=0 | root=1)]
         :param root_prob: P(root=1)
         """
-        assert len(root_cause_probs), \
-            "root_cause_probs should contain two values: P(metric=0 | root=0), P(metric=0 | root=1)"
+        assert len(
+            root_cause_probs
+        ), "root_cause_probs should contain two values: P(metric=0 | root=0), P(metric=0 | root=1)"
         if metric_name not in self.bayesian_model.nodes():
             print(f"WARNING: Metric {metric_name} is not in the Bayesian network.")
             self.bayesian_model.add_node(metric_name)
@@ -197,28 +198,36 @@ class BayesianNetwork(BaseRCA):
             self.bayesian_model.add_node(root_cause_name)
             self.root_nodes.append(root_cause_name)
         self.bayesian_model.add_edge(root_cause_name, metric_name)
-        self.bayesian_model.add_cpds(TabularCPD(
-            variable=root_cause_name, variable_card=2, values=[[1 - root_prob], [root_prob]]
-        ))
+        self.bayesian_model.add_cpds(
+            TabularCPD(variable=root_cause_name, variable_card=2, values=[[1 - root_prob], [root_prob]])
+        )
 
         cpd = self.bayesian_model.get_cpds(metric_name)
         if cpd is None or cpd.values.size == 2:
-            self.bayesian_model.add_cpds(TabularCPD(
-                variable=metric_name, variable_card=2,
-                values=[root_cause_probs, [1 - root_cause_probs[0], 1 - root_cause_probs[1]]],
-                evidence=[root_cause_name], evidence_card=[2]
-            ))
+            self.bayesian_model.add_cpds(
+                TabularCPD(
+                    variable=metric_name,
+                    variable_card=2,
+                    values=[root_cause_probs, [1 - root_cause_probs[0], 1 - root_cause_probs[1]]],
+                    evidence=[root_cause_name],
+                    evidence_card=[2],
+                )
+            )
         else:
             v = cpd.values.reshape((2, -1))
             u = np.zeros(v.shape, dtype=float)
             u[0, :] = root_cause_probs[1]
             u[1, :] = 1 - root_cause_probs[1]
             evidence = [root_cause_name] + cpd.variables[1:]
-            self.bayesian_model.add_cpds(TabularCPD(
-                variable=metric_name, variable_card=2,
-                values=np.concatenate([v, u], axis=1),
-                evidence=evidence, evidence_card=[2] * len(evidence)
-            ))
+            self.bayesian_model.add_cpds(
+                TabularCPD(
+                    variable=metric_name,
+                    variable_card=2,
+                    values=np.concatenate([v, u], axis=1),
+                    evidence=evidence,
+                    evidence_card=[2] * len(evidence),
+                )
+            )
 
     def add_root_causes(self, root_causes: List):
         """
@@ -233,11 +242,9 @@ class BayesianNetwork(BaseRCA):
                 self._add_root_cause(
                     root_cause_name=r["name"],
                     metric_name=metric["name"],
-                    root_cause_probs=[
-                        metric.get("P(m=0|r=0)", 0.99),
-                        metric.get("P(m=0|r=1)", 0.01)
-                    ],
-                    root_prob=r["P(r=1)"])
+                    root_cause_probs=[metric.get("P(m=0|r=0)", 0.99), metric.get("P(m=0|r=1)", 0.01)],
+                    root_prob=r["P(r=1)"],
+                )
 
     def update_probability(self, target_node: str, parent_nodes: List, prob: float):
         """
@@ -288,7 +295,7 @@ class BayesianNetwork(BaseRCA):
 
         paths, flags = [], {}
         for path in all_paths:
-            p = '_'.join(path)
+            p = "_".join(path)
             if p not in flags:
                 paths.append(path)
                 flags[p] = True
@@ -318,8 +325,7 @@ class BayesianNetwork(BaseRCA):
         return score_paths
 
     def _argument_root_nodes(self):
-        existing_roots = [
-            str(node).replace("ROOT_", "") for node in self.root_nodes]
+        existing_roots = [str(node).replace("ROOT_", "") for node in self.root_nodes]
 
         nodes = []
         for i, values in enumerate(self.graph.values.T):
@@ -333,8 +339,9 @@ class BayesianNetwork(BaseRCA):
                 {
                     "name": f"ROOT_{node}",
                     "P(r=1)": 0.5,
-                    "metrics": [{"name": node, "P(m=0|r=0)": 0.99, "P(m=0|r=1)": 0.01}]
-                } for node in nodes
+                    "metrics": [{"name": node, "P(m=0|r=0)": 0.99, "P(m=0|r=1)": 0.01}],
+                }
+                for node in nodes
             ]
             self.add_root_causes(root_nodes)
 
@@ -353,11 +360,11 @@ class BayesianNetwork(BaseRCA):
         return paths
 
     def find_root_causes(
-            self,
-            anomalous_metrics: Union[List, Dict],
-            set_zero_path_score_for_normal_metrics: bool = False,
-            remove_zero_score_node_in_path: bool = True,
-            **kwargs
+        self,
+        anomalous_metrics: Union[List, Dict],
+        set_zero_path_score_for_normal_metrics: bool = False,
+        remove_zero_score_node_in_path: bool = True,
+        **kwargs,
     ) -> List:
         """
         Finds the root causes given the observed anomalous metrics.
@@ -372,11 +379,9 @@ class BayesianNetwork(BaseRCA):
         self._argument_root_nodes()
 
         if isinstance(anomalous_metrics, Dict):
-            evidence = {metric: v for metric, v in anomalous_metrics.items()
-                        if metric in self.bayesian_model.nodes()}
+            evidence = {metric: v for metric, v in anomalous_metrics.items() if metric in self.bayesian_model.nodes()}
         else:
-            evidence = {metric: 1 for metric in anomalous_metrics
-                        if metric in self.bayesian_model.nodes()}
+            evidence = {metric: 1 for metric in anomalous_metrics if metric in self.bayesian_model.nodes()}
 
         # Pick the paths which contain anomalous node
         valid_paths = {}
@@ -410,8 +415,9 @@ class BayesianNetwork(BaseRCA):
         for root, score in root_scores:
             res = {"root_cause": root, "score": score, "paths": []}
             paths = valid_paths[root]
-            res["paths"] = self._get_path_root_cause_scores(
-                paths, evidence, node_scores)[:self.config.root_cause_top_k]
+            res["paths"] = self._get_path_root_cause_scores(paths, evidence, node_scores)[
+                : self.config.root_cause_top_k
+            ]
             results.append(res)
         results = sorted(results, key=lambda r: (r["score"], r["paths"][0][0]), reverse=True)
 
@@ -420,9 +426,7 @@ class BayesianNetwork(BaseRCA):
         for entry in results:
             root_cause_nodes.append((entry["root_cause"], entry["score"]))
             root_cause_paths[entry["root_cause"]] = entry["paths"]
-        return RCAResults(
-            root_cause_nodes=root_cause_nodes,
-            root_cause_paths=root_cause_paths)
+        return RCAResults(root_cause_nodes=root_cause_nodes, root_cause_paths=root_cause_paths)
 
     def save(self, directory, filename="bn", **kwargs):
         writer = BIFWriter(self.bayesian_model)

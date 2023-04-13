@@ -1,3 +1,8 @@
+#
+# Copyright (c) 2023 salesforce.com, inc.
+# All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 """
 The non-gaussian linear causal models (LiNGAM).
 """
@@ -21,6 +26,7 @@ class LiNGAMConfig(CausalModelConfig):
         bootstrapping will be applied.
     :param min_causal_effect: The threshold for detecting causal direction (for bootstrapping only).
     """
+
     domain_knowledge_file: str = None
     run_pdag2dag: bool = True
     max_num_points: int = 5000000
@@ -33,18 +39,13 @@ class LiNGAM(CausalModel):
     """
     The non-gaussian linear causal models (LiNGAM): https://github.com/cdt15/lingam.
     """
+
     config_class = LiNGAMConfig
 
     def __init__(self, config: LiNGAMConfig):
         self.config = config
 
-    def _train(
-            self,
-            df: pd.DataFrame,
-            forbids: List,
-            requires: List,
-            **kwargs
-    ):
+    def _train(self, df: pd.DataFrame, forbids: List, requires: List, **kwargs):
         import lingam
         from lingam.utils import make_prior_knowledge
 
@@ -69,8 +70,5 @@ class LiNGAM(CausalModel):
             adjacency_mat = (prob >= self.config.lower_limit).astype(int).T
 
         np.fill_diagonal(adjacency_mat, 0)
-        adjacency_df = pd.DataFrame(
-            {var_names[i]: adjacency_mat[:, i] for i in range(len(var_names))},
-            index=var_names
-        )
+        adjacency_df = pd.DataFrame({var_names[i]: adjacency_mat[:, i] for i in range(len(var_names))}, index=var_names)
         return adjacency_df
