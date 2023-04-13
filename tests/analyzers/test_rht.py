@@ -1,3 +1,8 @@
+#
+# Copyright (c) 2023 salesforce.com, inc.
+# All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 import os
 import pytest
 import unittest
@@ -8,7 +13,6 @@ from pyrca.analyzers.rht import RHT, RHTConfig
 
 
 class TestRHT(unittest.TestCase):
-
     @pytest.mark.skip(reason="pickle issue")
     def test(self):
         directory = os.path.dirname(os.path.abspath(__file__))
@@ -21,8 +25,8 @@ class TestRHT(unittest.TestCase):
             data = pkl.load(input_file)
 
         # get normal and abnormal dataset in pd.DataFrame
-        training_samples = data['data']['num_samples']
-        tot_data = data['data']['data']
+        training_samples = data["data"]["num_samples"]
+        tot_data = data["data"]["data"]
 
         names = [("X%d" % (i + 1)) for i in range(tot_data.shape[1])]
         normal_data = tot_data[:training_samples]
@@ -33,7 +37,7 @@ class TestRHT(unittest.TestCase):
 
         model = RHT(config=RHTConfig(graph=graph))
         model.train(normal_data_pd)
-        results = model.find_root_causes(abnormal_data_pd, 'X1', True).to_list()
+        results = model.find_root_causes(abnormal_data_pd, "X1", True).to_list()
         print(results)
 
 

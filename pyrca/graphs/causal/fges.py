@@ -1,3 +1,8 @@
+#
+# Copyright (c) 2023 salesforce.com, inc.
+# All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 """
 The fast greedy equivalence search (FGES) algorithm.
 """
@@ -20,6 +25,7 @@ class FGESConfig(CausalModelConfig):
     :param penalty_discount: The penalty discount (a regularization parameter).
     :param score_id: The score function name, e.g., "sem-bic-score".
     """
+
     domain_knowledge_file: str = None
     run_pdag2dag: bool = True
     max_num_points: int = 5000000
@@ -32,6 +38,7 @@ class FGES(CausalModel):
     """
     The fast greedy equivalence search (FGES) algorithm for causal discovery.
     """
+
     config_class = FGESConfig
     causal = None
 
@@ -41,6 +48,7 @@ class FGES(CausalModel):
     @staticmethod
     def initialize():
         from pycausal.pycausal import pycausal as pc
+
         FGES.causal = pc()
         FGES.causal.start_vm()
 
@@ -48,18 +56,12 @@ class FGES(CausalModel):
     def finish():
         FGES.causal.stop_vm()
 
-    def _train(
-            self,
-            df: pd.DataFrame,
-            forbids: List,
-            requires: List,
-            start_vm: bool = True,
-            **kwargs
-    ):
+    def _train(self, df: pd.DataFrame, forbids: List, requires: List, start_vm: bool = True, **kwargs):
         from ...utils.misc import is_pycausal_available
-        assert is_pycausal_available(), \
-            "pycausal is not installed. Please install it from github repo: " \
-            "https://github.com/bd2kccd/py-causal."
+
+        assert is_pycausal_available(), (
+            "pycausal is not installed. Please install it from github repo: " "https://github.com/bd2kccd/py-causal."
+        )
 
         from pycausal import search, prior
         from pycausal.pycausal import pycausal as pc
@@ -84,28 +86,25 @@ class FGES(CausalModel):
             faithfulnessAssumed=True,
             symmetricFirstStep=False,
             penaltyDiscount=self.config.penalty_discount,
-            verbose=False
+            verbose=False,
         )
         for edge in tetrad.getEdges():
-            if edge == '':
+            if edge == "":
                 continue
             items = edge.split()
             assert len(items) == 3
             a, b = str(items[0]), str(items[2])
-            if items[1] == '-->':
+            if items[1] == "-->":
                 graph[column_name2idx[a], column_name2idx[b]] = 1
-            elif items[1] == '---':
+            elif items[1] == "---":
                 graph[column_name2idx[a], column_name2idx[b]] = 1
                 graph[column_name2idx[b], column_name2idx[a]] = 1
             else:
-                raise ValueError('Unknown direction: {}'.format(items[1]))
+                raise ValueError("Unknown direction: {}".format(items[1]))
         if start_vm and FGES.causal is None:
             causal.stop_vm()
 
         adjacency_mat = graph.astype(int)
         np.fill_diagonal(adjacency_mat, 0)
-        adjacency_df = pd.DataFrame(
-            {var_names[i]: adjacency_mat[:, i] for i in range(len(var_names))},
-            index=var_names
-        )
+        adjacency_df = pd.DataFrame({var_names[i]: adjacency_mat[:, i] for i in range(len(var_names))}, index=var_names)
         return adjacency_df

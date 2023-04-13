@@ -1,3 +1,8 @@
+#
+# Copyright (c) 2023 salesforce.com, inc.
+# All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
@@ -6,18 +11,12 @@ from sklearn.preprocessing import StandardScaler
 
 
 class Scaler:
-
-    scalars = {
-        "minmax": MinMaxScaler,
-        "robust": RobustScaler,
-        "standard": StandardScaler,
-        "none": None
-    }
+    scalars = {"minmax": MinMaxScaler, "robust": RobustScaler, "standard": StandardScaler, "none": None}
 
     def __init__(self, scalar_type="standard"):
-        assert scalar_type in Scaler.scalars, \
-            f"The scalar type {scalar_type} is not supported. " \
-            f"Please choose from {Scaler.scalars.keys()}."
+        assert scalar_type in Scaler.scalars, (
+            f"The scalar type {scalar_type} is not supported. " f"Please choose from {Scaler.scalars.keys()}."
+        )
         scaler_class = Scaler.scalars[scalar_type]
         self.scaler = None if scaler_class is None else scaler_class()
 
@@ -46,8 +45,8 @@ def remove_outliers(df, scale=5.0):
     medians = np.median(data, axis=0)
     a = np.percentile(data, 99, axis=0)
     b = np.percentile(data, 1, axis=0)
-    max_value = ((a - medians) * scale + medians)
-    min_value = ((b - medians) * scale + medians)
+    max_value = (a - medians) * scale + medians
+    min_value = (b - medians) * scale + medians
 
     indices = []
     for i in range(data.shape[0]):
@@ -83,17 +82,9 @@ def timeseries_window(df, begin_date, end_date):
         return df
 
 
-def estimate_thresholds(
-        df,
-        sigmas,
-        default_sigma=4,
-        win_size=5,
-        reduce="mean",
-        return_mean_std=False
-):
+def estimate_thresholds(df, sigmas, default_sigma=4, win_size=5, reduce="mean", return_mean_std=False):
     x = df.values
-    x = np.array([np.mean(x[max(0, i - win_size):i + 1, :], axis=0)
-                  for i in range(x.shape[0])])
+    x = np.array([np.mean(x[max(0, i - win_size) : i + 1, :], axis=0) for i in range(x.shape[0])])
     a = np.percentile(x, 0.1, axis=0)
     b = np.percentile(x, 99.9, axis=0)
     x = np.maximum(np.minimum(x, b), a)

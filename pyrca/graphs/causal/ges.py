@@ -1,3 +1,8 @@
+#
+# Copyright (c) 2023 salesforce.com, inc.
+# All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 """
 The greedy equivalence search (GES) algorithm.
 """
@@ -19,6 +24,7 @@ class GESConfig(CausalModelConfig):
     :param max_degree: The allowed maximum number of parents when searching the graph.
     :param penalty_discount: The penalty discount (a regularization parameter).
     """
+
     domain_knowledge_file: str = None
     run_pdag2dag: bool = True
     max_num_points: int = 5000000
@@ -30,18 +36,13 @@ class GES(CausalModel):
     """
     The greedy equivalence search (GES) algorithm for causal discovery.
     """
+
     config_class = GESConfig
 
     def __init__(self, config: GESConfig):
         self.config = config
 
-    def _train(
-            self,
-            df: pd.DataFrame,
-            forbids: List,
-            requires: List,
-            **kwargs
-    ):
+    def _train(self, df: pd.DataFrame, forbids: List, requires: List, **kwargs):
         from pyrca.thirdparty.causallearn.search.ScoreBased.GES import ges
         from pyrca.thirdparty.causallearn.utils.BackgroundKnowledge import BackgroundKnowledge
 
@@ -64,28 +65,25 @@ class GES(CausalModel):
             maxP=self.config.max_degree,
             parameters={"kfold": 10, "lambda": self.config.penalty_discount},
             background_knowledge=prior,
-            verbose=False
+            verbose=False,
         )
         for edge in res["G"].get_graph_edges():
             edge = str(edge)
-            if edge == '':
+            if edge == "":
                 continue
             items = edge.split()
             assert len(items) == 3
             a = int(str(items[0]).lower().replace("x", "")) - 1
             b = int(str(items[2]).lower().replace("x", "")) - 1
-            if items[1] == '-->':
+            if items[1] == "-->":
                 graph[a, b] = 1
-            elif items[1] == '---':
+            elif items[1] == "---":
                 graph[a, b] = 1
                 graph[b, a] = 1
             else:
-                raise ValueError('Unknown direction: {}'.format(items[1]))
+                raise ValueError("Unknown direction: {}".format(items[1]))
 
         adjacency_mat = graph.astype(int)
         np.fill_diagonal(adjacency_mat, 0)
-        adjacency_df = pd.DataFrame(
-            {var_names[i]: adjacency_mat[:, i] for i in range(len(var_names))},
-            index=var_names
-        )
+        adjacency_df = pd.DataFrame({var_names[i]: adjacency_mat[:, i] for i in range(len(var_names))}, index=var_names)
         return adjacency_df

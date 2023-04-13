@@ -1,3 +1,8 @@
+#
+# Copyright (c) 2023 salesforce.com, inc.
+# All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 """
 The PC algorithm.
 """
@@ -18,6 +23,7 @@ class PCConfig(CausalModelConfig):
     :param max_num_points: The maximum number of data points in causal discovery.
     :param alpha: The p-value threshold for independent test.
     """
+
     domain_knowledge_file: str = None
     run_pdag2dag: bool = True
     max_num_points: int = 5000000
@@ -28,18 +34,13 @@ class PC(CausalModel):
     """
     The standard PC algorithm.
     """
+
     config_class = PCConfig
 
     def __init__(self, config: PCConfig):
         self.config = config
 
-    def _train(
-            self,
-            df: pd.DataFrame,
-            forbids: List,
-            requires: List,
-            **kwargs
-    ):
+    def _train(self, df: pd.DataFrame, forbids: List, requires: List, **kwargs):
         from pyrca.thirdparty.causallearn.search.ConstraintBased.PC import pc
         from pyrca.thirdparty.causallearn.utils.BackgroundKnowledge import BackgroundKnowledge
 
@@ -55,32 +56,24 @@ class PC(CausalModel):
             for a, b in requires:
                 prior.add_required_by_node(a, b)
 
-        res = pc(
-            df.values,
-            alpha=self.config.alpha,
-            node_names=list(df.columns),
-            background_knowledge=prior
-        )
+        res = pc(df.values, alpha=self.config.alpha, node_names=list(df.columns), background_knowledge=prior)
 
         for edge in res.G.get_graph_edges():
             edge = str(edge)
-            if edge == '':
+            if edge == "":
                 continue
             items = edge.split()
             assert len(items) == 3
             a, b = str(items[0]), str(items[2])
-            if items[1] == '-->':
+            if items[1] == "-->":
                 graph[column_name2index[a], column_name2index[b]] = 1
-            elif items[1] == '---':
+            elif items[1] == "---":
                 graph[column_name2index[a], column_name2index[b]] = 1
                 graph[column_name2index[b], column_name2index[a]] = 1
             else:
-                raise ValueError('Unknown direction: {}'.format(items[1]))
+                raise ValueError("Unknown direction: {}".format(items[1]))
 
         adjacency_mat = graph.astype(int)
         np.fill_diagonal(adjacency_mat, 0)
-        adjacency_df = pd.DataFrame(
-            {var_names[i]: adjacency_mat[:, i] for i in range(len(var_names))},
-            index=var_names
-        )
+        adjacency_df = pd.DataFrame({var_names[i]: adjacency_mat[:, i] for i in range(len(var_names))}, index=var_names)
         return adjacency_df

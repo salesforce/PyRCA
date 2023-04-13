@@ -1,3 +1,8 @@
+#
+# Copyright (c) 2023 salesforce.com, inc.
+# All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 import os
 import yaml
 import pickle
@@ -8,7 +13,6 @@ from pyrca.outliers.base import BaseDetector, DetectionResults
 
 
 class ConfigParser:
-
     def __init__(self, file_path):
         directory = os.path.dirname(os.path.abspath(__file__))
         if file_path is None:
@@ -25,14 +29,12 @@ class ConfigParser:
 
 
 class RCAEngine:
-
     def __init__(self, model_dir=None, logger=None):
         self.adjacency_df_filename = "adjacency_df.pkl"
         self.bn_filename = "bn"
 
         if model_dir is None:
-            model_dir = os.path.join(
-                os.path.dirname(os.path.abspath(__file__)), "models")
+            model_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "models")
         if not os.path.exists(model_dir):
             os.makedirs(model_dir)
         self.model_dir = model_dir
@@ -47,18 +49,18 @@ class RCAEngine:
             "bn": self._find_root_causes_bn,
             "bayesian": self._find_root_causes_bn,
             "rw": self._find_root_causes_rw,
-            "random_walk": self._find_root_causes_rw
+            "random_walk": self._find_root_causes_rw,
         }
 
     def build_causal_graph(
-            self,
-            df,
-            domain_knowledge_file=None,
-            run_pdag2dag=True,
-            max_num_points=5000000,
-            method_class=None,
-            verbose=False,
-            **kwargs
+        self,
+        df,
+        domain_knowledge_file=None,
+        run_pdag2dag=True,
+        max_num_points=5000000,
+        method_class=None,
+        verbose=False,
+        **kwargs,
     ):
         from pyrca.graphs.causal.pc import PC
 
@@ -66,30 +68,29 @@ class RCAEngine:
         if verbose:
             self.logger.info(f"The shape of the training data for infer_causal_graph: {df.shape}")
         if domain_knowledge_file is None:
-            domain_knowledge_file = os.path.join(os.path.dirname(
-                os.path.abspath(__file__)), "configs/domain_knowledge.yaml")
+            domain_knowledge_file = os.path.join(
+                os.path.dirname(os.path.abspath(__file__)), "configs/domain_knowledge.yaml"
+            )
 
         if method_class is None:
             method_class = PC
-        model = method_class(method_class.config_class(
-            domain_knowledge_file=domain_knowledge_file,
-            run_pdag2dag=run_pdag2dag,
-            max_num_points=max_num_points,
-            **kwargs))
+        model = method_class(
+            method_class.config_class(
+                domain_knowledge_file=domain_knowledge_file,
+                run_pdag2dag=run_pdag2dag,
+                max_num_points=max_num_points,
+                **kwargs,
+            )
+        )
         adjacency_df = model.train(df)
         adjacency_df.to_pickle(os.path.join(self.model_dir, self.adjacency_df_filename))
         PC.dump_to_tetrad_json(adjacency_df, self.model_dir)
         return adjacency_df
 
-    def train_bayesian_network(
-            self,
-            dfs,
-            domain_knowledge_file=None,
-            config_file=None,
-            verbose=False
-    ):
+    def train_bayesian_network(self, dfs, domain_knowledge_file=None, config_file=None, verbose=False):
         from pyrca.utils.domain import DomainParser
         from pyrca.analyzers.bayesian import BayesianNetwork, BayesianNetworkConfig
+
         if isinstance(dfs, pd.DataFrame):
             assert dfs.shape[0] > 10000, "The length of df is less than 10000."
             if verbose:
@@ -101,8 +102,9 @@ class RCAEngine:
                 self.logger.info(f"The training data shape for the Bayesian network: {(n, dfs[0].shape[1])}")
 
         if domain_knowledge_file is None:
-            domain_knowledge_file = os.path.join(os.path.dirname(
-                os.path.abspath(__file__)), "configs/domain_knowledge.yaml")
+            domain_knowledge_file = os.path.join(
+                os.path.dirname(os.path.abspath(__file__)), "configs/domain_knowledge.yaml"
+            )
         domain = DomainParser(domain_knowledge_file)
         config = ConfigParser(config_file)
 
@@ -117,19 +119,20 @@ class RCAEngine:
                 default_sigma=params["default_sigma"],
                 thres_win_size=params["thres_win_size"],
                 thres_reduce_func=params["thres_reduce_func"],
-                sigmas=params.get("sigmas", {})
-            ))
+                sigmas=params.get("sigmas", {}),
+            )
+        )
         bayesian_network.train(dfs=dfs)
         bayesian_network.add_root_causes(domain.get_root_causes())
         bayesian_network.save(self.model_dir, name=self.bn_filename)
         return bayesian_network
 
     def train_detector(
-            self,
-            df: Union[pd.DataFrame, Dict],
-            config_file: Optional[str] = None,
-            use_separate_models=True,
-            additional_config: Dict = None
+        self,
+        df: Union[pd.DataFrame, Dict],
+        config_file: Optional[str] = None,
+        use_separate_models=True,
+        additional_config: Dict = None,
     ) -> Dict:
         """
         Trains the detector(s) given the time series data.
@@ -142,6 +145,7 @@ class RCAEngine:
         :return: The train model for each metric.
         """
         from pyrca.outliers.stats import StatsDetector, StatsDetectorConfig
+
         if isinstance(df, dict):
             df = pd.DataFrame.from_dict(df)
         assert df.shape[0] > 5000, "The length of df is less than 5000."
@@ -175,12 +179,14 @@ class RCAEngine:
 
     def _find_root_causes_rw(self, df, anomalies, **kwargs):
         from pyrca.analyzers.random_walk import RandomWalk, RandomWalkConfig
+
         graph = pd.read_pickle(os.path.join(self.model_dir, self.adjacency_df_filename))
         model = RandomWalk(RandomWalkConfig(graph=graph))
         return model.find_root_causes(anomalies, df=df, **kwargs)
 
     def _find_root_causes_bn(self, df, anomalies, **kwargs):
         from pyrca.analyzers.bayesian import BayesianNetwork
+
         try:
             model = BayesianNetwork.load(self.model_dir, self.bn_filename)
         except:
@@ -197,12 +203,12 @@ class RCAEngine:
         return self._find_root_causes_bn(None, anomalies, **kwargs).to_list()
 
     def find_root_causes(
-            self,
-            df: Union[pd.DataFrame, Dict],
-            detector: Union[Dict, BaseDetector],
-            rca_method: Optional[str] = None,
-            known_anomalies: List = None,
-            **kwargs
+        self,
+        df: Union[pd.DataFrame, Dict],
+        detector: Union[Dict, BaseDetector],
+        rca_method: Optional[str] = None,
+        known_anomalies: List = None,
+        **kwargs,
     ):
         """
         Finds the potential root causes given an incident window.
@@ -232,8 +238,10 @@ class RCAEngine:
             anomaly_info = DetectionResults.merge(results).to_dict()
 
         if rca_method is not None:
-            anomalies = anomaly_info["anomalous_metrics"] if known_anomalies is None \
+            anomalies = (
+                anomaly_info["anomalous_metrics"]
+                if known_anomalies is None
                 else list(set(anomaly_info["anomalous_metrics"] + known_anomalies))
-            anomaly_info["root_causes"] = self._rca_methods[rca_method](
-                df=df, anomalies=anomalies, **kwargs)
+            )
+            anomaly_info["root_causes"] = self._rca_methods[rca_method](df=df, anomalies=anomalies, **kwargs)
         return anomaly_info

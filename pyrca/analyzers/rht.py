@@ -1,3 +1,8 @@
+#
+# Copyright (c) 2023 salesforce.com, inc.
+# All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 """
 The RHT algorithm
 """
@@ -24,6 +29,7 @@ class RHTConfig(BaseConfig):
     :param aggregator: The function for aggregating the node score from all the abnormal data.
     :param root_cause_top_k: The maximum number of root causes in the results.
     """
+
     graph: Union[pd.DataFrame, str] = None
     aggregator: str = "max"
     root_cause_top_k: int = 3
@@ -35,6 +41,7 @@ class RHT(BaseRCA):
 
     Causal Inference-Based Root Cause Analysis for Online Service Systems with Intervention Recognition.
     """
+
     config_class = RHTConfig
 
     def __init__(self, config: RHTConfig):
@@ -47,9 +54,7 @@ class RHT(BaseRCA):
                 with open(config.graph, "rb") as f:
                     graph = pickle.load(f)
             else:
-                raise RuntimeError(
-                    "The graphs file format is not supported, "
-                    "please choose a csv or pickle file.")
+                raise RuntimeError("The graphs file format is not supported, " "please choose a csv or pickle file.")
         else:
             graph = config.graph
         self.adjacency_mat = graph
@@ -67,11 +72,7 @@ class RHT(BaseRCA):
         else:
             raise f"Unknown aggregator {name}"
 
-    def train(
-            self,
-            normal_df: pd.DataFrame,
-            **kwargs
-    ):
+    def train(self, normal_df: pd.DataFrame, **kwargs):
         """
         Train regression model for each node based on its parents. Build the score functions.
 
@@ -94,11 +95,7 @@ class RHT(BaseRCA):
                 self.regressors_dict[node] = [None, scaler]
 
     def find_root_causes(
-            self,
-            abnormal_df: pd.DataFrame,
-            anomalous_metrics: str = None,
-            adjustment: bool =False,
-            **kwargs
+        self, abnormal_df: pd.DataFrame, anomalous_metrics: str = None, adjustment: bool = False, **kwargs
     ):
         """
         Finds the root causes given the abnormal dataset.
@@ -140,7 +137,7 @@ class RHT(BaseRCA):
 
         # node_scores[key][1] indicates the confidence
         root_cause_nodes = [(key, node_scores[key][0]) for key in node_scores]
-        root_cause_nodes = sorted(root_cause_nodes, key=lambda r: r[1], reverse=True)[:self.config.root_cause_top_k]
+        root_cause_nodes = sorted(root_cause_nodes, key=lambda r: r[1], reverse=True)[: self.config.root_cause_top_k]
 
         root_cause_paths = {}
         if anomalous_metrics is not None:
@@ -150,6 +147,4 @@ class RHT(BaseRCA):
                 except nx.exception.NetworkXNoPath:
                     path = None
                 root_cause_paths[root_cause_nodes[idx][0]] = path
-        return RCAResults(
-            root_cause_nodes=root_cause_nodes,
-            root_cause_paths=root_cause_paths)
+        return RCAResults(root_cause_nodes=root_cause_nodes, root_cause_paths=root_cause_paths)

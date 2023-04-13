@@ -1,3 +1,8 @@
+#
+# Copyright (c) 2023 salesforce.com, inc.
+# All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 import unittest
 import pandas as pd
 import numpy as np
@@ -6,7 +11,6 @@ from pyrca.analyzers.epsilon_diagnosis import EpsilonDiagnosis, EpsilonDiagnosis
 
 
 class TestEpsilonDiagnosis(unittest.TestCase):
-
     def gen_random(self, n: int, d: int, covar: float) -> np.ndarray:
         cov_mat = np.ones((d, d)) * covar
         np.fill_diagonal(cov_mat, 1)

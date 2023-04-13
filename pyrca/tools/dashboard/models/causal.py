@@ -1,3 +1,8 @@
+#
+# Copyright (c) 2023 salesforce.com, inc.
+# All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+# For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 import os
 import sys
 import json
@@ -19,7 +24,6 @@ dash_logger = DashLogger(stream=sys.stdout)
 
 
 class CausalDiscovery:
-
     def __init__(self, folder):
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.DEBUG)
@@ -141,9 +145,7 @@ class CausalDiscovery:
         config_class = self.get_supported_methods()[algorithm]["config_class"]
         method = method_class(config_class.from_dict(params))
         graph_df = method.train(
-            df=df,
-            forbids=constraints.get("forbidden", []),
-            requires=constraints.get("required", [])
+            df=df, forbids=constraints.get("forbidden", []), requires=constraints.get("required", [])
         )
         relations = self._extract_relations(graph_df)
         nx_graph = nx.from_pandas_adjacency(graph_df, create_using=nx.DiGraph())
