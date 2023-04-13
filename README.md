@@ -3,6 +3,9 @@
   <a href="#">
   <img src="https://img.shields.io/badge/Python-3.7, 3.8, 3.9, 3.10-blue">
   </a>
+  <a href="https://opensource.salesforce.com/PyRCA">
+  <img alt="Documentation" src="https://github.com/salesforce/PyRCA/actions/workflows/docs.yml/badge.svg"/>
+  </a>
 </div>
 
 ## Table of Contents
@@ -10,8 +13,9 @@
 2. [Installation](#installation)
 3. [Getting Started](#getting-started)
 4. [Documentation](https://fuzzy-disco-r42n6p1.pages.github.io/)
-5. [Benchmarks](#benchmarks)
-6. [How to Contribute](#how-to-contribute)
+5. [Example](#application-example)
+6. [Benchmarks](#benchmarks)
+7. [How to Contribute](#how-to-contribute)
 
 ## Introduction
 
@@ -154,6 +158,42 @@ This domain knowledge file states that:
 
 You can modify this file according to your domain knowledge for generating more reliable causal
 graphs.
+
+## Application Example
+
+[Here](https://github.com/salesforce/PyRCA/tree/main/pyrca/applications/example) is an example
+of applying ``BayesianNetwork`` to build a solution for RCA. The "config" folder includes the setups
+for the stats-based anomaly detector and the domain knowledge. The "models" folder stores the causal
+graph and the trained Bayesian network. The ``RCAEngine`` in the "rca.py" file implements all the
+methods for building causal graphs, training Bayesian networks and finding root causes by utilizing
+the modules provides by PyRCA. You can directly use this class if the stats-based anomaly detector 
+and Bayesian inference are suitable to solve your RCA problems. For example, you can build and train
+a Bayesian network via the following code given a time series dataframe ``df``:
+
+```python
+from pyrca.applications.example.rca import RCAEngine
+engine = RCAEngine()
+engine.build_causal_graph(
+    df=df,
+    run_pdag2dag=True,
+    max_num_points=5000000,
+    verbose=True
+)
+bn = engine.train_bayesian_network(dfs=[df])
+bn.print_probabilities()
+```
+
+After the Bayesian network is constructed, you can use it directly for finding root causes:
+
+```python
+engine = RCAEngine()
+result = engine.find_root_causes_bn(anomalies=["conn_pool", "apt"])
+pprint.pprint(result)
+```
+
+The inputs of ``find_root_causes_bn`` is a list of the detected anomalous metrics by the stats-based
+anomaly detector. This method will estimate the probabilities of being a root cause and extract
+the paths from the potential root cause nodes to the leaf nodes.
 
 ## Benchmarks
 
