@@ -40,6 +40,6 @@ setup(
         "javabridge>=1.0.11"
     ],
     extras_require=extras_require,
-    python_requires=">=3.7,<4",
+    python_requires=">=3.8,<4",
     zip_safe=False,
 )
