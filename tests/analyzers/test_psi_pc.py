@@ -1,4 +1,5 @@
 import os
+import pytest
 import unittest
 import pandas as pd
 import pickle as pkl
@@ -7,6 +8,7 @@ from pyrca.analyzers.psi_pc import PsiPC, PsiPCConfig
 
 class TestEplisonDiagnosis(unittest.TestCase):
 
+    @pytest.mark.skip(reason="pickle issue")
     def test(self):
         # SRC_DIR = '../data/n-10-d-3-an-1-nor-s-1000-an-s-1000/'
         # normal = SRC_DIR + 'normal.csv'
