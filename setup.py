@@ -28,7 +28,7 @@ setup(
         "numpy>=1.17",
         "pandas>=1.1.0",
         "scikit-learn>=0.24,<1.2",
-        "networkx>=2.8",
+        "networkx>=2.6",
         "matplotlib",
         "pyyaml",
         "schema",
