@@ -28,7 +28,7 @@ setup(
         "numpy>=1.17",
         "pandas>=1.1.0",
         "scikit-learn>=0.24,<1.2",
-        "networkx>=2.8",
+        "networkx>=2.6",
         "matplotlib",
         "pyyaml",
         "schema",
@@ -40,6 +40,6 @@ setup(
         "javabridge>=1.0.11"
     ],
     extras_require=extras_require,
-    python_requires=">=3.8,<4",
+    python_requires=">=3.7,<4",
     zip_safe=False,
 )
