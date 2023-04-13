@@ -1,7 +1,7 @@
 # PyRCA: A Python library for Root Cause Analysis
 <div align="center">
   <a href="#">
-  <img src="https://img.shields.io/badge/Python-3.8, 3.9, 3.10-blue">
+  <img src="https://img.shields.io/badge/Python-3.7, 3.8, 3.9-blue">
   </a>
   <a href="https://opensource.salesforce.com/PyRCA">
   <img alt="Documentation" src="https://github.com/salesforce/PyRCA/actions/workflows/docs.yml/badge.svg"/>
