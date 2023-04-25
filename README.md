@@ -39,7 +39,7 @@ The following list shows the supported RCA methods in our library:
 2. Bayesian Inference-based RCA (BI)
 3. Random Walk-based RCA (RW)
 4. Root Casue Discovery method (RCD)
-5. Hypothesis-Testing-based RCA (HT)
+5. Hypothesis Testing-based RCA (HT)
 
 We will continue improving this library to make it more comprehensive in the future. In the future, 
 PyRCA will support trace and log based RCA methods as well.
