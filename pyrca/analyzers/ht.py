@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 """
-The RHT algorithm
+The Hypothesis Testing (HT) algorithm
 """
 from dataclasses import dataclass
 import pickle
@@ -20,9 +20,9 @@ from pyrca.analyzers.base import BaseRCA, RCAResults
 
 
 @dataclass
-class RHTConfig(BaseConfig):
+class HTConfig(BaseConfig):
     """
-    The configuration class of the RHT method for Root Cause Analysis
+    The configuration class of the HT method for Root Cause Analysis
 
     :param graphs: The adjacency matrix of the causal graphs,
         which can be a pandas dataframe or a file path of a CSV file or a pickled file.
@@ -35,16 +35,16 @@ class RHTConfig(BaseConfig):
     root_cause_top_k: int = 3
 
 
-class RHT(BaseRCA):
+class HT(BaseRCA):
     """
     Regression-based Hypothesis Testing method for Root Cause Analysis
 
     Causal Inference-Based Root Cause Analysis for Online Service Systems with Intervention Recognition.
     """
 
-    config_class = RHTConfig
+    config_class = HTConfig
 
-    def __init__(self, config: RHTConfig):
+    def __init__(self, config: HTConfig):
         super().__init__()
         self.config = config
         if isinstance(config.graph, str):

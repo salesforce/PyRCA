@@ -4,13 +4,11 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 """
-The Phi-PC algorithm
+The Root Cause Discovery (RCD) algorithm
 """
 
 from dataclasses import dataclass
 import pandas as pd
-import numpy as np
-import time
 
 from pyrca.base import BaseConfig
 from pyrca.analyzers.base import BaseRCA, RCAResults
@@ -21,9 +19,9 @@ from pyrca.thirdparty.rcd import rcd
 
 
 @dataclass
-class PsiPCConfig(BaseConfig):
+class RCDConfig(BaseConfig):
     """
-    The configuration class for the phi-PC algorithm for Root Cause Analysis
+    The configuration class for the RCD algorithm for Root Cause Analysis
 
     :param start_alpha: desired start significance level (float) in (0, 1) for search.
     :param alpha_step: search step for alpha.
@@ -48,22 +46,22 @@ class PsiPCConfig(BaseConfig):
     ci_test: CIT = chisq
 
 
-class PsiPC(BaseRCA):
+class RCD(BaseRCA):
     """
-    The phi-PC algorithm for Root Cause Analysis
+    The RCD algorithm for Root Cause Analysis
 
     Root Cause Analysis of Failures in Microservices through Causal Discovery
     """
 
-    config_class = PsiPCConfig
+    config_class = RCDConfig
 
-    def __init__(self, config: PsiPCConfig):
+    def __init__(self, config: RCDConfig):
         super().__init__()
         self.config = config
 
     def train(self, **kwargs):
         """
-        model training is implemented in find root causes function.
+        model training is implemented in findi_root_causes function.
         """
         pass
 
