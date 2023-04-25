@@ -197,6 +197,10 @@ anomaly detector. This method will estimate the probability of a node being a ro
 the paths from a potential root cause node to the leaf nodes.
 
 ## Benchmarks
+![](https://github.com/salesforce/PyRCA/raw/main/docs/_static/rca_benchmark.png)
+
+The above figure summarizes the RCA performance of different methods on the simulated dataset.
+
 
 ## How to Contribute
 
