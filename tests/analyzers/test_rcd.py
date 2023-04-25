@@ -8,11 +8,10 @@ import pytest
 import unittest
 import pandas as pd
 import dill as pkl
+from pyrca.analyzers.rcd import RCD, RCDConfig
 
-from pyrca.analyzers.rht import RHT, RHTConfig
 
-
-class TestRHT(unittest.TestCase):
+class TestEplisonDiagnosis(unittest.TestCase):
     @pytest.mark.skip(reason="pickle issue")
     def test(self):
         directory = os.path.dirname(os.path.abspath(__file__))
@@ -28,16 +27,15 @@ class TestRHT(unittest.TestCase):
         training_samples = data["data"]["num_samples"]
         tot_data = data["data"]["data"]
 
-        names = [("X%d" % (i + 1)) for i in range(tot_data.shape[1])]
+        names = [("A%d" % (i + 1)) for i in range(tot_data.shape[1])]
         normal_data = tot_data[:training_samples]
         normal_data_pd = pd.DataFrame(normal_data, columns=names)
 
         abnormal_data = tot_data[training_samples:]
         abnormal_data_pd = pd.DataFrame(abnormal_data, columns=names)
 
-        model = RHT(config=RHTConfig(graph=graph))
-        model.train(normal_data_pd)
-        results = model.find_root_causes(abnormal_data_pd, "X1", True).to_list()
+        model = RCD(config=RCDConfig(verbose=False))
+        results = model.find_root_causes(normal_data_pd, abnormal_data_pd).to_list()
         print(results)
 
 
