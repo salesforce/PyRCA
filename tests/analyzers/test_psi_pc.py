@@ -7,7 +7,7 @@ import os
 import pytest
 import unittest
 import pandas as pd
-import pickle as pkl
+import dill as pkl
 from pyrca.analyzers.psi_pc import PsiPC, PsiPCConfig
 
 
