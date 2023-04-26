@@ -3,8 +3,17 @@
   <a href="#">
   <img src="https://img.shields.io/badge/Python-3.7, 3.8, 3.9-blue">
   </a>
-  <a href="https://opensource.salesforce.com/PyRCA">
+  <a href="https://pypi.python.org/pypi/sfr-pyrca">
+  <img alt="PyPI" src="https://img.shields.io/pypi/v/sfr-pyrca.svg"/>
+  </a>
+  <a href="https://fuzzy-disco-r42n6p1.pages.github.io">
   <img alt="Documentation" src="https://github.com/salesforce/PyRCA/actions/workflows/docs.yml/badge.svg"/>
+  </a>
+  <a href="https://pepy.tech/project/sfr-pyrca">
+  <img alt="Downloads" src="https://pepy.tech/badge/sfr-pyrca">
+  </a>
+  <a href="https://arxiv.org/abs/xxxx.xxxxx">
+  <img alt="DOI" src="https://zenodo.org/badge/DOI/10.48550/ARXIV.xxxx.xxxxx.svg"/>
   </a>
 </div>
 
