@@ -32,6 +32,8 @@ class BayesianNetworkConfig(BaseConfig):
 
     :param graph: The adjacency matrix of the causal graph,
         which can be a pandas dataframe or a file path of a CSV file or a pickled file.
+    :param sigmas: Specific sigmas other than ``default_sigma`` for certain variables. This parameter
+        is for constructing training data (only used when ``detector`` in the ``train`` function is not set).
     :param default_sigma: The default sigma value for computing the detection. This parameter is
         for constructing training data (only used when ``detector`` in the ``train`` function is not set).
     :param thres_win_size: The size of the smoothing window for computing the detection threshold.
@@ -40,17 +42,15 @@ class BayesianNetworkConfig(BaseConfig):
     :param thres_reduce_func: The reduction function for threshold, i.e., "mean" uses the mean value
         and standard deviation, "median" uses the median value and median absolute deviation. This parameter
         is for constructing training data (only used when ``detector`` in the ``train`` function is not set).
-    :param sigmas: Specific sigmas other than ``default_sigma`` for certain variables. This parameter
-        is for constructing training data (only used when ``detector`` in the ``train`` function is not set).
     :param infer_method: Use "posterior" or "likelihood" when doing Bayesian inference.
     :param root_cause_top_k: The maximum number of root causes in the results.
     """
 
-    graph: Union[pd.DataFrame, str] = None
+    graph: Union[pd.DataFrame, str]
+    sigmas: Dict = None
     default_sigma: float = 4.0
     thres_win_size: int = 5
     thres_reduce_func: str = "mean"
-    sigmas: Dict = None
     infer_method: str = "posterior"
     root_cause_top_k: int = 3
 

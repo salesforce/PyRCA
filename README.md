@@ -45,10 +45,10 @@ various RCA methods, which is valuable for industry and academic research.
 
 The following list shows the supported RCA methods in our library:
 1. ε-Diagnosis
-2. Bayesian Inference-based Root Cause Analysis
-3. Random Walk-based Root Cause Analysis
-4. Ψ-PC-based Root Cause Analysis
-5. Causal Inference-based Root Cause Analysis (CIRCA)
+2. Bayesian Inference-based RCA (BI)
+3. Random Walk-based RCA (RW)
+4. Root Casue Discovery method (RCD)
+5. Hypothesis Testing-based RCA (HT)
 
 We will continue improving this library to make it more comprehensive in the future. In the future, 
 PyRCA will support trace and log based RCA methods as well.
@@ -206,6 +206,10 @@ anomaly detector. This method will estimate the probability of a node being a ro
 the paths from a potential root cause node to the leaf nodes.
 
 ## Benchmarks
+![](https://github.com/salesforce/PyRCA/raw/main/docs/_static/rca_benchmark.png)
+
+The above figure summarizes the RCA performance of different methods on the simulated dataset.
+
 
 ## How to Contribute
 
