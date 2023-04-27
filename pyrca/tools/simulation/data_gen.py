@@ -23,7 +23,7 @@ def _uniform_weight() -> float:
     return rng.uniform(low=low, high=high)
 
 @dataclass
-class DagGenConfig:
+class DAGGenConfig:
     """
     The configuration class of generating DAG
 
@@ -42,9 +42,9 @@ class DAGGen:
     The DAG generation.
     """
 
-    config_class = DagGenConfig
+    config_class = DAGGenConfig
 
-    def __init__(self, config: DagGenConfig):
+    def __init__(self, config: DAGGenConfig):
         self.config = config
 
     def gen(self):
@@ -148,7 +148,7 @@ class DataGen:
     generate data (n_samples, n_nodes) according to  DAG matrix
     """
 
-    config_class = DagGenConfig
+    config_class = DataGenConfig
 
     def __init__(self, config: DataGenConfig):
         self.config = config
@@ -157,7 +157,7 @@ class DataGen:
         """
         For each node
 
-        .. math:: x_{i} = \sum_{x_{j} \in Pa(x_i)} A_{ij} f_i{x_j} +  \beta_i * noise_i
+        .. math:: x_{i} = \sum_{x_{j} \in Pa(x_i)} A_{ij} f_i(x_j) +  \beta_i * noise_i
 
         where f_i indicates element-wise transformation, it is chosen from identity, square, sin, tanh,
         noise_i is chosen from Exponential(1), Normal(0,1), Uniform(-0.5,0.5), Laplace(0, 1)
@@ -250,12 +250,12 @@ class AnomalyDataGen:
     generate data (n_samples, n_nodes)
     """
 
-    config_class = DagGenConfig
+    config_class = AnomalyDataGenConfig
 
     def __init__(self, config: DataGenConfig):
         self.config = config
 
-    def gen_anomaly(self):
+    def gen(self):
         """
         Generate anomaly data by randomly choose the root cause nodes
         : returns:
@@ -272,7 +272,7 @@ class AnomalyDataGen:
         num_causes = min(rng.poisson(1) + 1, num_node)
 
         if self.config.anomaly_type != 2:
-            # supporrt type 0, 1 injection noise (weight for noise, constant)
+            # support type 0, 1 injection noise (weight for noise, constant)
             causes = rng.choice(np.arange(1, num_node), size=num_causes, replace=False)
             fault = np.zeros(num_node)
         else:
@@ -326,7 +326,7 @@ class AnomalyDataGen:
 
             if alpha.max() > 1e10:
                 print(alpha)
-                raise " Current data generation model can not trigger anomalies, please adjust parameters or try it again."
+                raise "Current data generation model can not trigger anomalies, please adjust parameters or try it again"
         return data, fault
 
 

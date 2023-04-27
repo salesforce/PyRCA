@@ -4,11 +4,11 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 import unittest
-from pyrca.tools.simulation.data_gen import DagGenConfig,DataGenConfig,AnomalyDataGenConfig, DAGGen, DataGen, AnomalyDataGen
+from pyrca.tools.simulation.data_gen import DAGGenConfig, DataGenConfig, AnomalyDataGenConfig, DAGGen, DataGen, AnomalyDataGen
 
 class Testdatagen(unittest.TestCase):
     def setUp(self):
-        dag = DAGGen(DagGenConfig)
+        dag = DAGGen(DAGGenConfig)
         self.graph = dag.gen()
 
     def test_dag(self):
@@ -46,7 +46,7 @@ class Testdatagen(unittest.TestCase):
         # generate anomaly data
         config = AnomalyDataGenConfig(parent_weights=parent_weights, noise_weights=noise_weights, threshold=threshold,
                                        func_type=func_type, noise_type=noise_type, baseline=baseline, anomaly_type=0)
-        anomaly_data, fault = AnomalyDataGen(config).gen_anomaly()
+        anomaly_data, fault = AnomalyDataGen(config).gen()
         self.assertEqual(fault.shape[0], parent_weights.shape[0])
 
 
