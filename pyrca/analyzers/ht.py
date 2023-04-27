@@ -24,7 +24,7 @@ class HTConfig(BaseConfig):
     """
     The configuration class of the HT method for Root Cause Analysis
 
-    :param graphs: The adjacency matrix of the causal graphs,
+    :param graph: The adjacency matrix of the causal graphs,
         which can be a pandas dataframe or a file path of a CSV file or a pickled file.
     :param aggregator: The function for aggregating the node score from all the abnormal data.
     :param root_cause_top_k: The maximum number of root causes in the results.
