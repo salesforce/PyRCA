@@ -1,7 +1,7 @@
 pyrca.tools package
 ===================
 
-.. automodule:: pyrca.tools.
+.. automodule:: pyrca.tools
    :members:
    :undoc-members:
    :show-inheritance:

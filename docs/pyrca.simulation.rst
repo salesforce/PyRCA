@@ -1,5 +1,5 @@
 pyrca.simulation package
-===================
+========================
 
 .. automodule:: pyrca.simulation.data_gen
    :members:

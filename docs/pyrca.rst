@@ -39,7 +39,7 @@ A visualization tool
    pyrca.tools
 
 Simulated Data Generation
---------------------
+-------------------------
 
 .. toctree::
    :maxdepth: 4
