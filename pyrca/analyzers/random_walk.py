@@ -32,7 +32,7 @@ class RandomWalkConfig(BaseConfig):
     :param root_cause_top_k: The maximum number of root causes in the results.
     """
 
-    graph: Union[pd.DataFrame, str] = None
+    graph: Union[pd.DataFrame, str]
     use_partial_corr: bool = False
     rho: float = 0.1
     num_steps: int = 10

@@ -30,7 +30,7 @@ class HTConfig(BaseConfig):
     :param root_cause_top_k: The maximum number of root causes in the results.
     """
 
-    graph: Union[pd.DataFrame, str] = None
+    graph: Union[pd.DataFrame, str]
     aggregator: str = "max"
     root_cause_top_k: int = 3
 

@@ -34,7 +34,10 @@ class DAGGenConfig:
 
     num_node: int = 20
     num_edge: int = 30
-    rng: np.random.Generator = np.random.default_rng()
+    rng: np.random.Generator = None
+    def __post_init__(self):
+        if self.rng is None:
+            self.rng = np.random.default_rng()
 
 
 class DAGGen:
@@ -79,18 +82,18 @@ class DataGenConfig:
     The configuration class of generating RCA Data
 
     :param dag: The dependency graph
-    :param num_samples: Number of samples
     :param noise_type: probability distribution of each node's noise,
-        it is required to be in valid_noisetype list
+        it is required to be in valid_noise type list
     :param func_type: causal function form of each node,
-        it is required to be in valid_noisetype list
+        it is required to be in valid_noise type list
+    :param num_samples: Number of samples
     :param weight_generator: random generator for model weights
     """
 
-    dag: np.ndarray = None
+    dag: np.ndarray
+    noise_type: str
+    func_type: str
     num_samples: int = 5000
-    noise_type: str = None
-    func_type: str = None
     weight_generator: str = 'normal'
 
     _VALID_NOISE = ['normal', 'exponential', 'uniform', 'laplace']
@@ -154,7 +157,7 @@ class DataGen:
         self.config = config
 
     def gen(self):
-        """
+        r"""
         For each node
 
         .. math:: x_{i} = \sum_{x_{j} \in Pa(x_i)} A_{ij} f_i(x_j) +  \beta_i * noise_i
@@ -164,7 +167,7 @@ class DataGen:
         Both the weights of A_{ij} and \beta_i are chosen from _uniform_weight or _normal_weight
 
         : returns:
-            - data: (num_samples, num_node) data of each variable x_{i}
+            - data: (num_samples, num_node) data of each variable x_i
             - parent_weights: (num_node, num_node) Combination weights of each variable A_{ij}
             - noise_weights: (num_node,) noise weight for of each variable \beta_i
         """
@@ -201,22 +204,22 @@ class AnomalyDataGenConfig:
     :param parent_weights: The weights of parents of each node
     :param noise_weights: The noise weights of each node
     :param noise_type: probability distribution of each node's noise,
-        it is required to be in valid_noisetype list
+        it is required to be in valid_noise type list
     :param func_type: causal function form of each node,
-        it is required to be in valid_noisetype list
-    :param num_samples: Number of anomaly samples
+        it is required to be in valid_noise type list
     :param baseline: baseline of normal data
     :param threshold: threshold to differentiate anomaly data from stats-based anomaly detector
+    :param num_samples: Number of anomaly samples
     :param anomaly_type: 0 change the weight of noise term, 1 add a constant shift to noise term, 2 change the weight of parent nodes
     :param weight_generator: random generator for model weights
     """
-    parent_weights: np.array = None
-    noise_weights: np.array = None
-    noise_type: str = None
-    func_type: str = None
+    parent_weights: np.array
+    noise_weights: np.array
+    noise_type: str
+    func_type: str
+    baseline: float
+    threshold: float
     num_samples: int = 5000
-    baseline: float = None
-    threshold: float = None
     anomaly_type: str = 0
     weight_generator: str = 'normal'
 
@@ -258,8 +261,9 @@ class AnomalyDataGen:
     def gen(self):
         """
         Generate anomaly data by randomly choose the root cause nodes
+
         : returns:
-            - data: (num_samples, num_node) data of each variable x_{i} in anomaly phase
+            - data: (num_samples, num_node) data of each variable x_i in anomaly phase
             - root causes: (num_node) root causes of anomaly data
         """
         assert self.config.parent_weights.shape[0] == self.config.noise_weights.shape[0]
