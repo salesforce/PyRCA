@@ -4,11 +4,11 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 import unittest
-from pyrca.tools.simulation.data_gen import DAGGenConfig, DataGenConfig, AnomalyDataGenConfig, DAGGen, DataGen, AnomalyDataGen
+from pyrca.simulation.data_gen import DAGGenConfig, DataGenConfig, AnomalyDataGenConfig, DAGGen, DataGen, AnomalyDataGen
 
 class Testdatagen(unittest.TestCase):
     def setUp(self):
-        dag = DAGGen(DAGGenConfig)
+        dag = DAGGen(DAGGenConfig())
         self.graph = dag.gen()
 
     def test_dag(self):
