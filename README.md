@@ -209,6 +209,8 @@ the paths from a potential root cause node to the leaf nodes.
 
 The following table summarizes the RCA performance of different methods on the simulated dataset.
 
+<div align="center">
+
 |                             |  Recall@1   |  Recall@3   |  Recall@5   |
 :---------------------------:|:-----------:|:-----------:|:-----------:
 |         ε-Diagnosis         | 0.06 ± 0.02 | 0.16 ± 0.04 | 0.16 ± 0.04 |
@@ -222,6 +224,8 @@ The following table summarizes the RCA performance of different methods on the s
 |   Hypothesis-testing (PC)   | 0.95 ± 0.02 | 1.00 ± 0.00 | 1.00 ± 0.00 |
 |  Hypothesis-testing (ADJ)   | 0.95 ± 0.02 | 1.00 ± 0.00 | 1.00 ± 0.00 |
 | Hypothesis-testing (ADJ-PC) | 0.77 ± 0.04 | 0.92 ± 0.03 | 0.92 ± 0.03 |
+
+</div>
 
 ε-Diagnosis and RCD are one-phase RCA methods, while the rest methods are two-phase RCA methods. 
 Local-RCD denotes the RCD algorithm with localized learning. The Bayesian Inference algorithm 
