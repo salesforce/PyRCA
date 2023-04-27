@@ -22,6 +22,7 @@ def _uniform_weight() -> float:
     low, high = rng.choice(segments)
     return rng.uniform(low=low, high=high)
 
+
 @dataclass
 class DAGGenConfig:
     """
@@ -35,6 +36,7 @@ class DAGGenConfig:
     num_node: int = 20
     num_edge: int = 30
     rng: np.random.Generator = None
+
     def __post_init__(self):
         if self.rng is None:
             self.rng = np.random.default_rng()
@@ -57,7 +59,10 @@ class DAGGen:
 
         :return: a matrix, where matrix[i, j] != 0 means i is the cause of j
         """
-        num_edge = min(max(self.config.num_edge, self.config.num_node - 1), int(self.config.num_node * (self.config.num_node - 1) / 2))
+        num_edge = min(
+            max(self.config.num_edge, self.config.num_node - 1),
+            int(self.config.num_node * (self.config.num_node - 1) / 2),
+        )
         matrix = np.zeros((self.config.num_node, self.config.num_node))
 
         # Make the graphs connected
@@ -94,54 +99,59 @@ class DataGenConfig:
     noise_type: str = None
     func_type: str = None
     num_samples: int = 5000
-    weight_generator: str = 'normal'
+    weight_generator: str = "normal"
 
-    _VALID_NOISE = ['normal', 'exponential', 'uniform', 'laplace']
-    _VALID_FUNC = ['identity', 'square', 'sin', 'tanh']
-    _VALID_WEIGHT = ['normal', 'uniform']
+    _VALID_NOISE = ["normal", "exponential", "uniform", "laplace"]
+    _VALID_FUNC = ["identity", "square", "sin", "tanh"]
+    _VALID_WEIGHT = ["normal", "uniform"]
 
     # Sanity check.
     def __post_init__(self):
-        assert self.dag is not None, 'DAG is None'
+        assert self.dag is not None, "DAG is None"
 
         if self.noise_type is None:
             self.noise_type = self._VALID_NOISE[np.random.choice(len(self._VALID_NOISE))]
 
-        if self.noise_type == 'normal':
+        if self.noise_type == "normal":
             self.noise_type = lambda size: np.random.normal(0, 1, size)
-        elif self.noise_type == 'exponential':
+        elif self.noise_type == "exponential":
             self.noise_type = lambda size: np.random.exponential(1, size)
-        elif self.noise_type == 'uniform':
+        elif self.noise_type == "uniform":
             self.noise_type = lambda size: np.random.uniform(-0.5, 0.5, size)
-        elif self.noise_type == 'laplace':
+        elif self.noise_type == "laplace":
             self.noise_type = lambda size: np.random.laplace(0, 1, size)
         else:
-            assert self.noise_type in self._VALID_NOISE, f'{self.noise_type} is not supported. The valid value is {self._VALID_NOISE}'
-
+            assert (
+                self.noise_type in self._VALID_NOISE
+            ), f"{self.noise_type} is not supported. The valid value is {self._VALID_NOISE}"
 
         if self.func_type is None:
             self.func_type = self._VALID_FUNC[np.random.choice(len(self._VALID_FUNC))]
 
-        if self.func_type == 'identity':
-             self.func_type = lambda x: x
-        elif self.func_type == 'square':
+        if self.func_type == "identity":
+            self.func_type = lambda x: x
+        elif self.func_type == "square":
             self.func_type = lambda x: np.power(x, 2)
-        elif self.func_type == 'sin':
+        elif self.func_type == "sin":
             self.func_type = lambda x: np.sin(x)
-        elif self.func_type == 'tanh':
+        elif self.func_type == "tanh":
             self.func_type = lambda x: np.tanh(x)
         else:
-            assert self.func_type in self._VALID_FUNC, f'{self.func_type} is not supported. The valid value is {self._VALID_FUNC}'
+            assert (
+                self.func_type in self._VALID_FUNC
+            ), f"{self.func_type} is not supported. The valid value is {self._VALID_FUNC}"
 
         if self.weight_generator is None:
             self.weight_generator = self._VALID_WEIGHT[np.random.choice(len(self._VALID_WEIGHT))]
 
-        if self.weight_generator == 'normal':
+        if self.weight_generator == "normal":
             self.weight_generator = _normal_weight
-        elif self.weight_generator == 'uniform':
+        elif self.weight_generator == "uniform":
             self.weight_generator = _uniform_weight
         else:
-            assert self.weight_generator in self._VALID_WEIGHT, f'{self.weight_generator} is not supported. The valid value is {self._VALID_WEIGHT}'
+            assert (
+                self.weight_generator in self._VALID_WEIGHT
+            ), f"{self.weight_generator} is not supported. The valid value is {self._VALID_WEIGHT}"
 
 
 class DataGen:
@@ -166,7 +176,7 @@ class DataGen:
         noise_i is chosen from Exponential(1), Normal(0,1), Uniform(-0.5,0.5), Laplace(0, 1)
         Both the weights of A_{ij} and \beta_i are chosen from _uniform_weight or _normal_weight
 
-        : returns:
+        :returns:
             - data: (num_samples, num_node) data of each variable x_i
             - parent_weights: (num_node, num_node) Combination weights of each variable A_{ij}
             - noise_weights: (num_node,) noise weight for of each variable \beta_i
@@ -196,6 +206,7 @@ class DataGen:
 
         return data, parent_weights, noise_weights, self.config.func_type, self.config.noise_type
 
+
 @dataclass
 class AnomalyDataGenConfig:
     """
@@ -210,9 +221,11 @@ class AnomalyDataGenConfig:
     :param baseline: baseline of normal data
     :param threshold: threshold to differentiate anomaly data from stats-based anomaly detector
     :param num_samples: Number of anomaly samples
-    :param anomaly_type: 0 change the weight of noise term, 1 add a constant shift to noise term, 2 change the weight of parent nodes
+    :param anomaly_type: 0 change the weight of noise term, 1 add a constant shift to noise term,
+        2 change the weight of parent nodes
     :param weight_generator: random generator for model weights
     """
+
     parent_weights: np.array
     noise_weights: np.array
     noise_type: str
@@ -221,36 +234,38 @@ class AnomalyDataGenConfig:
     threshold: float
     num_samples: int = 5000
     anomaly_type: str = 0
-    weight_generator: str = 'normal'
+    weight_generator: str = "normal"
 
-    _VALID_NOISE = ['normal', 'exponential', 'uniform', 'laplace']
-    _VALID_FUNC = ['identity', 'square', 'sin', 'tanh']
-    _VALID_WEIGHT = ['normal', 'uniform']
+    _VALID_NOISE = ["normal", "exponential", "uniform", "laplace"]
+    _VALID_FUNC = ["identity", "square", "sin", "tanh"]
+    _VALID_WEIGHT = ["normal", "uniform"]
 
     # Sanity check.
     def __post_init__(self):
-        assert self.parent_weights is not None, 'parent_weights is None'
-        assert self.noise_weights is not None, 'noise_weights is None'
-        assert self.threshold is not None, 'threshold is None'
-        assert self.baseline is not None, 'baseline is None'
-        assert self.anomaly_type in np.arange(3), 'anomaly type {self.anomaly_type} is not supported'
+        assert self.parent_weights is not None, "parent_weights is None"
+        assert self.noise_weights is not None, "noise_weights is None"
+        assert self.threshold is not None, "threshold is None"
+        assert self.baseline is not None, "baseline is None"
+        assert self.anomaly_type in np.arange(3), "anomaly type {self.anomaly_type} is not supported"
 
         if self.weight_generator is None:
             self.weight_generator = self._VALID_WEIGHT[np.random.choice(len(self._VALID_WEIGHT))]
 
-        if self.weight_generator == 'normal':
+        if self.weight_generator == "normal":
             self.weight_generator = _normal_weight
-        elif self.weight_generator == 'uniform':
+        elif self.weight_generator == "uniform":
             self.weight_generator = _uniform_weight
         else:
-            assert self.weight_generator in self._VALID_WEIGHT, f'{self.weight_generator} is not supported. The valid value is {self._VALID_WEIGHT}'
+            assert (
+                self.weight_generator in self._VALID_WEIGHT
+            ), f"{self.weight_generator} is not supported. The valid value is {self._VALID_WEIGHT}"
 
 
 class AnomalyDataGen:
     """
-    anomaly data generation.
+    Anomaly data generation.
 
-    generate data (n_samples, n_nodes)
+    Generate anomaly data (n_samples, n_nodes)
     """
 
     config_class = AnomalyDataGenConfig
@@ -262,7 +277,7 @@ class AnomalyDataGen:
         """
         Generate anomaly data by randomly choose the root cause nodes
 
-        : returns:
+        :returns:
             - data: (num_samples, num_node) data of each variable x_i in anomaly phase
             - root causes: (num_node) root causes of anomaly data
         """
@@ -286,7 +301,9 @@ class AnomalyDataGen:
             col_id = rng.choice(nodeid_haveparents, size=num_causes, replace=False)
             row_id = []
             for target in col_id:
-                parent_node = rng.choice(np.where(self.config.parent_weights[:, target] != 0)[0], size=1, replace=False)[0]
+                parent_node = rng.choice(
+                    np.where(self.config.parent_weights[:, target] != 0)[0], size=1, replace=False
+                )[0]
                 row_id.append(parent_node)
             row_id = np.array(row_id)
             fault = np.zeros((num_node, num_node))
@@ -303,42 +320,40 @@ class AnomalyDataGen:
                     parents_data = self.config.func_type(data[:, parents])
                     if self.config.anomaly_type == 0:
                         # 0. anomaly event indicate the change of constant
-                        data[:self.config.num_samples, i] = parents_data @ self.config.parent_weights[parents, i] + self.config.noise_weights[
-                            i] * noise_data + fault[i]
+                        data[: self.config.num_samples, i] = (
+                            parents_data @ self.config.parent_weights[parents, i]
+                            + self.config.noise_weights[i] * noise_data
+                            + fault[i]
+                        )
                     elif self.config.anomaly_type == 1:
                         # 1. anomaly event indicate the change of noise weight
-                        data[:self.config.num_samples, i] = parents_data @ self.config.parent_weights[parents, i] + (
-                                    self.config.noise_weights[i] + fault[i]) * noise_data
+                        data[: self.config.num_samples, i] = (
+                            parents_data @ self.config.parent_weights[parents, i]
+                            + (self.config.noise_weights[i] + fault[i]) * noise_data
+                        )
                     else:
                         # 2. anomaly event indicate the change of parent weights
-                        data[:self.config.num_samples, i] = parents_data @ (self.config.parent_weights[parents, i] + fault[parents, i]) + \
-                                                self.config.noise_weights[i] * noise_data
+                        data[: self.config.num_samples, i] = (
+                            parents_data @ (self.config.parent_weights[parents, i] + fault[parents, i])
+                            + self.config.noise_weights[i] * noise_data
+                        )
                 else:
                     if self.config.anomaly_type == 0:
                         # 0. anomaly event indicate the change of constant
-                        data[:self.config.num_samples, i] = fault[i] + noise_data
+                        data[: self.config.num_samples, i] = fault[i] + noise_data
                     elif self.config.anomaly_type == 1:
                         # 1. anomaly event indicate the change of noise weight
-                        data[:self.config.num_samples, i] = (1 + fault[i]) * noise_data
+                        data[: self.config.num_samples, i] = (1 + fault[i]) * noise_data
                     else:
                         # 3. anomaly event indicate the change of parent weights, but node does not have parents
-                        data[:self.config.num_samples, i] = noise_data
-            if (abs(data[:self.config.num_samples,
-                    i] - self.config.baseline) > self.config.threshold).sum() == self.config.num_samples:  # > int(num_samples / 2):
+                        data[: self.config.num_samples, i] = noise_data
+            if (
+                abs(data[: self.config.num_samples, i] - self.config.baseline) > self.config.threshold
+            ).sum() == self.config.num_samples:  # > int(num_samples / 2):
                 break
             alpha *= 2
 
             if alpha.max() > 1e10:
                 print(alpha)
-                raise "Current data generation model can not trigger anomalies, please adjust parameters or try it again"
+                raise "Current data generation model can not trigger anomalies, " "please adjust parameters or try it again"
         return data, fault
-
-
-
-
-
-
-
-
-
-
