@@ -209,26 +209,26 @@ the paths from a potential root cause node to the leaf nodes.
 
 The following table summarizes the RCA performance of different methods on the simulated dataset.
 
-|                           |  Recall@1   |  Recall@3   |  Recall@5   |
-:-------------------------:|:-----------:|:-----------:|:-----------:
-|        ε-Diagnosis        | 0.06 ± 0.02 | 0.16 ± 0.04 | 0.16 ± 0.04 |
-|            RCD            | 0.28 ± 0.05 | 0.29 ± 0.05 | 0.30 ± 0.05 |
-|         Local-RCD         | 0.44 ± 0.05 | 0.70 ± 0.05 | 0.70 ± 0.05 |
-|        Random Walk        | 0.07 ± 0.03 | 0.20 ± 0.04 | 0.24 ± 0.04 |
-|      Random Walk-pc       | 0.06 ± 0.02 | 0.17 ± 0.04 | 0.21 ± 0.04 |
-|    Bayesian Inference     | 0.15 ± 0.04 | 0.35 ± 0.05 | 0.43 ± 0.05 |
-|   Bayesian Inference-pc   | 0.11 ± 0.03 | 0.30 ± 0.05 | 0.40 ± 0.05 |
-|    Hypothesis-testing     | 1.00 ± 0.00 | 1.00 ± 0.00 | 1.00 ± 0.00 |
-|   Hypothesis-testing-pc   | 0.95 ± 0.02 | 1.00 ± 0.00 | 1.00 ± 0.00 |
-|  Hypothesis-testing-adj   | 0.95 ± 0.02 | 1.00 ± 0.00 | 1.00 ± 0.00 |
-| Hypothesis-testing-adj-pc | 0.77 ± 0.04 | 0.92 ± 0.03 | 0.92 ± 0.03 |
+|                             |  Recall@1   |  Recall@3   |  Recall@5   |
+:---------------------------:|:-----------:|:-----------:|:-----------:
+|         ε-Diagnosis         | 0.06 ± 0.02 | 0.16 ± 0.04 | 0.16 ± 0.04 |
+|             RCD             | 0.28 ± 0.05 | 0.29 ± 0.05 | 0.30 ± 0.05 |
+|          Local-RCD          | 0.44 ± 0.05 | 0.70 ± 0.05 | 0.70 ± 0.05 |
+|         Random Walk         | 0.07 ± 0.03 | 0.20 ± 0.04 | 0.24 ± 0.04 |
+|      Random Walk (PC)       | 0.06 ± 0.02 | 0.17 ± 0.04 | 0.21 ± 0.04 |
+|     Bayesian Inference      | 0.15 ± 0.04 | 0.35 ± 0.05 | 0.43 ± 0.05 |
+|   Bayesian Inference (PC)   | 0.11 ± 0.03 | 0.30 ± 0.05 | 0.40 ± 0.05 |
+|     Hypothesis-testing      | 1.00 ± 0.00 | 1.00 ± 0.00 | 1.00 ± 0.00 |
+|   Hypothesis-testing (PC)   | 0.95 ± 0.02 | 1.00 ± 0.00 | 1.00 ± 0.00 |
+|  Hypothesis-testing (ADJ)   | 0.95 ± 0.02 | 1.00 ± 0.00 | 1.00 ± 0.00 |
+| Hypothesis-testing (ADJ-PC) | 0.77 ± 0.04 | 0.92 ± 0.03 | 0.92 ± 0.03 |
 
 ε-Diagnosis and RCD are one-phase RCA methods, while the rest methods are two-phase RCA methods. 
 Local-RCD denotes the RCD algorithm with localized learning. The Bayesian Inference algorithm 
-computes the root cause scores by estimating each structural causal model. Hypothesis-testing-adj denotes 
+computes the root cause scores by estimating each structural causal model. Hypothesis-testing (ADJ) denotes 
 the hypothesis-testing algorithm with descendant adjustment. For the two-phase models, the algorithms 
 without suffix indicate that the root cause localization algorithm use the true causal graph for model 
-training. The algorithms with suffix "pc" indicate the causal graph is estimated via PC algorithm.
+training. The algorithms with suffix "PC" indicate the causal graph is estimated via PC algorithm.
 
 ## How to Contribute
 
