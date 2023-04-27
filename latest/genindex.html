@@ -81,6 +81,7 @@
  | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
+ | <a href="#H"><strong>H</strong></a>
  | <a href="#I"><strong>I</strong></a>
  | <a href="#K"><strong>K</strong></a>
  | <a href="#L"><strong>L</strong></a>
@@ -92,6 +93,7 @@
  | <a href="#T"><strong>T</strong></a>
  | <a href="#U"><strong>U</strong></a>
  | <a href="#V"><strong>V</strong></a>
+ | <a href="#W"><strong>W</strong></a>
  
 </div>
 <h2 id="A">A</h2>
@@ -99,7 +101,7 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyrca.analyzers.html#pyrca.analyzers.bayesian.BayesianNetwork.add_root_causes">add_root_causes() (pyrca.analyzers.bayesian.BayesianNetwork method)</a>
 </li>
-      <li><a href="pyrca.analyzers.html#pyrca.analyzers.rht.RHTConfig.aggregator">aggregator (pyrca.analyzers.rht.RHTConfig attribute)</a>
+      <li><a href="pyrca.analyzers.html#pyrca.analyzers.ht.HTConfig.aggregator">aggregator (pyrca.analyzers.ht.HTConfig attribute)</a>
 </li>
       <li><a href="pyrca.analyzers.html#pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosisConfig.alpha">alpha (pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosisConfig attribute)</a>
 
@@ -107,14 +109,14 @@
         <li><a href="pyrca.graphs.causal.html#pyrca.graphs.causal.PCConfig.alpha">(pyrca.graphs.causal.PCConfig attribute)</a>
 </li>
       </ul></li>
-      <li><a href="pyrca.analyzers.html#pyrca.analyzers.psi_pc.PsiPCConfig.alpha_limit">alpha_limit (pyrca.analyzers.psi_pc.PsiPCConfig attribute)</a>
+      <li><a href="pyrca.analyzers.html#pyrca.analyzers.rcd.RCDConfig.alpha_limit">alpha_limit (pyrca.analyzers.rcd.RCDConfig attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="pyrca.analyzers.html#pyrca.analyzers.psi_pc.PsiPCConfig.alpha_step">alpha_step (pyrca.analyzers.psi_pc.PsiPCConfig attribute)</a>
+      <li><a href="pyrca.analyzers.html#pyrca.analyzers.rcd.RCDConfig.alpha_step">alpha_step (pyrca.analyzers.rcd.RCDConfig attribute)</a>
 </li>
       <li><a href="pyrca.outliers.html#pyrca.outliers.base.DetectionResults.anomalous_metrics">anomalous_metrics (pyrca.outliers.base.DetectionResults attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyrca.outliers.html#pyrca.outliers.base.DetectionResults.anomaly_info">anomaly_info (pyrca.outliers.base.DetectionResults attribute)</a>
 </li>
       <li><a href="pyrca.outliers.html#pyrca.outliers.base.DetectionResults.anomaly_labels">anomaly_labels (pyrca.outliers.base.DetectionResults attribute)</a>
@@ -122,6 +124,12 @@
       <li><a href="pyrca.outliers.html#pyrca.outliers.stats.StatsDetectorConfig.anomaly_threshold">anomaly_threshold (pyrca.outliers.stats.StatsDetectorConfig attribute)</a>
 </li>
       <li><a href="pyrca.outliers.html#pyrca.outliers.base.DetectionResults.anomaly_timestamps">anomaly_timestamps (pyrca.outliers.base.DetectionResults attribute)</a>
+</li>
+      <li><a href="pyrca.simulation.html#pyrca.simulation.data_gen.AnomalyDataGenConfig.anomaly_type">anomaly_type (pyrca.simulation.data_gen.AnomalyDataGenConfig attribute)</a>
+</li>
+      <li><a href="pyrca.simulation.html#pyrca.simulation.data_gen.AnomalyDataGen">AnomalyDataGen (class in pyrca.simulation.data_gen)</a>
+</li>
+      <li><a href="pyrca.simulation.html#pyrca.simulation.data_gen.AnomalyDataGenConfig">AnomalyDataGenConfig (class in pyrca.simulation.data_gen)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -131,15 +139,17 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyrca.outliers.html#pyrca.outliers.base.BaseDetector">BaseDetector (class in pyrca.outliers.base)</a>
 </li>
-      <li><a href="pyrca.analyzers.html#pyrca.analyzers.base.BaseRCA">BaseRCA (class in pyrca.analyzers.base)</a>
+      <li><a href="pyrca.simulation.html#pyrca.simulation.data_gen.AnomalyDataGenConfig.baseline">baseline (pyrca.simulation.data_gen.AnomalyDataGenConfig attribute)</a>
 </li>
-      <li><a href="pyrca.analyzers.html#pyrca.analyzers.bayesian.BayesianNetwork">BayesianNetwork (class in pyrca.analyzers.bayesian)</a>
+      <li><a href="pyrca.analyzers.html#pyrca.analyzers.base.BaseRCA">BaseRCA (class in pyrca.analyzers.base)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pyrca.analyzers.html#pyrca.analyzers.bayesian.BayesianNetwork">BayesianNetwork (class in pyrca.analyzers.bayesian)</a>
+</li>
       <li><a href="pyrca.analyzers.html#pyrca.analyzers.bayesian.BayesianNetworkConfig">BayesianNetworkConfig (class in pyrca.analyzers.bayesian)</a>
 </li>
-      <li><a href="pyrca.analyzers.html#pyrca.analyzers.psi_pc.PsiPCConfig.bins">bins (pyrca.analyzers.psi_pc.PsiPCConfig attribute)</a>
+      <li><a href="pyrca.analyzers.html#pyrca.analyzers.rcd.RCDConfig.bins">bins (pyrca.analyzers.rcd.RCDConfig attribute)</a>
 </li>
       <li><a href="pyrca.analyzers.html#pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosisConfig.bootstrap_time">bootstrap_time (pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosisConfig attribute)</a>
 </li>
@@ -153,18 +163,18 @@
 </li>
       <li><a href="pyrca.outliers.html#pyrca.outliers.base.DetectorMixin.check_data_and_train">check_data_and_train() (pyrca.outliers.base.DetectorMixin method)</a>
 </li>
-      <li><a href="pyrca.analyzers.html#pyrca.analyzers.psi_pc.PsiPCConfig.ci_test">ci_test (pyrca.analyzers.psi_pc.PsiPCConfig attribute)</a>
+      <li><a href="pyrca.analyzers.html#pyrca.analyzers.rcd.RCDConfig.ci_test">ci_test (pyrca.analyzers.rcd.RCDConfig attribute)</a>
 </li>
       <li><a href="pyrca.analyzers.html#pyrca.analyzers.bayesian.BayesianNetwork.config_class">config_class (pyrca.analyzers.bayesian.BayesianNetwork attribute)</a>
 
       <ul>
         <li><a href="pyrca.analyzers.html#pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosis.config_class">(pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosis attribute)</a>
 </li>
-        <li><a href="pyrca.analyzers.html#pyrca.analyzers.psi_pc.PsiPC.config_class">(pyrca.analyzers.psi_pc.PsiPC attribute)</a>
+        <li><a href="pyrca.analyzers.html#pyrca.analyzers.ht.HT.config_class">(pyrca.analyzers.ht.HT attribute)</a>
 </li>
         <li><a href="pyrca.analyzers.html#pyrca.analyzers.random_walk.RandomWalk.config_class">(pyrca.analyzers.random_walk.RandomWalk attribute)</a>
 </li>
-        <li><a href="pyrca.analyzers.html#pyrca.analyzers.rht.RHT.config_class">(pyrca.analyzers.rht.RHT attribute)</a>
+        <li><a href="pyrca.analyzers.html#pyrca.analyzers.rcd.RCD.config_class">(pyrca.analyzers.rcd.RCD attribute)</a>
 </li>
         <li><a href="pyrca.graphs.causal.html#pyrca.graphs.causal.FGES.config_class">(pyrca.graphs.causal.FGES attribute)</a>
 </li>
@@ -177,6 +187,12 @@
         <li><a href="pyrca.outliers.html#pyrca.outliers.base.BaseDetector.config_class">(pyrca.outliers.base.BaseDetector attribute)</a>
 </li>
         <li><a href="pyrca.outliers.html#pyrca.outliers.stats.StatsDetector.config_class">(pyrca.outliers.stats.StatsDetector attribute)</a>
+</li>
+        <li><a href="pyrca.simulation.html#pyrca.simulation.data_gen.AnomalyDataGen.config_class">(pyrca.simulation.data_gen.AnomalyDataGen attribute)</a>
+</li>
+        <li><a href="pyrca.simulation.html#pyrca.simulation.data_gen.DAGGen.config_class">(pyrca.simulation.data_gen.DAGGen attribute)</a>
+</li>
+        <li><a href="pyrca.simulation.html#pyrca.simulation.data_gen.DataGen.config_class">(pyrca.simulation.data_gen.DataGen attribute)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -191,18 +207,28 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pyrca.simulation.html#pyrca.simulation.data_gen.DataGenConfig.dag">dag (pyrca.simulation.data_gen.DataGenConfig attribute)</a>
+</li>
+      <li><a href="pyrca.simulation.html#pyrca.simulation.data_gen.DAGGen">DAGGen (class in pyrca.simulation.data_gen)</a>
+</li>
+      <li><a href="pyrca.simulation.html#pyrca.simulation.data_gen.DAGGenConfig">DAGGenConfig (class in pyrca.simulation.data_gen)</a>
+</li>
+      <li><a href="pyrca.simulation.html#pyrca.simulation.data_gen.DataGen">DataGen (class in pyrca.simulation.data_gen)</a>
+</li>
+      <li><a href="pyrca.simulation.html#pyrca.simulation.data_gen.DataGenConfig">DataGenConfig (class in pyrca.simulation.data_gen)</a>
+</li>
       <li><a href="pyrca.analyzers.html#pyrca.analyzers.bayesian.BayesianNetworkConfig.default_sigma">default_sigma (pyrca.analyzers.bayesian.BayesianNetworkConfig attribute)</a>
 
       <ul>
         <li><a href="pyrca.outliers.html#pyrca.outliers.stats.StatsDetectorConfig.default_sigma">(pyrca.outliers.stats.StatsDetectorConfig attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyrca.outliers.html#pyrca.outliers.base.DetectionResults">DetectionResults (class in pyrca.outliers.base)</a>
 </li>
       <li><a href="pyrca.outliers.html#pyrca.outliers.base.DetectorMixin">DetectorMixin (class in pyrca.outliers.base)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyrca.graphs.causal.html#pyrca.graphs.causal.FGESConfig.domain_knowledge_file">domain_knowledge_file (pyrca.graphs.causal.FGESConfig attribute)</a>
 
       <ul>
@@ -231,7 +257,7 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="pyrca.analyzers.html#pyrca.analyzers.psi_pc.PsiPCConfig.f_node">f_node (pyrca.analyzers.psi_pc.PsiPCConfig attribute)</a>
+      <li><a href="pyrca.analyzers.html#pyrca.analyzers.rcd.RCDConfig.f_node">f_node (pyrca.analyzers.rcd.RCDConfig attribute)</a>
 </li>
       <li><a href="pyrca.graphs.causal.html#pyrca.graphs.causal.FGES">FGES (class in pyrca.graphs.causal)</a>
 </li>
@@ -244,11 +270,11 @@
 </li>
         <li><a href="pyrca.analyzers.html#pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosis.find_root_causes">(pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosis method)</a>
 </li>
-        <li><a href="pyrca.analyzers.html#pyrca.analyzers.psi_pc.PsiPC.find_root_causes">(pyrca.analyzers.psi_pc.PsiPC method)</a>
+        <li><a href="pyrca.analyzers.html#pyrca.analyzers.ht.HT.find_root_causes">(pyrca.analyzers.ht.HT method)</a>
 </li>
         <li><a href="pyrca.analyzers.html#pyrca.analyzers.random_walk.RandomWalk.find_root_causes">(pyrca.analyzers.random_walk.RandomWalk method)</a>
 </li>
-        <li><a href="pyrca.analyzers.html#pyrca.analyzers.rht.RHT.find_root_causes">(pyrca.analyzers.rht.RHT method)</a>
+        <li><a href="pyrca.analyzers.html#pyrca.analyzers.rcd.RCD.find_root_causes">(pyrca.analyzers.rcd.RCD method)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -257,28 +283,54 @@
 </li>
       <li><a href="pyrca.outliers.html#pyrca.outliers.stats.StatsDetector.from_dict">from_dict() (pyrca.outliers.stats.StatsDetector class method)</a>
 </li>
+      <li><a href="pyrca.simulation.html#pyrca.simulation.data_gen.AnomalyDataGenConfig.func_type">func_type (pyrca.simulation.data_gen.AnomalyDataGenConfig attribute)</a>
+
+      <ul>
+        <li><a href="pyrca.simulation.html#pyrca.simulation.data_gen.DataGenConfig.func_type">(pyrca.simulation.data_gen.DataGenConfig attribute)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="pyrca.analyzers.html#pyrca.analyzers.psi_pc.PsiPCConfig.gamma">gamma (pyrca.analyzers.psi_pc.PsiPCConfig attribute)</a>
+      <li><a href="pyrca.analyzers.html#pyrca.analyzers.rcd.RCDConfig.gamma">gamma (pyrca.analyzers.rcd.RCDConfig attribute)</a>
 </li>
+      <li><a href="pyrca.simulation.html#pyrca.simulation.data_gen.AnomalyDataGen.gen">gen() (pyrca.simulation.data_gen.AnomalyDataGen method)</a>
+
+      <ul>
+        <li><a href="pyrca.simulation.html#pyrca.simulation.data_gen.DAGGen.gen">(pyrca.simulation.data_gen.DAGGen method)</a>
+</li>
+        <li><a href="pyrca.simulation.html#pyrca.simulation.data_gen.DataGen.gen">(pyrca.simulation.data_gen.DataGen method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyrca.graphs.causal.html#pyrca.graphs.causal.GES">GES (class in pyrca.graphs.causal)</a>
 </li>
       <li><a href="pyrca.graphs.causal.html#pyrca.graphs.causal.GESConfig">GESConfig (class in pyrca.graphs.causal)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyrca.analyzers.html#pyrca.analyzers.bayesian.BayesianNetworkConfig.graph">graph (pyrca.analyzers.bayesian.BayesianNetworkConfig attribute)</a>
 
       <ul>
+        <li><a href="pyrca.analyzers.html#pyrca.analyzers.ht.HTConfig.graph">(pyrca.analyzers.ht.HTConfig attribute)</a>
+</li>
         <li><a href="pyrca.analyzers.html#pyrca.analyzers.random_walk.RandomWalkConfig.graph">(pyrca.analyzers.random_walk.RandomWalkConfig attribute)</a>
 </li>
-        <li><a href="pyrca.analyzers.html#pyrca.analyzers.rht.RHTConfig.graph">(pyrca.analyzers.rht.RHTConfig attribute)</a>
-</li>
       </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="H">H</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pyrca.analyzers.html#pyrca.analyzers.ht.HT">HT (class in pyrca.analyzers.ht)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pyrca.analyzers.html#pyrca.analyzers.ht.HTConfig">HTConfig (class in pyrca.analyzers.ht)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -297,7 +349,7 @@
 <h2 id="K">K</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="pyrca.analyzers.html#pyrca.analyzers.psi_pc.PsiPCConfig.k">k (pyrca.analyzers.psi_pc.PsiPCConfig attribute)</a>
+      <li><a href="pyrca.analyzers.html#pyrca.analyzers.rcd.RCDConfig.k">k (pyrca.analyzers.rcd.RCDConfig attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -313,7 +365,7 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyrca.analyzers.html#pyrca.analyzers.bayesian.BayesianNetwork.load">load() (pyrca.analyzers.bayesian.BayesianNetwork class method)</a>
 </li>
-      <li><a href="pyrca.analyzers.html#pyrca.analyzers.psi_pc.PsiPCConfig.localized">localized (pyrca.analyzers.psi_pc.PsiPCConfig attribute)</a>
+      <li><a href="pyrca.analyzers.html#pyrca.analyzers.rcd.RCDConfig.localized">localized (pyrca.analyzers.rcd.RCDConfig attribute)</a>
 </li>
       <li><a href="pyrca.graphs.causal.html#pyrca.graphs.causal.LiNGAMConfig.lower_limit">lower_limit (pyrca.graphs.causal.LiNGAMConfig attribute)</a>
 </li>
@@ -359,11 +411,11 @@
 </li>
         <li><a href="pyrca.analyzers.html#module-pyrca.analyzers.epsilon_diagnosis">pyrca.analyzers.epsilon_diagnosis</a>
 </li>
-        <li><a href="pyrca.analyzers.html#module-pyrca.analyzers.psi_pc">pyrca.analyzers.psi_pc</a>
+        <li><a href="pyrca.analyzers.html#module-pyrca.analyzers.ht">pyrca.analyzers.ht</a>
 </li>
         <li><a href="pyrca.analyzers.html#module-pyrca.analyzers.random_walk">pyrca.analyzers.random_walk</a>
 </li>
-        <li><a href="pyrca.analyzers.html#module-pyrca.analyzers.rht">pyrca.analyzers.rht</a>
+        <li><a href="pyrca.analyzers.html#module-pyrca.analyzers.rcd">pyrca.analyzers.rcd</a>
 </li>
         <li><a href="pyrca.graphs.html#module-pyrca.graphs">pyrca.graphs</a>
 </li>
@@ -374,6 +426,8 @@
         <li><a href="pyrca.outliers.html#module-pyrca.outliers.base">pyrca.outliers.base</a>
 </li>
         <li><a href="pyrca.outliers.html#module-pyrca.outliers.stats">pyrca.outliers.stats</a>
+</li>
+        <li><a href="pyrca.simulation.html#module-pyrca.simulation.data_gen">pyrca.simulation.data_gen</a>
 </li>
         <li><a href="pyrca.tools.html#module-pyrca.tools">pyrca.tools</a>
 </li>
@@ -386,10 +440,28 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyrca.graphs.causal.html#pyrca.graphs.causal.LiNGAMConfig.n_sampling">n_sampling (pyrca.graphs.causal.LiNGAMConfig attribute)</a>
 </li>
+      <li><a href="pyrca.simulation.html#pyrca.simulation.data_gen.AnomalyDataGenConfig.noise_type">noise_type (pyrca.simulation.data_gen.AnomalyDataGenConfig attribute)</a>
+
+      <ul>
+        <li><a href="pyrca.simulation.html#pyrca.simulation.data_gen.DataGenConfig.noise_type">(pyrca.simulation.data_gen.DataGenConfig attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="pyrca.simulation.html#pyrca.simulation.data_gen.AnomalyDataGenConfig.noise_weights">noise_weights (pyrca.simulation.data_gen.AnomalyDataGenConfig attribute)</a>
+</li>
+      <li><a href="pyrca.simulation.html#pyrca.simulation.data_gen.DAGGenConfig.num_edge">num_edge (pyrca.simulation.data_gen.DAGGenConfig attribute)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pyrca.simulation.html#pyrca.simulation.data_gen.DAGGenConfig.num_node">num_node (pyrca.simulation.data_gen.DAGGenConfig attribute)</a>
+</li>
       <li><a href="pyrca.analyzers.html#pyrca.analyzers.random_walk.RandomWalkConfig.num_repeats">num_repeats (pyrca.analyzers.random_walk.RandomWalkConfig attribute)</a>
 </li>
+      <li><a href="pyrca.simulation.html#pyrca.simulation.data_gen.AnomalyDataGenConfig.num_samples">num_samples (pyrca.simulation.data_gen.AnomalyDataGenConfig attribute)</a>
+
+      <ul>
+        <li><a href="pyrca.simulation.html#pyrca.simulation.data_gen.DataGenConfig.num_samples">(pyrca.simulation.data_gen.DataGenConfig attribute)</a>
+</li>
+      </ul></li>
       <li><a href="pyrca.analyzers.html#pyrca.analyzers.random_walk.RandomWalkConfig.num_steps">num_steps (pyrca.analyzers.random_walk.RandomWalkConfig attribute)</a>
 </li>
   </ul></td>
@@ -398,6 +470,8 @@
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pyrca.simulation.html#pyrca.simulation.data_gen.AnomalyDataGenConfig.parent_weights">parent_weights (pyrca.simulation.data_gen.AnomalyDataGenConfig attribute)</a>
+</li>
       <li><a href="pyrca.graphs.causal.html#pyrca.graphs.causal.PC">PC (class in pyrca.graphs.causal)</a>
 </li>
       <li><a href="pyrca.graphs.causal.html#pyrca.graphs.causal.PCConfig">PCConfig (class in pyrca.graphs.causal)</a>
@@ -411,10 +485,6 @@
       <li><a href="pyrca.outliers.html#pyrca.outliers.base.BaseDetector.predict">predict() (pyrca.outliers.base.BaseDetector method)</a>
 </li>
       <li><a href="pyrca.analyzers.html#pyrca.analyzers.bayesian.BayesianNetwork.print_probabilities">print_probabilities() (pyrca.analyzers.bayesian.BayesianNetwork method)</a>
-</li>
-      <li><a href="pyrca.analyzers.html#pyrca.analyzers.psi_pc.PsiPC">PsiPC (class in pyrca.analyzers.psi_pc)</a>
-</li>
-      <li><a href="pyrca.analyzers.html#pyrca.analyzers.psi_pc.PsiPCConfig">PsiPCConfig (class in pyrca.analyzers.psi_pc)</a>
 </li>
       <li>
     pyrca
@@ -451,15 +521,15 @@
         <li><a href="pyrca.analyzers.html#module-pyrca.analyzers.epsilon_diagnosis">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
-    pyrca.analyzers.psi_pc
+    pyrca.analyzers.ht
 
       <ul>
-        <li><a href="pyrca.analyzers.html#module-pyrca.analyzers.psi_pc">module</a>
+        <li><a href="pyrca.analyzers.html#module-pyrca.analyzers.ht">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     pyrca.analyzers.random_walk
 
@@ -468,10 +538,10 @@
 </li>
       </ul></li>
       <li>
-    pyrca.analyzers.rht
+    pyrca.analyzers.rcd
 
       <ul>
-        <li><a href="pyrca.analyzers.html#module-pyrca.analyzers.rht">module</a>
+        <li><a href="pyrca.analyzers.html#module-pyrca.analyzers.rcd">module</a>
 </li>
       </ul></li>
       <li>
@@ -510,6 +580,13 @@
 </li>
       </ul></li>
       <li>
+    pyrca.simulation.data_gen
+
+      <ul>
+        <li><a href="pyrca.simulation.html#module-pyrca.simulation.data_gen">module</a>
+</li>
+      </ul></li>
+      <li>
     pyrca.tools
 
       <ul>
@@ -528,26 +605,28 @@
 </li>
       <li><a href="pyrca.analyzers.html#pyrca.analyzers.base.RCAResults">RCAResults (class in pyrca.analyzers.base)</a>
 </li>
+      <li><a href="pyrca.analyzers.html#pyrca.analyzers.rcd.RCD">RCD (class in pyrca.analyzers.rcd)</a>
+</li>
+      <li><a href="pyrca.analyzers.html#pyrca.analyzers.rcd.RCDConfig">RCDConfig (class in pyrca.analyzers.rcd)</a>
+</li>
       <li><a href="pyrca.analyzers.html#pyrca.analyzers.random_walk.RandomWalkConfig.rho">rho (pyrca.analyzers.random_walk.RandomWalkConfig attribute)</a>
 </li>
-      <li><a href="pyrca.analyzers.html#pyrca.analyzers.rht.RHT">RHT (class in pyrca.analyzers.rht)</a>
-</li>
-      <li><a href="pyrca.analyzers.html#pyrca.analyzers.rht.RHTConfig">RHTConfig (class in pyrca.analyzers.rht)</a>
+      <li><a href="pyrca.simulation.html#pyrca.simulation.data_gen.DAGGenConfig.rng">rng (pyrca.simulation.data_gen.DAGGenConfig attribute)</a>
 </li>
       <li><a href="pyrca.analyzers.html#pyrca.analyzers.base.RCAResults.root_cause_nodes">root_cause_nodes (pyrca.analyzers.base.RCAResults attribute)</a>
 </li>
-      <li><a href="pyrca.analyzers.html#pyrca.analyzers.base.RCAResults.root_cause_paths">root_cause_paths (pyrca.analyzers.base.RCAResults attribute)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pyrca.analyzers.html#pyrca.analyzers.base.RCAResults.root_cause_paths">root_cause_paths (pyrca.analyzers.base.RCAResults attribute)</a>
+</li>
       <li><a href="pyrca.analyzers.html#pyrca.analyzers.bayesian.BayesianNetworkConfig.root_cause_top_k">root_cause_top_k (pyrca.analyzers.bayesian.BayesianNetworkConfig attribute)</a>
 
       <ul>
         <li><a href="pyrca.analyzers.html#pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosisConfig.root_cause_top_k">(pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosisConfig attribute)</a>
 </li>
-        <li><a href="pyrca.analyzers.html#pyrca.analyzers.random_walk.RandomWalkConfig.root_cause_top_k">(pyrca.analyzers.random_walk.RandomWalkConfig attribute)</a>
+        <li><a href="pyrca.analyzers.html#pyrca.analyzers.ht.HTConfig.root_cause_top_k">(pyrca.analyzers.ht.HTConfig attribute)</a>
 </li>
-        <li><a href="pyrca.analyzers.html#pyrca.analyzers.rht.RHTConfig.root_cause_top_k">(pyrca.analyzers.rht.RHTConfig attribute)</a>
+        <li><a href="pyrca.analyzers.html#pyrca.analyzers.random_walk.RandomWalkConfig.root_cause_top_k">(pyrca.analyzers.random_walk.RandomWalkConfig attribute)</a>
 </li>
       </ul></li>
       <li><a href="pyrca.graphs.causal.html#pyrca.graphs.causal.FGESConfig.run_pdag2dag">run_pdag2dag (pyrca.graphs.causal.FGESConfig attribute)</a>
@@ -580,7 +659,7 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="pyrca.analyzers.html#pyrca.analyzers.psi_pc.PsiPCConfig.start_alpha">start_alpha (pyrca.analyzers.psi_pc.PsiPCConfig attribute)</a>
+      <li><a href="pyrca.analyzers.html#pyrca.analyzers.rcd.RCDConfig.start_alpha">start_alpha (pyrca.analyzers.rcd.RCDConfig attribute)</a>
 </li>
       <li><a href="pyrca.outliers.html#pyrca.outliers.stats.StatsDetector">StatsDetector (class in pyrca.outliers.stats)</a>
 </li>
@@ -604,6 +683,8 @@
         <li><a href="pyrca.outliers.html#pyrca.outliers.stats.StatsDetectorConfig.thres_win_size">(pyrca.outliers.stats.StatsDetectorConfig attribute)</a>
 </li>
       </ul></li>
+      <li><a href="pyrca.simulation.html#pyrca.simulation.data_gen.AnomalyDataGenConfig.threshold">threshold (pyrca.simulation.data_gen.AnomalyDataGenConfig attribute)</a>
+</li>
       <li><a href="pyrca.analyzers.html#pyrca.analyzers.base.RCAResults.to_dict">to_dict() (pyrca.analyzers.base.RCAResults method)</a>
 
       <ul>
@@ -623,11 +704,11 @@
 </li>
         <li><a href="pyrca.analyzers.html#pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosis.train">(pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosis method)</a>
 </li>
-        <li><a href="pyrca.analyzers.html#pyrca.analyzers.psi_pc.PsiPC.train">(pyrca.analyzers.psi_pc.PsiPC method)</a>
+        <li><a href="pyrca.analyzers.html#pyrca.analyzers.ht.HT.train">(pyrca.analyzers.ht.HT method)</a>
 </li>
         <li><a href="pyrca.analyzers.html#pyrca.analyzers.random_walk.RandomWalk.train">(pyrca.analyzers.random_walk.RandomWalk method)</a>
 </li>
-        <li><a href="pyrca.analyzers.html#pyrca.analyzers.rht.RHT.train">(pyrca.analyzers.rht.RHT method)</a>
+        <li><a href="pyrca.analyzers.html#pyrca.analyzers.rcd.RCD.train">(pyrca.analyzers.rcd.RCD method)</a>
 </li>
         <li><a href="pyrca.outliers.html#pyrca.outliers.base.BaseDetector.train">(pyrca.outliers.base.BaseDetector method)</a>
 </li>
@@ -654,8 +735,20 @@
 <h2 id="V">V</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="pyrca.analyzers.html#pyrca.analyzers.psi_pc.PsiPCConfig.verbose">verbose (pyrca.analyzers.psi_pc.PsiPCConfig attribute)</a>
+      <li><a href="pyrca.analyzers.html#pyrca.analyzers.rcd.RCDConfig.verbose">verbose (pyrca.analyzers.rcd.RCDConfig attribute)</a>
 </li>
+  </ul></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pyrca.simulation.html#pyrca.simulation.data_gen.AnomalyDataGenConfig.weight_generator">weight_generator (pyrca.simulation.data_gen.AnomalyDataGenConfig attribute)</a>
+
+      <ul>
+        <li><a href="pyrca.simulation.html#pyrca.simulation.data_gen.DataGenConfig.weight_generator">(pyrca.simulation.data_gen.DataGenConfig attribute)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyrca.simulation package &mdash; PyRCA  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="pyrca.tools package" href="pyrca.tools.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PyRCA
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="pyrca.html">PyRCA: A Library for Root Cause Analysis</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="pyrca.html#anomaly-detectors">Anomaly detectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyrca.html#algorithms-for-building-topology-causal-graphs">Algorithms for building topology/causal graphs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyrca.html#supported-rca-methods">Supported RCA methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyrca.html#a-visualization-tool">A visualization tool</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="pyrca.html#simulated-data-generation">Simulated Data Generation</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pyrca.simulation package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyrca.simulation.data_gen.DAGGenConfig"><code class="docutils literal notranslate"><span class="pre">DAGGenConfig</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#pyrca.simulation.data_gen.DAGGenConfig.num_node"><code class="docutils literal notranslate"><span class="pre">DAGGenConfig.num_node</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#pyrca.simulation.data_gen.DAGGenConfig.num_edge"><code class="docutils literal notranslate"><span class="pre">DAGGenConfig.num_edge</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#pyrca.simulation.data_gen.DAGGenConfig.rng"><code class="docutils literal notranslate"><span class="pre">DAGGenConfig.rng</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#pyrca.simulation.data_gen.DAGGen"><code class="docutils literal notranslate"><span class="pre">DAGGen</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#pyrca.simulation.data_gen.DAGGen.config_class"><code class="docutils literal notranslate"><span class="pre">DAGGen.config_class</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#pyrca.simulation.data_gen.DAGGen.gen"><code class="docutils literal notranslate"><span class="pre">DAGGen.gen()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#pyrca.simulation.data_gen.DataGenConfig"><code class="docutils literal notranslate"><span class="pre">DataGenConfig</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#pyrca.simulation.data_gen.DataGenConfig.dag"><code class="docutils literal notranslate"><span class="pre">DataGenConfig.dag</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#pyrca.simulation.data_gen.DataGenConfig.noise_type"><code class="docutils literal notranslate"><span class="pre">DataGenConfig.noise_type</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#pyrca.simulation.data_gen.DataGenConfig.func_type"><code class="docutils literal notranslate"><span class="pre">DataGenConfig.func_type</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#pyrca.simulation.data_gen.DataGenConfig.num_samples"><code class="docutils literal notranslate"><span class="pre">DataGenConfig.num_samples</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#pyrca.simulation.data_gen.DataGenConfig.weight_generator"><code class="docutils literal notranslate"><span class="pre">DataGenConfig.weight_generator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#pyrca.simulation.data_gen.DataGen"><code class="docutils literal notranslate"><span class="pre">DataGen</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#pyrca.simulation.data_gen.DataGen.config_class"><code class="docutils literal notranslate"><span class="pre">DataGen.config_class</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#pyrca.simulation.data_gen.DataGen.gen"><code class="docutils literal notranslate"><span class="pre">DataGen.gen()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#pyrca.simulation.data_gen.AnomalyDataGenConfig"><code class="docutils literal notranslate"><span class="pre">AnomalyDataGenConfig</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#pyrca.simulation.data_gen.AnomalyDataGenConfig.parent_weights"><code class="docutils literal notranslate"><span class="pre">AnomalyDataGenConfig.parent_weights</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#pyrca.simulation.data_gen.AnomalyDataGenConfig.noise_weights"><code class="docutils literal notranslate"><span class="pre">AnomalyDataGenConfig.noise_weights</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#pyrca.simulation.data_gen.AnomalyDataGenConfig.noise_type"><code class="docutils literal notranslate"><span class="pre">AnomalyDataGenConfig.noise_type</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#pyrca.simulation.data_gen.AnomalyDataGenConfig.func_type"><code class="docutils literal notranslate"><span class="pre">AnomalyDataGenConfig.func_type</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#pyrca.simulation.data_gen.AnomalyDataGenConfig.baseline"><code class="docutils literal notranslate"><span class="pre">AnomalyDataGenConfig.baseline</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#pyrca.simulation.data_gen.AnomalyDataGenConfig.threshold"><code class="docutils literal notranslate"><span class="pre">AnomalyDataGenConfig.threshold</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#pyrca.simulation.data_gen.AnomalyDataGenConfig.num_samples"><code class="docutils literal notranslate"><span class="pre">AnomalyDataGenConfig.num_samples</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#pyrca.simulation.data_gen.AnomalyDataGenConfig.anomaly_type"><code class="docutils literal notranslate"><span class="pre">AnomalyDataGenConfig.anomaly_type</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#pyrca.simulation.data_gen.AnomalyDataGenConfig.weight_generator"><code class="docutils literal notranslate"><span class="pre">AnomalyDataGenConfig.weight_generator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#pyrca.simulation.data_gen.AnomalyDataGen"><code class="docutils literal notranslate"><span class="pre">AnomalyDataGen</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#pyrca.simulation.data_gen.AnomalyDataGen.config_class"><code class="docutils literal notranslate"><span class="pre">AnomalyDataGen.config_class</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#pyrca.simulation.data_gen.AnomalyDataGen.gen"><code class="docutils literal notranslate"><span class="pre">AnomalyDataGen.gen()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PyRCA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="pyrca.html">PyRCA: A Library for Root Cause Analysis</a></li>
+      <li class="breadcrumb-item active">pyrca.simulation package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/pyrca.simulation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="module-pyrca.simulation.data_gen">
+<span id="pyrca-simulation-package"></span><h1>pyrca.simulation package<a class="headerlink" href="#module-pyrca.simulation.data_gen" title="Permalink to this heading"></a></h1>
+<p>Simulated Data Generation</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyrca.simulation.data_gen.DAGGenConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyrca.simulation.data_gen.</span></span><span class="sig-name descname"><span class="pre">DAGGenConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_edge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rng</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.simulation.data_gen.DAGGenConfig" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The configuration class of generating DAG</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_node</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of nodes in DAG</p></li>
+<li><p><strong>num_edge</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of edges in DAG</p></li>
+<li><p><strong>rng</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>]) – random generator</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyrca.simulation.data_gen.DAGGenConfig.num_node">
+<span class="sig-name descname"><span class="pre">num_node</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></em><a class="headerlink" href="#pyrca.simulation.data_gen.DAGGenConfig.num_node" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyrca.simulation.data_gen.DAGGenConfig.num_edge">
+<span class="sig-name descname"><span class="pre">num_edge</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">30</span></em><a class="headerlink" href="#pyrca.simulation.data_gen.DAGGenConfig.num_edge" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyrca.simulation.data_gen.DAGGenConfig.rng">
+<span class="sig-name descname"><span class="pre">rng</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyrca.simulation.data_gen.DAGGenConfig.rng" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyrca.simulation.data_gen.DAGGen">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyrca.simulation.data_gen.</span></span><span class="sig-name descname"><span class="pre">DAGGen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.simulation.data_gen.DAGGen" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The DAG generation.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyrca.simulation.data_gen.DAGGen.config_class">
+<span class="sig-name descname"><span class="pre">config_class</span></span><a class="headerlink" href="#pyrca.simulation.data_gen.DAGGen.config_class" title="Permalink to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#pyrca.simulation.data_gen.DAGGenConfig" title="pyrca.simulation.data_gen.DAGGenConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">DAGGenConfig</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrca.simulation.data_gen.DAGGen.gen">
+<span class="sig-name descname"><span class="pre">gen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.simulation.data_gen.DAGGen.gen" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a directed acyclic graphs with a single end.
+The first node with index of 0 is the only end that does not have results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a matrix, where matrix[i, j] != 0 means i is the cause of j</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyrca.simulation.data_gen.DataGenConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyrca.simulation.data_gen.</span></span><span class="sig-name descname"><span class="pre">DataGenConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_generator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'normal'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.simulation.data_gen.DataGenConfig" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The configuration class of generating RCA Data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dag</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>) – The dependency graph</p></li>
+<li><p><strong>noise_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – probability distribution of each node’s noise,
+it is required to be in valid_noise type list</p></li>
+<li><p><strong>func_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – causal function form of each node,
+it is required to be in valid_noise type list</p></li>
+<li><p><strong>num_samples</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of samples</p></li>
+<li><p><strong>weight_generator</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – random generator for model weights</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyrca.simulation.data_gen.DataGenConfig.dag">
+<span class="sig-name descname"><span class="pre">dag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></em><a class="headerlink" href="#pyrca.simulation.data_gen.DataGenConfig.dag" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyrca.simulation.data_gen.DataGenConfig.noise_type">
+<span class="sig-name descname"><span class="pre">noise_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyrca.simulation.data_gen.DataGenConfig.noise_type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyrca.simulation.data_gen.DataGenConfig.func_type">
+<span class="sig-name descname"><span class="pre">func_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyrca.simulation.data_gen.DataGenConfig.func_type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyrca.simulation.data_gen.DataGenConfig.num_samples">
+<span class="sig-name descname"><span class="pre">num_samples</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5000</span></em><a class="headerlink" href="#pyrca.simulation.data_gen.DataGenConfig.num_samples" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyrca.simulation.data_gen.DataGenConfig.weight_generator">
+<span class="sig-name descname"><span class="pre">weight_generator</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'normal'</span></em><a class="headerlink" href="#pyrca.simulation.data_gen.DataGenConfig.weight_generator" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyrca.simulation.data_gen.DataGen">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyrca.simulation.data_gen.</span></span><span class="sig-name descname"><span class="pre">DataGen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.simulation.data_gen.DataGen" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Normal data generation.</p>
+<p>generate data (n_samples, n_nodes) according to  DAG matrix</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyrca.simulation.data_gen.DataGen.config_class">
+<span class="sig-name descname"><span class="pre">config_class</span></span><a class="headerlink" href="#pyrca.simulation.data_gen.DataGen.config_class" title="Permalink to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#pyrca.simulation.data_gen.DataGenConfig" title="pyrca.simulation.data_gen.DataGenConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataGenConfig</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrca.simulation.data_gen.DataGen.gen">
+<span class="sig-name descname"><span class="pre">gen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.simulation.data_gen.DataGen.gen" title="Permalink to this definition"></a></dt>
+<dd><p>For each node</p>
+<div class="math notranslate nohighlight">
+\[x_{i} = \sum_{x_{j} \in Pa(x_i)} A_{ij} f_i(x_j) +  \beta_i * noise_i\]</div>
+<p>where f_i indicates element-wise transformation, it is chosen from identity, square, sin, tanh,
+noise_i is chosen from Exponential(1), Normal(0,1), Uniform(-0.5,0.5), Laplace(0, 1)
+Both the weights of A_{ij} and beta_i are chosen from _uniform_weight or _normal_weight</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>data: (num_samples, num_node) data of each variable x_i</p></li>
+<li><p>parent_weights: (num_node, num_node) Combination weights of each variable A_{ij}</p></li>
+<li><p>noise_weights: (num_node,) noise weight for of each variable beta_i</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyrca.simulation.data_gen.AnomalyDataGenConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyrca.simulation.data_gen.</span></span><span class="sig-name descname"><span class="pre">AnomalyDataGenConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise_weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseline</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anomaly_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_generator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'normal'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.simulation.data_gen.AnomalyDataGenConfig" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The configuration class of generating RCA Data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent_weights</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code>) – The weights of parents of each node</p></li>
+<li><p><strong>noise_weights</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code>) – The noise weights of each node</p></li>
+<li><p><strong>noise_type</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – probability distribution of each node’s noise,
+it is required to be in valid_noise type list</p></li>
+<li><p><strong>func_type</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – causal function form of each node,
+it is required to be in valid_noise type list</p></li>
+<li><p><strong>baseline</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – baseline of normal data</p></li>
+<li><p><strong>threshold</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – threshold to differentiate anomaly data from stats-based anomaly detector</p></li>
+<li><p><strong>num_samples</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of anomaly samples</p></li>
+<li><p><strong>anomaly_type</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – 0 change the weight of noise term, 1 add a constant shift to noise term,
+2 change the weight of parent nodes</p></li>
+<li><p><strong>weight_generator</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – random generator for model weights</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyrca.simulation.data_gen.AnomalyDataGenConfig.parent_weights">
+<span class="sig-name descname"><span class="pre">parent_weights</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code></em><a class="headerlink" href="#pyrca.simulation.data_gen.AnomalyDataGenConfig.parent_weights" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyrca.simulation.data_gen.AnomalyDataGenConfig.noise_weights">
+<span class="sig-name descname"><span class="pre">noise_weights</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code></em><a class="headerlink" href="#pyrca.simulation.data_gen.AnomalyDataGenConfig.noise_weights" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyrca.simulation.data_gen.AnomalyDataGenConfig.noise_type">
+<span class="sig-name descname"><span class="pre">noise_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#pyrca.simulation.data_gen.AnomalyDataGenConfig.noise_type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyrca.simulation.data_gen.AnomalyDataGenConfig.func_type">
+<span class="sig-name descname"><span class="pre">func_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#pyrca.simulation.data_gen.AnomalyDataGenConfig.func_type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyrca.simulation.data_gen.AnomalyDataGenConfig.baseline">
+<span class="sig-name descname"><span class="pre">baseline</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#pyrca.simulation.data_gen.AnomalyDataGenConfig.baseline" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyrca.simulation.data_gen.AnomalyDataGenConfig.threshold">
+<span class="sig-name descname"><span class="pre">threshold</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#pyrca.simulation.data_gen.AnomalyDataGenConfig.threshold" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyrca.simulation.data_gen.AnomalyDataGenConfig.num_samples">
+<span class="sig-name descname"><span class="pre">num_samples</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5000</span></em><a class="headerlink" href="#pyrca.simulation.data_gen.AnomalyDataGenConfig.num_samples" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyrca.simulation.data_gen.AnomalyDataGenConfig.anomaly_type">
+<span class="sig-name descname"><span class="pre">anomaly_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#pyrca.simulation.data_gen.AnomalyDataGenConfig.anomaly_type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyrca.simulation.data_gen.AnomalyDataGenConfig.weight_generator">
+<span class="sig-name descname"><span class="pre">weight_generator</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'normal'</span></em><a class="headerlink" href="#pyrca.simulation.data_gen.AnomalyDataGenConfig.weight_generator" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyrca.simulation.data_gen.AnomalyDataGen">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyrca.simulation.data_gen.</span></span><span class="sig-name descname"><span class="pre">AnomalyDataGen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.simulation.data_gen.AnomalyDataGen" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Anomaly data generation.</p>
+<p>Generate anomaly data (n_samples, n_nodes)</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyrca.simulation.data_gen.AnomalyDataGen.config_class">
+<span class="sig-name descname"><span class="pre">config_class</span></span><a class="headerlink" href="#pyrca.simulation.data_gen.AnomalyDataGen.config_class" title="Permalink to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#pyrca.simulation.data_gen.AnomalyDataGenConfig" title="pyrca.simulation.data_gen.AnomalyDataGenConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnomalyDataGenConfig</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyrca.simulation.data_gen.AnomalyDataGen.gen">
+<span class="sig-name descname"><span class="pre">gen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.simulation.data_gen.AnomalyDataGen.gen" title="Permalink to this definition"></a></dt>
+<dd><p>Generate anomaly data by randomly choose the root cause nodes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>data: (num_samples, num_node) data of each variable x_i in anomaly phase</p></li>
+<li><p>root causes: (num_node) root causes of anomaly data</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pyrca.tools.html" class="btn btn-neutral float-left" title="pyrca.tools package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, salesforce.com, inc..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Versions</span>
+      latest
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      <dl>
+        <dt>Versions</dt>
+        
+           <strong> 
+          <dd><a href="">latest</a></dd>
+           </strong> 
+        
+      </dl>
+      
+    </div>
+  </div>
+
+ <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
