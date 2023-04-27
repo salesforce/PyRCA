@@ -22,9 +22,10 @@
 2. [Installation](#installation)
 3. [Getting Started](#getting-started)
 4. [Documentation](https://fuzzy-disco-r42n6p1.pages.github.io/)
-5. [Example](#application-example)
-6. [Benchmarks](#benchmarks)
-7. [How to Contribute](#how-to-contribute)
+5. [Tutorial](https://github.com/salesforce/PyRCA/tree/main/examples)
+6. [Example](#application-example)
+7. [Benchmarks](#benchmarks)
+8. [How to Contribute](#how-to-contribute)
 
 ## Introduction
 
@@ -208,6 +209,8 @@ the paths from a potential root cause node to the leaf nodes.
 ## Benchmarks
 
 The following table summarizes the RCA performance of different methods on the simulated dataset.
+How to generate the simulated dataset can be found [here](https://github.com/salesforce/PyRCA/blob/main/examples/DataGeneration.ipynb),
+and how to test different RCA methods can be found [here](https://github.com/salesforce/PyRCA/blob/main/examples/Root%20Cause%20Analysis.ipynb).
 
 <div align="center">
 
