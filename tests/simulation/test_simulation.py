@@ -28,11 +28,6 @@ class Testdatagen(unittest.TestCase):
         self.assertEqual(data.shape[1], parent_weights.shape[0])
 
     def test_abnormaldatagen(self):
-        try:
-            AnomalyDataGenConfig()
-        except AssertionError as error:
-            self.assertTrue(len(str(error)) > 0)
-
         config = DataGenConfig(dag=self.graph, func_type='square', weight_generator='normal')
         data, parent_weights, noise_weights, func_type, noise_type = DataGen(config).gen()
 

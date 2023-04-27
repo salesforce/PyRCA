@@ -91,8 +91,8 @@ class DataGenConfig:
     """
 
     dag: np.ndarray
-    noise_type: str
-    func_type: str
+    noise_type: str = None
+    func_type: str = None
     num_samples: int = 5000
     weight_generator: str = 'normal'
 
