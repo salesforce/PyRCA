@@ -25,7 +25,7 @@ class RCDConfig(BaseConfig):
 
     :param start_alpha: desired start significance level (float) in (0, 1) for search.
     :param alpha_step: search step for alpha.
-    :param alpha_limit: maximium alpha for search.
+    :param alpha_limit: maximum alpha for search.
     :param localized: whether use local method.
     :param gamma: chunk size.
     :param bins: number of bins to discretize data.
@@ -61,7 +61,7 @@ class RCD(BaseRCA):
 
     def train(self, **kwargs):
         """
-        model training is implemented in findi_root_causes function.
+        model training is implemented in find_root_causes function.
         """
         pass
 

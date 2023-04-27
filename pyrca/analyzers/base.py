@@ -46,7 +46,7 @@ class RCAResults:
 class BaseRCA(BaseModel):
     """
     Base class for RCA algorithms.
-    This class should not be used directly, Use dervied class instead.
+    This class should not be used directly, Use derived class instead.
     """
 
     def __init__(self):
