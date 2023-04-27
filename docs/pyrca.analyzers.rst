@@ -11,8 +11,8 @@ pyrca.analyzers package
    bayesian
    random_walk
    epsilon_diagnosis
-   psi_pc
-   rht
+   rcd
+   ht
 
 pyrca.analyzers.base module
 ---------------------------
@@ -46,18 +46,18 @@ pyrca.analyzers.epsilon_diagnosis module
    :undoc-members:
    :show-inheritance:
 
-pyrca.analyzers.psi_pc module
+pyrca.analyzers.rcd module
 ----------------------------------
 
-.. automodule:: pyrca.analyzers.psi_pc
+.. automodule:: pyrca.analyzers.rcd
    :members:
    :undoc-members:
    :show-inheritance:
 
-pyrca.analyzers.rht module
+pyrca.analyzers.ht module
 ----------------------------------
 
-.. automodule:: pyrca.analyzers.rht
+.. automodule:: pyrca.analyzers.ht
    :members:
    :undoc-members:
    :show-inheritance:
