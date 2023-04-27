@@ -206,10 +206,30 @@ anomaly detector. This method will estimate the probability of a node being a ro
 the paths from a potential root cause node to the leaf nodes.
 
 ## Benchmarks
-![](https://github.com/salesforce/PyRCA/raw/main/docs/_static/rca_benchmark.png)
 
-The above figure summarizes the RCA performance of different methods on the simulated dataset.
+The following table summarizes the RCA performance of different methods on the simulated dataset.
 
+|             |  Recall@1   |  Recall@3   |  Recall@5   |
+:-----------:|:-----------:|:-----------:|:-----------:
+| ε-Diagnosis | 0.06 ± 0.02 | 0.16 ± 0.04 | 0.16 ± 0.04 |
+|     RCD     | 0.28 ± 0.05 | 0.29 ± 0.05 | 0.30 ± 0.05 |
+|  Local-RCA  | 0.44 ± 0.05 | 0.70 ± 0.05 | 0.70 ± 0.05 |
+|     RW      | 0.07 ± 0.03 | 0.20 ± 0.04 | 0.24 ± 0.04 |
+|    RW-pc    | 0.06 ± 0.02 | 0.17 ± 0.04 | 0.21 ± 0.04 |
+|     BI      | 0.15 ± 0.04 | 0.35 ± 0.05 | 0.43 ± 0.05 |
+|    BI-pc    | 0.11 ± 0.03 | 0.30 ± 0.05 | 0.40 ± 0.05 |
+|     HT      | 1.00 ± 0.00 | 1.00 ± 0.00 | 1.00 ± 0.00 |
+|    HT-pc    | 0.95 ± 0.02 | 1.00 ± 0.00 | 1.00 ± 0.00 |
+|   HT-adj    | 0.95 ± 0.02 | 1.00 ± 0.00 | 1.00 ± 0.00 |
+|  HT-adj-pc  | 0.77 ± 0.04 | 0.92 ± 0.03 | 0.92 ± 0.03 |
+
+ε-Diagnosis and RCD are one-phase RCA models, while the rest models are two-phase RCA models. 
+Local-RCD denotes the RCD algorithm with localized learning. RW denotes the random walk algorithm. 
+BI denotes the Bayesian Inference algorithm which computes the root cause scores by estimating 
+each structural causal model. HT denotes the hypothesis-testing algorithm. HT-adj denotes the HT 
+algorithm with descendant adjustment. For the two-phase models, the algorithms without suffix 
+indicate that the root cause localization algorithm use the true causal graph for model training. 
+The algorithms with suffix "pc" indicate the causal graph is estimated via PC algorithm.
 
 ## How to Contribute
 
