@@ -150,15 +150,16 @@ graphs.
 Library Design
 ##############
 
-PyRCA has four key subpackages:
+PyRCA has five key subpackages:
 
-- :py:mod:`pyrca.graph`: This package contains the methods for discovering causal graphs from time series data.
+- :py:mod:`pyrca.graph`: This package contains the methods for discovering causal graphs from metric data.
 - :py:mod:`pyrca.outliers`: This package contains some statistical based anomaly detectors used for detecting
   anomalous metrics. We will include more methods in this package in the future.
 - :py:mod:`pyrca.analyzers`: This package contains all the supported RCA methods, e.g., Bayesian inference,
   Random walk, etc.
 - :py:mod:`pyrca.tools`: This includes the dashboard tools for analyzing time series and building
-  causal graphs.
+  causal graphs, and the evaluation metric of RCA results.
+- :py:mod:`pyrca.simulation`: This package contains the methods for simulated data generation.
 
 The following figure demonstrates the main architecture of the library.
 
