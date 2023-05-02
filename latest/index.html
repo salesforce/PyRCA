@@ -221,15 +221,16 @@ graphs.</p>
 </section>
 <section id="library-design">
 <h2>Library Design<a class="headerlink" href="#library-design" title="Permalink to this heading"></a></h2>
-<p>PyRCA has four key subpackages:</p>
+<p>PyRCA has five key subpackages:</p>
 <ul class="simple">
-<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyrca.graph</span></code>: This package contains the methods for discovering causal graphs from time series data.</p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyrca.graph</span></code>: This package contains the methods for discovering causal graphs from metric data.</p></li>
 <li><p><a class="reference internal" href="pyrca.outliers.html#module-pyrca.outliers" title="pyrca.outliers"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyrca.outliers</span></code></a>: This package contains some statistical based anomaly detectors used for detecting
 anomalous metrics. We will include more methods in this package in the future.</p></li>
 <li><p><a class="reference internal" href="pyrca.analyzers.html#module-pyrca.analyzers" title="pyrca.analyzers"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyrca.analyzers</span></code></a>: This package contains all the supported RCA methods, e.g., Bayesian inference,
 Random walk, etc.</p></li>
 <li><p><a class="reference internal" href="pyrca.tools.html#module-pyrca.tools" title="pyrca.tools"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyrca.tools</span></code></a>: This includes the dashboard tools for analyzing time series and building
-causal graphs.</p></li>
+causal graphs, and the evaluation metric of RCA results.</p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyrca.simulation</span></code>: This package contains the methods for simulated data generation.</p></li>
 </ul>
 <p>The following figure demonstrates the main architecture of the library.</p>
 <a class="reference internal image-reference" href="_images/design.png"><img alt="_images/design.png" src="_images/design.png" style="width: 600px;" /></a>
