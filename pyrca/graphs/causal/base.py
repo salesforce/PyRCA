@@ -62,6 +62,10 @@ class CausalModel(BaseModel):
                 df=df, forbids=parser.get_forbid_links(df.columns), requires=parser.get_require_links(), **kwargs
             )
         else:
+            if "forbids" not in kwargs:
+                kwargs["forbids"] = []
+            if "requires" not in kwargs:
+                kwargs["requires"] = []
             adjacency_df = self._train(df=df, **kwargs)
 
         var_names = adjacency_df.columns
