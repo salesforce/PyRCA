@@ -55,11 +55,19 @@ class CausalModel(BaseModel):
         :return: The adjacency matrix.
         """
         df = df.iloc[: self.config.max_num_points] if self.config.max_num_points is not None else df
-        parser = DomainParser(self.config.domain_knowledge_file)
 
-        adjacency_df = self._train(
-            df=df, forbids=parser.get_forbid_links(df.columns), requires=parser.get_require_links(), **kwargs
-        )
+        if self.config.domain_knowledge_file:
+            parser = DomainParser(self.config.domain_knowledge_file)
+            adjacency_df = self._train(
+                df=df, forbids=parser.get_forbid_links(df.columns), requires=parser.get_require_links(), **kwargs
+            )
+        else:
+            if "forbids" not in kwargs:
+                kwargs["forbids"] = []
+            if "requires" not in kwargs:
+                kwargs["requires"] = []
+            adjacency_df = self._train(df=df, **kwargs)
+
         var_names = adjacency_df.columns
         if self.config.run_pdag2dag:
             dag, flag = CausalModel.pdag2dag(adjacency_df.values)
