@@ -137,10 +137,16 @@ class CausalDiscovery:
         relations = {f"{names[i]}<split>{names[j]}": v for (i, j), v in relations.items()}
         return relations
 
-    def run(self, df, algorithm, params, constraints=None):
+    def run(self, df, algorithm, params, constraints=None, domain_file=None):
         if constraints is None:
             constraints = {}
         df = df.dropna()
+        if domain_file:
+            domain = DomainParser(os.path.join(self.folder, domain_file))
+            metrics = domain.get_metrics()
+            if metrics is not None:
+                df = df[metrics]
+
         method_class = self.get_supported_methods()[algorithm]["class"]
         config_class = self.get_supported_methods()[algorithm]["config_class"]
         method = method_class(config_class.from_dict(params))

@@ -94,7 +94,11 @@ class DomainParser:
         return [] if self.config is None or "root-causes" not in self.config else self.config["root-causes"]
 
     def get_metrics(self):
-        return None if self.config is None or "metrics" not in self.config else self.config["metrics"]
+        return (
+            None
+            if self.config is None or "metrics" not in self.config["causal-graph"]
+            else self.config["causal-graph"]["metrics"]
+        )
 
     def get_root_nodes(self):
         return (

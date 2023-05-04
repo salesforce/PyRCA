@@ -131,6 +131,7 @@ def _dump_results(output_folder, graph_df, root_leaf_table, link_table):
         State("cytoscape", "elements"),
         State("root-leaf-table", "children"),
         State("link-table", "children"),
+        State("select-domain", "value"),
     ],
     running=[
         (Output("causal-run-btn", "disabled"), True, False),
@@ -154,6 +155,7 @@ def click_train_test(
     cyto_elements,
     root_leaf_table,
     link_table,
+    domain_file,
 ):
     ctx = dash.callback_context
     modal_is_open = False
@@ -187,7 +189,7 @@ def click_train_test(
                 )
                 df = causal_method.load_data(filename)
                 constraints = _build_constraints(list(df.columns), root_leaf_table, link_table)
-                graph, graph_df, relations = causal_method.run(df, algorithm, params, constraints)
+                graph, graph_df, relations = causal_method.run(df, algorithm, params, constraints, domain_file)
 
                 output_dir = os.path.join(file_manager.model_directory, filename.split(".")[0])
                 _dump_results(output_dir, graph_df, root_leaf_table, link_table)
