@@ -26,11 +26,11 @@ def _uniform_weight() -> float:
 @dataclass
 class DAGGenConfig:
     """
-    The configuration class of generating DAG
+    The configuration class of generating DAG.
 
-    :param num_node: Number of nodes in DAG
-    :param num_edge: Number of edges in DAG
-    :param rng: random generator
+    :param num_node: Number of nodes in DAG.
+    :param num_edge: Number of edges in DAG.
+    :param rng: A random generator.
     """
 
     num_node: int = 20
@@ -57,7 +57,7 @@ class DAGGen:
         Generate a directed acyclic graphs with a single end.
         The first node with index of 0 is the only end that does not have results.
 
-        :return: a matrix, where matrix[i, j] != 0 means i is the cause of j
+        :return: A matrix, where matrix[i, j] != 0 means i is the cause of j.
         """
         num_edge = min(
             max(self.config.num_edge, self.config.num_node - 1),
@@ -84,15 +84,15 @@ class DAGGen:
 @dataclass
 class DataGenConfig:
     """
-    The configuration class of generating RCA Data
+    The configuration class of generating RCA Data.
 
-    :param dag: The dependency graph
+    :param dag: The dependency graph.
     :param noise_type: probability distribution of each node's noise,
-        it is required to be in valid_noise type list
+        it is required to be in valid_noise type list.
     :param func_type: causal function form of each node,
-        it is required to be in valid_noise type list
-    :param num_samples: Number of samples
-    :param weight_generator: random generator for model weights
+        it is required to be in valid_noise type list.
+    :param num_samples: Number of samples.
+    :param weight_generator: random generator for model weights.
     """
 
     dag: np.ndarray
@@ -158,7 +158,7 @@ class DataGen:
     """
     Normal data generation.
 
-    generate data (n_samples, n_nodes) according to  DAG matrix
+    Generates data (n_samples, n_nodes) according to DAG matrix.
     """
 
     config_class = DataGenConfig
@@ -174,12 +174,12 @@ class DataGen:
 
         where f_i indicates element-wise transformation, it is chosen from identity, square, sin, tanh,
         noise_i is chosen from Exponential(1), Normal(0,1), Uniform(-0.5,0.5), Laplace(0, 1)
-        Both the weights of A_{ij} and \beta_i are chosen from _uniform_weight or _normal_weight
+        Both the weights of A_{ij} and \beta_i are chosen from _uniform_weight or _normal_weight.
 
         :returns:
-            - data: (num_samples, num_node) data of each variable x_i
-            - parent_weights: (num_node, num_node) Combination weights of each variable A_{ij}
-            - noise_weights: (num_node,) noise weight for of each variable \beta_i
+            - data: (num_samples, num_node) data of each variable x_i.
+            - parent_weights: (num_node, num_node) Combination weights of each variable A_{ij}.
+            - noise_weights: (num_node,) noise weight for of each variable \beta_i.
         """
 
         num_node, _ = self.config.dag.shape
@@ -212,18 +212,18 @@ class AnomalyDataGenConfig:
     """
     The configuration class of generating RCA Data.
 
-    :param parent_weights: The weights of parents of each node
-    :param noise_weights: The noise weights of each node
+    :param parent_weights: The weights of parents of each node.
+    :param noise_weights: The noise weights of each node.
     :param noise_type: probability distribution of each node's noise,
-        it is required to be in valid_noise type list
+        it is required to be in valid_noise type list.
     :param func_type: causal function form of each node,
-        it is required to be in valid_noise type list
-    :param baseline: baseline of normal data
-    :param threshold: threshold to differentiate anomaly data from stats-based anomaly detector
-    :param num_samples: Number of anomaly samples
+        it is required to be in valid_noise type list.
+    :param baseline: baseline of normal data.
+    :param threshold: threshold to differentiate anomaly data from stats-based anomaly detector.
+    :param num_samples: Number of anomaly samples.
     :param anomaly_type: 0 change the weight of noise term, 1 add a constant shift to noise term,
-        2 change the weight of parent nodes
-    :param weight_generator: random generator for model weights
+        2 change the weight of parent nodes.
+    :param weight_generator: random generator for model weights.
     """
 
     parent_weights: np.array
@@ -265,7 +265,7 @@ class AnomalyDataGen:
     """
     Anomaly data generation.
 
-    Generate anomaly data (n_samples, n_nodes)
+    Generates anomaly data (n_samples, n_nodes).
     """
 
     config_class = AnomalyDataGenConfig
@@ -275,11 +275,11 @@ class AnomalyDataGen:
 
     def gen(self):
         """
-        Generate anomaly data by randomly choose the root cause nodes
+        Generate anomaly data by randomly choose the root cause nodes.
 
         :returns:
-            - data: (num_samples, num_node) data of each variable x_i in anomaly phase
-            - root causes: (num_node) root causes of anomaly data
+            - data: (num_samples, num_node) data of each variable x_i in anomaly phase.
+            - root causes: (num_node) root causes of anomaly data.
         """
         assert self.config.parent_weights.shape[0] == self.config.noise_weights.shape[0]
         num_node = self.config.parent_weights.shape[0]
