@@ -20,7 +20,7 @@ class EpsilonDiagnosisConfig(BaseConfig):
     """
     The configuration class for the epsilon-diagnosis algorithm for Root Cause Analysis.
 
-    :param alpha: desired significance level (float) in (0, 1). Default: 0.05.
+    :param alpha: The desired significance level (float) in (0, 1). Default: 0.05.
     :param bootstrap_time: Bootstrap times.
     :param root_cause_top_k: The maximum number of root causes in the results.
     """
@@ -32,9 +32,8 @@ class EpsilonDiagnosisConfig(BaseConfig):
 
 class EpsilonDiagnosis(BaseRCA):
     """
-    The epsilon-diagnosis method for Root Cause Analysis.
-
-    epsilon-Diagnosis: Unsupervised and Real-time Diagnosis of Small window Long-tail Latency in Large-scale Microservice Platforms.
+    The epsilon-diagnosis method for Root Cause Analysis. If using this method, please cite the original work:
+    `epsilon-Diagnosis: Unsupervised and Real-time Diagnosis of Small window Long-tail Latency in Large-scale Microservice Platforms`.
     """
 
     config_class = EpsilonDiagnosisConfig
@@ -47,7 +46,7 @@ class EpsilonDiagnosis(BaseRCA):
         """
         Two variable correlation analysis given the training time series.
 
-        :param normal_df: Dataframe of normal data.
+        :param normal_df: A pandas dataframe of normal data.
         """
         self.normal_df = normal_df
 
@@ -76,7 +75,7 @@ class EpsilonDiagnosis(BaseRCA):
         """
         Finds the root causes given the abnormal dataset.
 
-        :param abnormal_df: DataFrame of abnormal data.
+        :param abnormal_df: A pandas dataFrame of abnormal data.
         :return: A list of the found root causes.
         """
         root_cause_nodes = []

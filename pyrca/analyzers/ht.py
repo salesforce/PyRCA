@@ -37,9 +37,9 @@ class HTConfig(BaseConfig):
 
 class HT(BaseRCA):
     """
-    Regression-based Hypothesis Testing method for Root Cause Analysis
-
-    Causal Inference-Based Root Cause Analysis for Online Service Systems with Intervention Recognition.
+    Regression-based Hypothesis Testing method for Root Cause Analysis.
+    If using this explainer, please cite the original work:
+    `Causal Inference-Based Root Cause Analysis for Online Service Systems with Intervention Recognition`.
     """
 
     config_class = HTConfig
@@ -76,7 +76,7 @@ class HT(BaseRCA):
         """
         Train regression model for each node based on its parents. Build the score functions.
 
-        :param normal_df: DataFrame of normal data.
+        :param normal_df: A pandas dataFrame of normal data.
         """
         assert self.graph is not None, "The graphs is not set."
 
@@ -100,9 +100,9 @@ class HT(BaseRCA):
         """
         Finds the root causes given the abnormal dataset.
 
-        :param abnormal_df: DataFrame of abnormal data.
-        :param anomalous_metrics: the name of detected anomalous metrics, it is used to print the path from root nodes.
-        :param adjustment: whether to perform descendant adjustment.
+        :param abnormal_df: A pandas dataFrame of abnormal data.
+        :param anomalous_metrics: The name of detected anomalous metrics, it is used to print the path from root nodes.
+        :param adjustment: Whether to perform descendant adjustment.
         :return: A list of the found root causes.
         """
         node_scores = {}
