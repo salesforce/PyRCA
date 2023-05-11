@@ -23,14 +23,14 @@ class RCDConfig(BaseConfig):
     """
     The configuration class for the RCD algorithm for Root Cause Analysis
 
-    :param start_alpha: desired start significance level (float) in (0, 1) for search.
-    :param alpha_step: search step for alpha.
-    :param alpha_limit: maximum alpha for search.
-    :param localized: whether use local method.
-    :param gamma: chunk size.
-    :param bins: number of bins to discretize data.
-    :param K: top-k root causes.
-    :param f_node: name of anomaly variable.
+    :param start_alpha: The desired start significance level (float) in (0, 1) for search.
+    :param alpha_step: The search step for alpha.
+    :param alpha_limit: The maximum alpha for search.
+    :param localized: Whether use local method.
+    :param gamma: Chunk size.
+    :param bins: The number of bins to discretize data.
+    :param K: Top-k root causes.
+    :param f_node: The name of anomaly variable.
     :param verbose: True iff verbose output should be printed. Default: False.
     """
 
@@ -48,9 +48,8 @@ class RCDConfig(BaseConfig):
 
 class RCD(BaseRCA):
     """
-    The RCD algorithm for Root Cause Analysis
-
-    Root Cause Analysis of Failures in Microservices through Causal Discovery
+    The RCD algorithm for Root Cause Analysis. If using this explainer, please cite the original work:
+    `Root Cause Analysis of Failures in Microservices through Causal Discovery`.
     """
 
     config_class = RCDConfig
@@ -68,6 +67,7 @@ class RCD(BaseRCA):
     def find_root_causes(self, normal_df: pd.DataFrame, abnormal_df: pd.DataFrame, **kwargs):
         """
         Finds the root causes given the abnormal dataset.
+
         :return: A list of the found root causes.
         """
         result, _ = rcd.run_multi_phase(normal_df, abnormal_df, self.config.to_dict())

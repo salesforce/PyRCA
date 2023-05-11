@@ -53,15 +53,27 @@ class RCAEngine:
         }
 
     def build_causal_graph(
-        self,
-        df,
-        domain_knowledge_file=None,
-        run_pdag2dag=True,
-        max_num_points=5000000,
-        method_class=None,
-        verbose=False,
-        **kwargs,
+            self,
+            df,
+            domain_knowledge_file=None,
+            run_pdag2dag=True,
+            max_num_points=5000000,
+            method_class=None,
+            verbose=False,
+            **kwargs,
     ):
+        """
+        Builds the causal graph via causal discovery methods given the observed time series data.
+
+        :param df: The input time series data in a pandas dataframe.
+        :param domain_knowledge_file: The domain knowledge file.
+        :param run_pdag2dag: Whether to run the "partial DAG to DAG" function (sometimes the output of
+            a causal discovery is a partial DAG instead of DAG).
+        :param max_num_points: The maximum number of the training timestamps.
+        :param method_class: The class of a causal discovery method, e.g., FGES, PC defined in
+            `pyrca.graphs.causal`.
+        :param verbose: Whether to print debugging messages.
+        """
         from pyrca.graphs.causal.pc import PC
 
         df = df.iloc[:max_num_points] if max_num_points is not None else df
@@ -87,7 +99,21 @@ class RCAEngine:
         PC.dump_to_tetrad_json(adjacency_df, self.model_dir)
         return adjacency_df
 
-    def train_bayesian_network(self, dfs, domain_knowledge_file=None, config_file=None, verbose=False):
+    def train_bayesian_network(
+            self,
+            dfs,
+            domain_knowledge_file=None,
+            config_file=None,
+            verbose=False
+    ):
+        """
+        Trains the Bayesian network parameters given the causal graph and the time series data.
+
+        :param dfs: The time series data for training (either a pandas dataframe or a list of pandas dataframe).
+        :param domain_knowledge_file: The domain knowledge file.
+        :param config_file: The configuration file for Bayesian network.
+        :param verbose: Whether to print debugging messages.
+        """
         from pyrca.utils.domain import DomainParser
         from pyrca.analyzers.bayesian import BayesianNetwork, BayesianNetworkConfig
 
@@ -128,11 +154,11 @@ class RCAEngine:
         return bayesian_network
 
     def train_detector(
-        self,
-        df: Union[pd.DataFrame, Dict],
-        config_file: Optional[str] = None,
-        use_separate_models=True,
-        additional_config: Dict = None,
+            self,
+            df: Union[pd.DataFrame, Dict],
+            config_file: Optional[str] = None,
+            use_separate_models=True,
+            additional_config: Dict = None,
     ) -> Dict:
         """
         Trains the detector(s) given the time series data.
@@ -203,12 +229,12 @@ class RCAEngine:
         return self._find_root_causes_bn(None, anomalies, **kwargs).to_list()
 
     def find_root_causes(
-        self,
-        df: Union[pd.DataFrame, Dict],
-        detector: Union[Dict, BaseDetector],
-        rca_method: Optional[str] = None,
-        known_anomalies: List = None,
-        **kwargs,
+            self,
+            df: Union[pd.DataFrame, Dict],
+            detector: Union[Dict, BaseDetector],
+            rca_method: Optional[str] = None,
+            known_anomalies: List = None,
+            **kwargs,
     ):
         """
         Finds the potential root causes given an incident window.
