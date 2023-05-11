@@ -101,20 +101,21 @@
 <h1>Welcome to PyRCA’s documentation!<a class="headerlink" href="#welcome-to-pyrca-s-documentation" title="Permalink to this heading"></a></h1>
 <section id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
-<p>With the rapidly growing adoption of microservices architectures, multi-service applications become the standard
-paradigm in real-world IT applications. A multi-service application usually contains hundreds of interacting
-services, making it harder to detect service failures and identify the root causes. Root cause analysis (RCA)
-methods usually leverage the KPI metrics, traces or logs monitored on those services to determine the root causes
-when a system failure is detected, helping engineers and SREs in the troubleshooting process.</p>
-<p>PyRCA is a Python machine-learning library designed for root cause analysis, offering multiple state-of-the-art RCA
-algorithms and an end-to-end pipeline for building RCA solutions. Currently, PyRCA mainly focuses on metric-based RCA
-including two types of algorithms: 1. Identifying anomalous metrics in parallel with the observed anomaly via
-metric data analysis, e.g., ε-diagnosis, and 2. Identifying root causes based a topology/causal graph representing
-the causal relationships between the observed metrics, e.g., Bayesian inference, Random Walk. Besides, PyRCA
-provides a convenient tool for building causal graphs from the observed time series data and domain knowledge,
-helping users to develop graph-based solutions quickly. PyRCA also provides a benchmark for evaluating
-various RCA methods, which is valuable for industry and academic research. We will continue improving this library
-to make it more comprehensive in the future. In the future, PyRCA will support trace and log based RCA methods as well.</p>
+<p>The adoption of microservices architectures is growing at a rapid pace, making multi-service applications
+the standard paradigm in real-world IT applications. Typically, a multi-service application consists of
+hundreds of interacting services, making it increasingly challenging to detect service failures and identify
+their root causes. Root cause analysis (RCA) methods typically rely on KPI metrics, traces, or logs monitored
+on these services to determine the root causes when a system failure is detected. Such methods can aid
+engineers and SREs in the troubleshooting process.</p>
+<p>PyRCA is a Python machine-learning library designed to facilitate root cause analysis by offering various
+state-of-the-art RCA algorithms and an end-to-end pipeline for building RCA solutions. At present, PyRCA
+primarily focuses on metric-based RCA, including two types of algorithms: (1) identifying anomalous metrics
+in parallel with the observed anomaly through metric data analysis, such as ε-diagnosis, and (2) identifying
+root causes based on a topology/causal graph representing the causal relationships between the observed
+metrics, such as Bayesian inference and Random Walk. PyRCA also provides a convenient tool for building
+causal graphs from the observed time series data and domain knowledge, enabling users to develop graph-based
+solutions quickly. Furthermore, PyRCA offers a benchmark for evaluating various RCA methods, which is
+valuable for industry and academic research.</p>
 </section>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h2>
@@ -133,18 +134,18 @@ root directory of the repo.</p></li>
 <p>PyRCA provides a unified interface for training RCA models and finding root causes. To apply
 a certain RCA method, you only need to specify:</p>
 <ul class="simple">
-<li><p><strong>The select RCA method</strong>: e.g., <a class="reference internal" href="pyrca.analyzers.html#pyrca.analyzers.bayesian.BayesianNetwork" title="pyrca.analyzers.bayesian.BayesianNetwork"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyrca.analyzers.bayesian.BayesianNetwork</span></code></a>,
+<li><p><strong>The selected RCA method</strong>: e.g., <a class="reference internal" href="pyrca.analyzers.html#pyrca.analyzers.bayesian.BayesianNetwork" title="pyrca.analyzers.bayesian.BayesianNetwork"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyrca.analyzers.bayesian.BayesianNetwork</span></code></a>,
 <a class="reference internal" href="pyrca.analyzers.html#pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosis" title="pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosis"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosis</span></code></a>.</p></li>
-<li><p><strong>The RCA configuration</strong>: e.g., <a class="reference internal" href="pyrca.analyzers.html#pyrca.analyzers.bayesian.BayesianNetworkConfig" title="pyrca.analyzers.bayesian.BayesianNetworkConfig"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyrca.analyzers.bayesian.BayesianNetworkConfig</span></code></a>,
+<li><p><strong>The method configuration</strong>: e.g., <a class="reference internal" href="pyrca.analyzers.html#pyrca.analyzers.bayesian.BayesianNetworkConfig" title="pyrca.analyzers.bayesian.BayesianNetworkConfig"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyrca.analyzers.bayesian.BayesianNetworkConfig</span></code></a>,
 <a class="reference internal" href="pyrca.analyzers.html#pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosisConfig" title="pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosisConfig"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosisConfig</span></code></a>.</p></li>
-<li><p><strong>Time series data for initialization or training</strong>: e.g., A time series data in a
+<li><p><strong>Time series data for initialization/training</strong>: e.g., A time series data in a
 pandas dataframe.</p></li>
-<li><p><strong>Some detected anomalous KPI metrics</strong>: Some RCA methods require the anomalous KPI metrics detected by
-certain anomaly detector.</p></li>
+<li><p><strong>Abnormal time series data in an incident window</strong>: The RCA methods require the anomalous
+KPI metrics in an incident window.</p></li>
 </ul>
-<p>Let’s take <code class="docutils literal notranslate"><span class="pre">BayesianNetwork</span></code> as an example. Suppose that <code class="docutils literal notranslate"><span class="pre">graph_df</span></code> is a pandas dataframe of
-the graph representing causal relationships between metrics (how to construct such causal graph
-will be discussed later), and <code class="docutils literal notranslate"><span class="pre">df</span></code> is a pandas dataframe containing the historical observed time series
+<p>Let’s take <code class="docutils literal notranslate"><span class="pre">BayesianNetwork</span></code> as an example. Suppose that <code class="docutils literal notranslate"><span class="pre">graph_df</span></code> is the pandas dataframe of
+a graph representing the causal relationships between metrics (how to construct such causal graph
+will be discussed later), and <code class="docutils literal notranslate"><span class="pre">df</span></code> is the pandas dataframe containing the historical observed time series
 data (e.g., the index is the timestamp and each column represents one monitored metric). To train a
 <code class="docutils literal notranslate"><span class="pre">BayesianNetwork</span></code>, you can simply run the following code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyrca.analyzers.bayesian</span> <span class="kn">import</span> <span class="n">BayesianNetwork</span>
@@ -179,15 +180,15 @@ you can run:</p>
 graphs from the observed time series data, you can utilize our tool by running <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pyrca.tools</span></code>.
 This command will launch a Dash app for time series data analysis and causal discovery.</p>
 <img alt="_images/dashboard.png" src="_images/dashboard.png" />
-<p>The dashboard allows you to try different causal discovery methods, adjust causal discovery parameters,
-add domain knowledge constraints (e.g., root/leaf nodes, forbidden/required links), and visualize
-the generated causal graphs. It makes easier for manually revising causal graphs based on domain knowledge.
-You can download the graph generated by this tool if you satisfy with it. The graph can be used by the RCA
-methods supported in PyRCA.</p>
-<p>Instead of using this dashboard, you can also write code for building such graphs. The package
-<code class="docutils literal notranslate"><span class="pre">pyrca.graphs.causal</span></code> includes several popular causal discovery methods you can use. All of these methods
-support domain knowledge constraints. Suppose <code class="docutils literal notranslate"><span class="pre">df</span></code> is the observed time series data
-and you want to apply the PC algorithm for building causal graphs, then the following code will help:</p>
+<p>The dashboard enables users to experiment with different causal discovery methods, customize causal discovery
+parameters, add domain knowledge constraints (e.g., root/leaf nodes, forbidden/required links), and visualize
+the generated causal graphs. This feature simplifies the process of manually revising causal graphs based on
+domain knowledge. Users can download the graph generated by this tool if they are satisfied with it. The graph
+can then be used by the RCA methods supported in PyRCA.</p>
+<p>Alternatively, users can write code to build such graphs instead of using the dashboard. The package
+<code class="docutils literal notranslate"><span class="pre">pyrca.graphs.causal</span></code> includes several popular causal discovery methods that users can leverage.
+All of these methods support domain knowledge constraints. For instance, if users wish to apply the PC
+algorithm for building causal graphs on the observed time series data <code class="docutils literal notranslate"><span class="pre">df</span></code>, the following code can be used:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyrca.graphs.causal.pc</span> <span class="kn">import</span> <span class="n">PC</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">PC</span><span class="p">(</span><span class="n">PC</span><span class="o">.</span><span class="n">config_class</span><span class="p">())</span>
 <span class="n">graph_df</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>

@@ -160,13 +160,13 @@
 <dt class="sig sig-object py" id="pyrca.simulation.data_gen.DAGGenConfig">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyrca.simulation.data_gen.</span></span><span class="sig-name descname"><span class="pre">DAGGenConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_edge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rng</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.simulation.data_gen.DAGGenConfig" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>The configuration class of generating DAG</p>
+<p>The configuration class of generating DAG.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>num_node</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of nodes in DAG</p></li>
-<li><p><strong>num_edge</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of edges in DAG</p></li>
-<li><p><strong>rng</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>]) – random generator</p></li>
+<li><p><strong>num_node</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of nodes in DAG.</p></li>
+<li><p><strong>num_edge</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of edges in DAG.</p></li>
+<li><p><strong>rng</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>]) – A random generator.</p></li>
 </ul>
 </dd>
 </dl>
@@ -205,7 +205,7 @@
 The first node with index of 0 is the only end that does not have results.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>a matrix, where matrix[i, j] != 0 means i is the cause of j</p>
+<dd class="field-odd"><p>A matrix, where matrix[i, j] != 0 means i is the cause of j.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -216,17 +216,17 @@ The first node with index of 0 is the only end that does not have results.</p>
 <dt class="sig sig-object py" id="pyrca.simulation.data_gen.DataGenConfig">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyrca.simulation.data_gen.</span></span><span class="sig-name descname"><span class="pre">DataGenConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_generator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'normal'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.simulation.data_gen.DataGenConfig" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>The configuration class of generating RCA Data</p>
+<p>The configuration class of generating RCA Data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dag</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>) – The dependency graph</p></li>
+<li><p><strong>dag</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>) – The dependency graph.</p></li>
 <li><p><strong>noise_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – probability distribution of each node’s noise,
-it is required to be in valid_noise type list</p></li>
+it is required to be in valid_noise type list.</p></li>
 <li><p><strong>func_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – causal function form of each node,
-it is required to be in valid_noise type list</p></li>
-<li><p><strong>num_samples</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of samples</p></li>
-<li><p><strong>weight_generator</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – random generator for model weights</p></li>
+it is required to be in valid_noise type list.</p></li>
+<li><p><strong>num_samples</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of samples.</p></li>
+<li><p><strong>weight_generator</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – random generator for model weights.</p></li>
 </ul>
 </dd>
 </dl>
@@ -262,7 +262,7 @@ it is required to be in valid_noise type list</p></li>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyrca.simulation.data_gen.</span></span><span class="sig-name descname"><span class="pre">DataGen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.simulation.data_gen.DataGen" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Normal data generation.</p>
-<p>generate data (n_samples, n_nodes) according to  DAG matrix</p>
+<p>Generates data (n_samples, n_nodes) according to DAG matrix.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.simulation.data_gen.DataGen.config_class">
 <span class="sig-name descname"><span class="pre">config_class</span></span><a class="headerlink" href="#pyrca.simulation.data_gen.DataGen.config_class" title="Permalink to this definition"></a></dt>
@@ -277,13 +277,13 @@ it is required to be in valid_noise type list</p></li>
 \[x_{i} = \sum_{x_{j} \in Pa(x_i)} A_{ij} f_i(x_j) +  \beta_i * noise_i\]</div>
 <p>where f_i indicates element-wise transformation, it is chosen from identity, square, sin, tanh,
 noise_i is chosen from Exponential(1), Normal(0,1), Uniform(-0.5,0.5), Laplace(0, 1)
-Both the weights of A_{ij} and beta_i are chosen from _uniform_weight or _normal_weight</p>
+Both the weights of A_{ij} and beta_i are chosen from _uniform_weight or _normal_weight.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><ul class="simple">
-<li><p>data: (num_samples, num_node) data of each variable x_i</p></li>
-<li><p>parent_weights: (num_node, num_node) Combination weights of each variable A_{ij}</p></li>
-<li><p>noise_weights: (num_node,) noise weight for of each variable beta_i</p></li>
+<li><p>data: (num_samples, num_node) data of each variable x_i.</p></li>
+<li><p>parent_weights: (num_node, num_node) Combination weights of each variable A_{ij}.</p></li>
+<li><p>noise_weights: (num_node,) noise weight for of each variable beta_i.</p></li>
 </ul>
 </p>
 </dd>
@@ -300,18 +300,18 @@ Both the weights of A_{ij} and beta_i are chosen from _uniform_weight or _normal
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>parent_weights</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code>) – The weights of parents of each node</p></li>
-<li><p><strong>noise_weights</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code>) – The noise weights of each node</p></li>
+<li><p><strong>parent_weights</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code>) – The weights of parents of each node.</p></li>
+<li><p><strong>noise_weights</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code>) – The noise weights of each node.</p></li>
 <li><p><strong>noise_type</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – probability distribution of each node’s noise,
-it is required to be in valid_noise type list</p></li>
+it is required to be in valid_noise type list.</p></li>
 <li><p><strong>func_type</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – causal function form of each node,
-it is required to be in valid_noise type list</p></li>
-<li><p><strong>baseline</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – baseline of normal data</p></li>
-<li><p><strong>threshold</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – threshold to differentiate anomaly data from stats-based anomaly detector</p></li>
-<li><p><strong>num_samples</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of anomaly samples</p></li>
+it is required to be in valid_noise type list.</p></li>
+<li><p><strong>baseline</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – baseline of normal data.</p></li>
+<li><p><strong>threshold</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – threshold to differentiate anomaly data from stats-based anomaly detector.</p></li>
+<li><p><strong>num_samples</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of anomaly samples.</p></li>
 <li><p><strong>anomaly_type</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – 0 change the weight of noise term, 1 add a constant shift to noise term,
-2 change the weight of parent nodes</p></li>
-<li><p><strong>weight_generator</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – random generator for model weights</p></li>
+2 change the weight of parent nodes.</p></li>
+<li><p><strong>weight_generator</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – random generator for model weights.</p></li>
 </ul>
 </dd>
 </dl>
@@ -367,7 +367,7 @@ it is required to be in valid_noise type list</p></li>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyrca.simulation.data_gen.</span></span><span class="sig-name descname"><span class="pre">AnomalyDataGen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.simulation.data_gen.AnomalyDataGen" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Anomaly data generation.</p>
-<p>Generate anomaly data (n_samples, n_nodes)</p>
+<p>Generates anomaly data (n_samples, n_nodes).</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.simulation.data_gen.AnomalyDataGen.config_class">
 <span class="sig-name descname"><span class="pre">config_class</span></span><a class="headerlink" href="#pyrca.simulation.data_gen.AnomalyDataGen.config_class" title="Permalink to this definition"></a></dt>
@@ -377,12 +377,12 @@ it is required to be in valid_noise type list</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyrca.simulation.data_gen.AnomalyDataGen.gen">
 <span class="sig-name descname"><span class="pre">gen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.simulation.data_gen.AnomalyDataGen.gen" title="Permalink to this definition"></a></dt>
-<dd><p>Generate anomaly data by randomly choose the root cause nodes</p>
+<dd><p>Generate anomaly data by randomly choose the root cause nodes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><ul class="simple">
-<li><p>data: (num_samples, num_node) data of each variable x_i in anomaly phase</p></li>
-<li><p>root causes: (num_node) root causes of anomaly data</p></li>
+<li><p>data: (num_samples, num_node) data of each variable x_i in anomaly phase.</p></li>
+<li><p>root causes: (num_node) root causes of anomaly data.</p></li>
 </ul>
 </p>
 </dd>
