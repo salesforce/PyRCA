@@ -12,7 +12,7 @@ extras_require["all"] = sum(extras_require.values(), [])
 
 setup(
     name="sfr-pyrca",
-    version="0.0.1",
+    version="1.0.0",
     author="Salesforce Research Warden AIOps",
     description="PyRCA: A Python library for Root Cause Analysis",
     long_description=open("README.md", "r", encoding="utf-8").read(),
