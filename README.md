@@ -126,7 +126,7 @@ where ``abnormal_data`` is the time series data collected in an incident window.
 As mentioned above, some RCA methods such as ``BayesianNetwork`` require causal graphs as their inputs. To construct such causal
 graphs from the observed time series data, you can utilize our tool by running ``python -m pyrca.tools``.
 This command will launch a Dash app for time series data analysis and causal discovery.
-![alt text](https://github.com/salesforce/PyRCA/raw/main/docs/_static/dashboard.png)
+![alt text](https://github.com/salesforce/PyRCA/raw/main/docs/_static/dashboard_gif.gif)
 
 The dashboard enables users to experiment with different causal discovery methods, customize causal discovery 
 parameters, add domain knowledge constraints (e.g., root/leaf nodes, forbidden/required links), and visualize 
