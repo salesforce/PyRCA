@@ -6,7 +6,7 @@
   <a href="https://pypi.python.org/pypi/sfr-pyrca">
   <img alt="PyPI" src="https://img.shields.io/pypi/v/sfr-pyrca.svg"/>
   </a>
-  <a href="https://fuzzy-disco-r42n6p1.pages.github.io">
+  <a href="https://opensource.salesforce.com/PyRCA/">
   <img alt="Documentation" src="https://github.com/salesforce/PyRCA/actions/workflows/docs.yml/badge.svg"/>
   </a>
   <a href="https://pepy.tech/project/sfr-pyrca">
@@ -21,7 +21,7 @@
 1. [Introduction](#introduction)
 2. [Installation](#installation)
 3. [Getting Started](#getting-started)
-4. [Documentation](https://fuzzy-disco-r42n6p1.pages.github.io/)
+4. [Documentation](https://opensource.salesforce.com/PyRCA/)
 5. [Tutorial](https://github.com/salesforce/PyRCA/tree/main/examples)
 6. [Example](#application-example)
 7. [Benchmarks](#benchmarks)
