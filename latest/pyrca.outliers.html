@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pyrca.outliers package &mdash; PyRCA  documentation</title>
@@ -12,9 +12,10 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -30,18 +31,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            PyRCA
+            <a href="index.html" class="icon icon-home"> PyRCA
           </a>
               <div class="version">
                 latest
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -122,7 +119,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
           <li class="breadcrumb-item"><a href="pyrca.html">PyRCA: A Library for Root Cause Analysis</a></li>
       <li class="breadcrumb-item active">pyrca.outliers package</li>
       <li class="wy-breadcrumbs-aside">
@@ -161,6 +158,10 @@
 <section id="module-pyrca.outliers">
 <span id="pyrca-outliers-package"></span><h1>pyrca.outliers package<a class="headerlink" href="#module-pyrca.outliers" title="Permalink to this heading"></a></h1>
 <table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#module-pyrca.outliers.base" title="pyrca.outliers.base"><code class="xref py py-obj docutils literal notranslate"><span class="pre">base</span></code></a></p></td>
 <td><p>Base classes for all outliers.</p></td>
@@ -189,13 +190,13 @@ This class should not be used directly, Use dervied class instead.</p>
 <span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.outliers.base.BaseDetector.train" title="Permalink to this definition"></a></dt>
 <dd><p>Train method for fitting the data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – The training dataset.</p></li>
 <li><p><strong>kwargs</strong> – Parameters needed for training.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p></p>
 </dd>
 </dl>
@@ -206,13 +207,13 @@ This class should not be used directly, Use dervied class instead.</p>
 <span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.outliers.base.BaseDetector.predict" title="Permalink to this definition"></a></dt>
 <dd><p>Predict anomalies/outliers given the input data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – The test dataset.</p></li>
 <li><p><strong>kwargs</strong> – Parameters needed for prediction.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The detection results.</p>
 </dd>
 </dl>
@@ -223,7 +224,7 @@ This class should not be used directly, Use dervied class instead.</p>
 <span class="sig-name descname"><span class="pre">update_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.outliers.base.BaseDetector.update_config" title="Permalink to this definition"></a></dt>
 <dd><p>Updates the configurations (hyperparameters).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>d</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>) – The new parameters in a dict format.</p>
 </dd>
 </dl>
@@ -241,7 +242,7 @@ This class should not be used directly, Use dervied class instead.</p>
 <span class="sig-name descname"><span class="pre">check_data_and_train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.outliers.base.DetectorMixin.check_data_and_train" title="Permalink to this definition"></a></dt>
 <dd><p>Data quality check and training.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> – The training dataset.</p></li>
 <li><p><strong>kwargs</strong> – Additional parameters.</p></li>
@@ -259,22 +260,22 @@ This class should not be used directly, Use dervied class instead.</p>
 <p>The class for storing anomaly detection results.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.outliers.base.DetectionResults.anomalous_metrics">
-<span class="sig-name descname"><span class="pre">anomalous_metrics</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></em><a class="headerlink" href="#pyrca.outliers.base.DetectionResults.anomalous_metrics" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">anomalous_metrics</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span></em><a class="headerlink" href="#pyrca.outliers.base.DetectionResults.anomalous_metrics" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.outliers.base.DetectionResults.anomaly_timestamps">
-<span class="sig-name descname"><span class="pre">anomaly_timestamps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></em><a class="headerlink" href="#pyrca.outliers.base.DetectionResults.anomaly_timestamps" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">anomaly_timestamps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#pyrca.outliers.base.DetectionResults.anomaly_timestamps" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.outliers.base.DetectionResults.anomaly_labels">
-<span class="sig-name descname"><span class="pre">anomaly_labels</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></em><a class="headerlink" href="#pyrca.outliers.base.DetectionResults.anomaly_labels" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">anomaly_labels</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#pyrca.outliers.base.DetectionResults.anomaly_labels" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.outliers.base.DetectionResults.anomaly_info">
-<span class="sig-name descname"><span class="pre">anomaly_info</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></em><a class="headerlink" href="#pyrca.outliers.base.DetectionResults.anomaly_info" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">anomaly_info</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#pyrca.outliers.base.DetectionResults.anomaly_info" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -282,7 +283,7 @@ This class should not be used directly, Use dervied class instead.</p>
 <span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.outliers.base.DetectionResults.to_dict" title="Permalink to this definition"></a></dt>
 <dd><p>Converts the anomaly detection results into a dict.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
 </dd>
 </dl>
@@ -293,10 +294,10 @@ This class should not be used directly, Use dervied class instead.</p>
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.outliers.base.DetectionResults.merge" title="Permalink to this definition"></a></dt>
 <dd><p>Merges multiple detection results.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>results</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>) – A list of <code class="docutils literal notranslate"><span class="pre">DetectionResults</span></code> objects.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The merged <code class="docutils literal notranslate"><span class="pre">DetectionResults</span></code> object.</p>
 </dd>
 </dl>
@@ -314,7 +315,7 @@ This class should not be used directly, Use dervied class instead.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseConfig</span></code></p>
 <p>The configuration class for the stats anomaly detector.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>default_sigma</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The default sigma value for computing the threshold,
 e.g., abs(x - mean) &gt; sigma * std.</p></li>
@@ -336,47 +337,47 @@ default for certain variables.</p></li>
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.outliers.stats.StatsDetectorConfig.default_sigma">
-<span class="sig-name descname"><span class="pre">default_sigma</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4.0</span></em><a class="headerlink" href="#pyrca.outliers.stats.StatsDetectorConfig.default_sigma" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">default_sigma</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4.0</span></em><a class="headerlink" href="#pyrca.outliers.stats.StatsDetectorConfig.default_sigma" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.outliers.stats.StatsDetectorConfig.thres_win_size">
-<span class="sig-name descname"><span class="pre">thres_win_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#pyrca.outliers.stats.StatsDetectorConfig.thres_win_size" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">thres_win_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#pyrca.outliers.stats.StatsDetectorConfig.thres_win_size" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.outliers.stats.StatsDetectorConfig.thres_reduce_func">
-<span class="sig-name descname"><span class="pre">thres_reduce_func</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'mean'</span></em><a class="headerlink" href="#pyrca.outliers.stats.StatsDetectorConfig.thres_reduce_func" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">thres_reduce_func</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'mean'</span></em><a class="headerlink" href="#pyrca.outliers.stats.StatsDetectorConfig.thres_reduce_func" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.outliers.stats.StatsDetectorConfig.score_win_size">
-<span class="sig-name descname"><span class="pre">score_win_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#pyrca.outliers.stats.StatsDetectorConfig.score_win_size" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">score_win_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#pyrca.outliers.stats.StatsDetectorConfig.score_win_size" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.outliers.stats.StatsDetectorConfig.anomaly_threshold">
-<span class="sig-name descname"><span class="pre">anomaly_threshold</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.5</span></em><a class="headerlink" href="#pyrca.outliers.stats.StatsDetectorConfig.anomaly_threshold" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">anomaly_threshold</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.5</span></em><a class="headerlink" href="#pyrca.outliers.stats.StatsDetectorConfig.anomaly_threshold" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.outliers.stats.StatsDetectorConfig.sigmas">
-<span class="sig-name descname"><span class="pre">sigmas</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyrca.outliers.stats.StatsDetectorConfig.sigmas" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">sigmas</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyrca.outliers.stats.StatsDetectorConfig.sigmas" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.outliers.stats.StatsDetectorConfig.manual_thresholds">
-<span class="sig-name descname"><span class="pre">manual_thresholds</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyrca.outliers.stats.StatsDetectorConfig.manual_thresholds" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">manual_thresholds</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyrca.outliers.stats.StatsDetectorConfig.manual_thresholds" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.outliers.stats.StatsDetectorConfig.custom_win_sizes">
-<span class="sig-name descname"><span class="pre">custom_win_sizes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyrca.outliers.stats.StatsDetectorConfig.custom_win_sizes" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">custom_win_sizes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyrca.outliers.stats.StatsDetectorConfig.custom_win_sizes" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.outliers.stats.StatsDetectorConfig.custom_anomaly_thresholds">
-<span class="sig-name descname"><span class="pre">custom_anomaly_thresholds</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyrca.outliers.stats.StatsDetectorConfig.custom_anomaly_thresholds" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">custom_anomaly_thresholds</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyrca.outliers.stats.StatsDetectorConfig.custom_anomaly_thresholds" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -401,7 +402,7 @@ is considered as an anomaly.</p>
 <span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.outliers.stats.StatsDetector.to_dict" title="Permalink to this definition"></a></dt>
 <dd><p>Converts a trained detector into a python dictionary.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></p>
 </dd>
 </dl>
@@ -412,7 +413,7 @@ is considered as an anomaly.</p>
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.outliers.stats.StatsDetector.from_dict" title="Permalink to this definition"></a></dt>
 <dd><p>Creates a <code class="docutils literal notranslate"><span class="pre">StatsDetector</span></code> from a python dictionary.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="#pyrca.outliers.stats.StatsDetector" title="pyrca.outliers.stats.StatsDetector"><code class="xref py py-class docutils literal notranslate"><span class="pre">StatsDetector</span></code></a></p>
 </dd>
 </dl>
@@ -423,7 +424,7 @@ is considered as an anomaly.</p>
 <span class="sig-name descname"><span class="pre">update_bounds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.outliers.stats.StatsDetector.update_bounds" title="Permalink to this definition"></a></dt>
 <dd><p>Updates the bounds manually.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>d</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>) – The bounds of certain metrics, e.g., {“metric A”: (0, 1)}.</p>
 </dd>
 </dl>

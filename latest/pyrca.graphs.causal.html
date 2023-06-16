@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pyrca.graphs.causal package &mdash; PyRCA  documentation</title>
@@ -12,9 +12,10 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -30,18 +31,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            PyRCA
+            <a href="index.html" class="icon icon-home"> PyRCA
           </a>
               <div class="version">
                 latest
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -135,7 +132,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
           <li class="breadcrumb-item"><a href="pyrca.html">PyRCA: A Library for Root Cause Analysis</a></li>
           <li class="breadcrumb-item"><a href="pyrca.graphs.html">pyrca.graphs package</a></li>
       <li class="breadcrumb-item active">pyrca.graphs.causal package</li>
@@ -193,7 +190,7 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">CausalModelConfig</span></code></p>
 <p>The configuration class for the PC algorithm.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>domain_knowledge_file</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The file path of the domain knowledge file.</p></li>
 <li><p><strong>run_pdag2dag</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Whether to convert a partial DAG to a DAG.</p></li>
@@ -204,22 +201,22 @@
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.graphs.causal.PCConfig.domain_knowledge_file">
-<span class="sig-name descname"><span class="pre">domain_knowledge_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyrca.graphs.causal.PCConfig.domain_knowledge_file" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">domain_knowledge_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyrca.graphs.causal.PCConfig.domain_knowledge_file" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.graphs.causal.PCConfig.run_pdag2dag">
-<span class="sig-name descname"><span class="pre">run_pdag2dag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#pyrca.graphs.causal.PCConfig.run_pdag2dag" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">run_pdag2dag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#pyrca.graphs.causal.PCConfig.run_pdag2dag" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.graphs.causal.PCConfig.max_num_points">
-<span class="sig-name descname"><span class="pre">max_num_points</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5000000</span></em><a class="headerlink" href="#pyrca.graphs.causal.PCConfig.max_num_points" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">max_num_points</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5000000</span></em><a class="headerlink" href="#pyrca.graphs.causal.PCConfig.max_num_points" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.graphs.causal.PCConfig.alpha">
-<span class="sig-name descname"><span class="pre">alpha</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.01</span></em><a class="headerlink" href="#pyrca.graphs.causal.PCConfig.alpha" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">alpha</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.01</span></em><a class="headerlink" href="#pyrca.graphs.causal.PCConfig.alpha" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -243,7 +240,7 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">CausalModelConfig</span></code></p>
 <p>The configuration class for the GES algorithm.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>domain_knowledge_file</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The file path of the domain knowledge file.</p></li>
 <li><p><strong>run_pdag2dag</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Whether to convert a partial DAG to a DAG.</p></li>
@@ -255,27 +252,27 @@
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.graphs.causal.GESConfig.domain_knowledge_file">
-<span class="sig-name descname"><span class="pre">domain_knowledge_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyrca.graphs.causal.GESConfig.domain_knowledge_file" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">domain_knowledge_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyrca.graphs.causal.GESConfig.domain_knowledge_file" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.graphs.causal.GESConfig.run_pdag2dag">
-<span class="sig-name descname"><span class="pre">run_pdag2dag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#pyrca.graphs.causal.GESConfig.run_pdag2dag" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">run_pdag2dag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#pyrca.graphs.causal.GESConfig.run_pdag2dag" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.graphs.causal.GESConfig.max_num_points">
-<span class="sig-name descname"><span class="pre">max_num_points</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5000000</span></em><a class="headerlink" href="#pyrca.graphs.causal.GESConfig.max_num_points" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">max_num_points</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5000000</span></em><a class="headerlink" href="#pyrca.graphs.causal.GESConfig.max_num_points" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.graphs.causal.GESConfig.max_degree">
-<span class="sig-name descname"><span class="pre">max_degree</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#pyrca.graphs.causal.GESConfig.max_degree" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">max_degree</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#pyrca.graphs.causal.GESConfig.max_degree" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.graphs.causal.GESConfig.penalty_discount">
-<span class="sig-name descname"><span class="pre">penalty_discount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">100</span></em><a class="headerlink" href="#pyrca.graphs.causal.GESConfig.penalty_discount" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">penalty_discount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">100</span></em><a class="headerlink" href="#pyrca.graphs.causal.GESConfig.penalty_discount" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -314,7 +311,7 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">CausalModelConfig</span></code></p>
 <p>The configuration class for the FGES algorithm.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>domain_knowledge_file</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The file path of the domain knowledge file.</p></li>
 <li><p><strong>run_pdag2dag</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Whether to convert a partial DAG to a DAG.</p></li>
@@ -327,32 +324,32 @@
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.graphs.causal.FGESConfig.domain_knowledge_file">
-<span class="sig-name descname"><span class="pre">domain_knowledge_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyrca.graphs.causal.FGESConfig.domain_knowledge_file" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">domain_knowledge_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyrca.graphs.causal.FGESConfig.domain_knowledge_file" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.graphs.causal.FGESConfig.run_pdag2dag">
-<span class="sig-name descname"><span class="pre">run_pdag2dag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#pyrca.graphs.causal.FGESConfig.run_pdag2dag" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">run_pdag2dag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#pyrca.graphs.causal.FGESConfig.run_pdag2dag" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.graphs.causal.FGESConfig.max_num_points">
-<span class="sig-name descname"><span class="pre">max_num_points</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5000000</span></em><a class="headerlink" href="#pyrca.graphs.causal.FGESConfig.max_num_points" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">max_num_points</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5000000</span></em><a class="headerlink" href="#pyrca.graphs.causal.FGESConfig.max_num_points" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.graphs.causal.FGESConfig.max_degree">
-<span class="sig-name descname"><span class="pre">max_degree</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#pyrca.graphs.causal.FGESConfig.max_degree" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">max_degree</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#pyrca.graphs.causal.FGESConfig.max_degree" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.graphs.causal.FGESConfig.penalty_discount">
-<span class="sig-name descname"><span class="pre">penalty_discount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">80</span></em><a class="headerlink" href="#pyrca.graphs.causal.FGESConfig.penalty_discount" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">penalty_discount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">80</span></em><a class="headerlink" href="#pyrca.graphs.causal.FGESConfig.penalty_discount" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.graphs.causal.FGESConfig.score_id">
-<span class="sig-name descname"><span class="pre">score_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'sem-bic-score'</span></em><a class="headerlink" href="#pyrca.graphs.causal.FGESConfig.score_id" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">score_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'sem-bic-score'</span></em><a class="headerlink" href="#pyrca.graphs.causal.FGESConfig.score_id" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -376,7 +373,7 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">CausalModelConfig</span></code></p>
 <p>The configuration class for the LiNGAM algorithm.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>domain_knowledge_file</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The file path of the domain knowledge file.</p></li>
 <li><p><strong>run_pdag2dag</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Whether to convert a partial DAG to a DAG.</p></li>
@@ -390,32 +387,32 @@ bootstrapping will be applied.</p></li>
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.graphs.causal.LiNGAMConfig.domain_knowledge_file">
-<span class="sig-name descname"><span class="pre">domain_knowledge_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyrca.graphs.causal.LiNGAMConfig.domain_knowledge_file" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">domain_knowledge_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyrca.graphs.causal.LiNGAMConfig.domain_knowledge_file" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.graphs.causal.LiNGAMConfig.run_pdag2dag">
-<span class="sig-name descname"><span class="pre">run_pdag2dag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#pyrca.graphs.causal.LiNGAMConfig.run_pdag2dag" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">run_pdag2dag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#pyrca.graphs.causal.LiNGAMConfig.run_pdag2dag" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.graphs.causal.LiNGAMConfig.max_num_points">
-<span class="sig-name descname"><span class="pre">max_num_points</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5000000</span></em><a class="headerlink" href="#pyrca.graphs.causal.LiNGAMConfig.max_num_points" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">max_num_points</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5000000</span></em><a class="headerlink" href="#pyrca.graphs.causal.LiNGAMConfig.max_num_points" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.graphs.causal.LiNGAMConfig.lower_limit">
-<span class="sig-name descname"><span class="pre">lower_limit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.1</span></em><a class="headerlink" href="#pyrca.graphs.causal.LiNGAMConfig.lower_limit" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">lower_limit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.1</span></em><a class="headerlink" href="#pyrca.graphs.causal.LiNGAMConfig.lower_limit" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.graphs.causal.LiNGAMConfig.n_sampling">
-<span class="sig-name descname"><span class="pre">n_sampling</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#pyrca.graphs.causal.LiNGAMConfig.n_sampling" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">n_sampling</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#pyrca.graphs.causal.LiNGAMConfig.n_sampling" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.graphs.causal.LiNGAMConfig.min_causal_effect">
-<span class="sig-name descname"><span class="pre">min_causal_effect</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.01</span></em><a class="headerlink" href="#pyrca.graphs.causal.LiNGAMConfig.min_causal_effect" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">min_causal_effect</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.01</span></em><a class="headerlink" href="#pyrca.graphs.causal.LiNGAMConfig.min_causal_effect" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>

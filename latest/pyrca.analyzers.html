@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pyrca.analyzers package &mdash; PyRCA  documentation</title>
@@ -12,9 +12,10 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -30,18 +31,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            PyRCA
+            <a href="index.html" class="icon icon-home"> PyRCA
           </a>
               <div class="version">
                 latest
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -186,7 +183,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
           <li class="breadcrumb-item"><a href="pyrca.html">PyRCA: A Library for Root Cause Analysis</a></li>
       <li class="breadcrumb-item active">pyrca.analyzers package</li>
       <li class="wy-breadcrumbs-aside">
@@ -225,6 +222,10 @@
 <section id="module-pyrca.analyzers">
 <span id="pyrca-analyzers-package"></span><h1>pyrca.analyzers package<a class="headerlink" href="#module-pyrca.analyzers" title="Permalink to this heading"></a></h1>
 <table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#module-pyrca.analyzers.base" title="pyrca.analyzers.base"><code class="xref py py-obj docutils literal notranslate"><span class="pre">base</span></code></a></p></td>
 <td><p>Base classes for all RCA algorithms</p></td>
@@ -255,7 +256,7 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The class for storing root cause analysis results.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>root_cause_nodes</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>) – A list of potential root causes, e.g.,
 [(metric_a, score_a), (metric_b, score_b), …].</p></li>
@@ -268,12 +269,12 @@ If <code class="docutils literal notranslate"><span class="pre">path_node_a</spa
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.base.RCAResults.root_cause_nodes">
-<span class="sig-name descname"><span class="pre">root_cause_nodes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></em><a class="headerlink" href="#pyrca.analyzers.base.RCAResults.root_cause_nodes" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">root_cause_nodes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span></em><a class="headerlink" href="#pyrca.analyzers.base.RCAResults.root_cause_nodes" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.base.RCAResults.root_cause_paths">
-<span class="sig-name descname"><span class="pre">root_cause_paths</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></em><a class="headerlink" href="#pyrca.analyzers.base.RCAResults.root_cause_paths" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">root_cause_paths</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#pyrca.analyzers.base.RCAResults.root_cause_paths" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -281,7 +282,7 @@ If <code class="docutils literal notranslate"><span class="pre">path_node_a</spa
 <span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.analyzers.base.RCAResults.to_dict" title="Permalink to this definition"></a></dt>
 <dd><p>Converts the RCA results into a dict.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
 </dd>
 </dl>
@@ -292,7 +293,7 @@ If <code class="docutils literal notranslate"><span class="pre">path_node_a</spa
 <span class="sig-name descname"><span class="pre">to_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.analyzers.base.RCAResults.to_list" title="Permalink to this definition"></a></dt>
 <dd><p>Converts the RCA results into a list.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
 </dd>
 </dl>
@@ -321,7 +322,7 @@ This class should not be used directly, Use derived class instead.</p>
 :type kwargs: 
 :param kwargs: Additional parameters.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="#pyrca.analyzers.base.RCAResults" title="pyrca.analyzers.base.RCAResults"><code class="xref py py-class docutils literal notranslate"><span class="pre">RCAResults</span></code></a></p>
 </dd>
 </dl>
@@ -339,7 +340,7 @@ This class should not be used directly, Use derived class instead.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseConfig</span></code></p>
 <p>The configuration class for the Bayesian network based RCA.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The adjacency matrix of the causal graph,
 which can be a pandas dataframe or a file path of a CSV file or a pickled file.</p></li>
@@ -360,37 +361,37 @@ is for constructing training data (only used when <code class="docutils literal 
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.bayesian.BayesianNetworkConfig.graph">
-<span class="sig-name descname"><span class="pre">graph</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#pyrca.analyzers.bayesian.BayesianNetworkConfig.graph" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">graph</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">DataFrame</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyrca.analyzers.bayesian.BayesianNetworkConfig.graph" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.bayesian.BayesianNetworkConfig.sigmas">
-<span class="sig-name descname"><span class="pre">sigmas</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyrca.analyzers.bayesian.BayesianNetworkConfig.sigmas" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">sigmas</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyrca.analyzers.bayesian.BayesianNetworkConfig.sigmas" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.bayesian.BayesianNetworkConfig.default_sigma">
-<span class="sig-name descname"><span class="pre">default_sigma</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4.0</span></em><a class="headerlink" href="#pyrca.analyzers.bayesian.BayesianNetworkConfig.default_sigma" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">default_sigma</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4.0</span></em><a class="headerlink" href="#pyrca.analyzers.bayesian.BayesianNetworkConfig.default_sigma" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.bayesian.BayesianNetworkConfig.thres_win_size">
-<span class="sig-name descname"><span class="pre">thres_win_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#pyrca.analyzers.bayesian.BayesianNetworkConfig.thres_win_size" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">thres_win_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#pyrca.analyzers.bayesian.BayesianNetworkConfig.thres_win_size" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.bayesian.BayesianNetworkConfig.thres_reduce_func">
-<span class="sig-name descname"><span class="pre">thres_reduce_func</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'mean'</span></em><a class="headerlink" href="#pyrca.analyzers.bayesian.BayesianNetworkConfig.thres_reduce_func" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">thres_reduce_func</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'mean'</span></em><a class="headerlink" href="#pyrca.analyzers.bayesian.BayesianNetworkConfig.thres_reduce_func" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.bayesian.BayesianNetworkConfig.infer_method">
-<span class="sig-name descname"><span class="pre">infer_method</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'posterior'</span></em><a class="headerlink" href="#pyrca.analyzers.bayesian.BayesianNetworkConfig.infer_method" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">infer_method</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'posterior'</span></em><a class="headerlink" href="#pyrca.analyzers.bayesian.BayesianNetworkConfig.infer_method" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.bayesian.BayesianNetworkConfig.root_cause_top_k">
-<span class="sig-name descname"><span class="pre">root_cause_top_k</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#pyrca.analyzers.bayesian.BayesianNetworkConfig.root_cause_top_k" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">root_cause_top_k</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#pyrca.analyzers.bayesian.BayesianNetworkConfig.root_cause_top_k" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -411,7 +412,7 @@ is for constructing training data (only used when <code class="docutils literal 
 <span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dfs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.analyzers.bayesian.BayesianNetwork.train" title="Permalink to this definition"></a></dt>
 <dd><p>Estimates Bayesian network parameters given the training time series.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dfs</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>]]) – One or multiple training time series.</p></li>
 <li><p><strong>detector</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code>]) – The detector used to construct the training dataset, i.e., the training dataset
@@ -427,7 +428,7 @@ stats-based detector will be applied.</p></li>
 <span class="sig-name descname"><span class="pre">add_root_causes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_causes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.analyzers.bayesian.BayesianNetwork.add_root_causes" title="Permalink to this definition"></a></dt>
 <dd><p>Adds additional root cause nodes into the graph based on domain knowledge.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>root_causes</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>) – A list of root causes.</p>
 </dd>
 </dl>
@@ -439,7 +440,7 @@ stats-based detector will be applied.</p></li>
 <dd><p>Updates the Bayesian network parameters. For example, if we want to set <cite>P(A=1 | B=0, C=1, D=1) = p</cite>,
 we set <cite>target_node = A</cite>, <cite>parent_nodes = [C, D]</cite> and <cite>prob = p</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>target_node</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The child/effect node to be modified.</p></li>
 <li><p><strong>parent_nodes</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>) – The parent nodes whose values are ones.</p></li>
@@ -454,7 +455,7 @@ we set <cite>target_node = A</cite>, <cite>parent_nodes = [C, D]</cite> and <cit
 <span class="sig-name descname"><span class="pre">find_root_causes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">anomalous_metrics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set_zero_path_score_for_normal_metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_zero_score_node_in_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.analyzers.bayesian.BayesianNetwork.find_root_causes" title="Permalink to this definition"></a></dt>
 <dd><p>Finds the root causes given the observed anomalous metrics.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>anomalous_metrics</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>]) – A list of anomalous metrics. <code class="docutils literal notranslate"><span class="pre">anomalous_metrics</span></code> is either a list
 [‘metric_A’, ‘metric_B’, …] or a dict {‘metric_A’: 1, ‘metric_B’: 1}.</p></li>
@@ -463,10 +464,10 @@ we set <cite>target_node = A</cite>, <cite>parent_nodes = [C, D]</cite> and <cit
 <li><p><strong>remove_zero_score_node_in_path</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Whether to remove the nodes with zero scores from the paths.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A list of the found root causes.</p>
 </dd>
 </dl>
@@ -477,7 +478,7 @@ we set <cite>target_node = A</cite>, <cite>parent_nodes = [C, D]</cite> and <cit
 <span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'bn'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.analyzers.bayesian.BayesianNetwork.save" title="Permalink to this definition"></a></dt>
 <dd><p>Saves the initialized model.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>directory</strong> – The folder for the dumped explainer.</p></li>
 <li><p><strong>filename</strong> – The filename (the model class name if it is None).</p></li>
@@ -491,7 +492,7 @@ we set <cite>target_node = A</cite>, <cite>parent_nodes = [C, D]</cite> and <cit
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'bn'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.analyzers.bayesian.BayesianNetwork.load" title="Permalink to this definition"></a></dt>
 <dd><p>Loads the dumped model.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>directory</strong> – The folder for the dumped model.</p></li>
 <li><p><strong>filename</strong> – The filename (the model class name if it is None).</p></li>
@@ -517,7 +518,7 @@ we set <cite>target_node = A</cite>, <cite>parent_nodes = [C, D]</cite> and <cit
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseConfig</span></code></p>
 <p>The configuration class for the random walk based RCA.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The adjacency matrix of the causal graph,
 which can be a pandas dataframe or a file path of a CSV file or a pickled file.</p></li>
@@ -531,32 +532,32 @@ which can be a pandas dataframe or a file path of a CSV file or a pickled file.<
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.random_walk.RandomWalkConfig.graph">
-<span class="sig-name descname"><span class="pre">graph</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#pyrca.analyzers.random_walk.RandomWalkConfig.graph" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">graph</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">DataFrame</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyrca.analyzers.random_walk.RandomWalkConfig.graph" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.random_walk.RandomWalkConfig.use_partial_corr">
-<span class="sig-name descname"><span class="pre">use_partial_corr</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#pyrca.analyzers.random_walk.RandomWalkConfig.use_partial_corr" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">use_partial_corr</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#pyrca.analyzers.random_walk.RandomWalkConfig.use_partial_corr" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.random_walk.RandomWalkConfig.rho">
-<span class="sig-name descname"><span class="pre">rho</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.1</span></em><a class="headerlink" href="#pyrca.analyzers.random_walk.RandomWalkConfig.rho" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">rho</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.1</span></em><a class="headerlink" href="#pyrca.analyzers.random_walk.RandomWalkConfig.rho" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.random_walk.RandomWalkConfig.num_steps">
-<span class="sig-name descname"><span class="pre">num_steps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#pyrca.analyzers.random_walk.RandomWalkConfig.num_steps" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">num_steps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#pyrca.analyzers.random_walk.RandomWalkConfig.num_steps" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.random_walk.RandomWalkConfig.num_repeats">
-<span class="sig-name descname"><span class="pre">num_repeats</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1000</span></em><a class="headerlink" href="#pyrca.analyzers.random_walk.RandomWalkConfig.num_repeats" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">num_repeats</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1000</span></em><a class="headerlink" href="#pyrca.analyzers.random_walk.RandomWalkConfig.num_repeats" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.random_walk.RandomWalkConfig.root_cause_top_k">
-<span class="sig-name descname"><span class="pre">root_cause_top_k</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#pyrca.analyzers.random_walk.RandomWalkConfig.root_cause_top_k" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">root_cause_top_k</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#pyrca.analyzers.random_walk.RandomWalkConfig.root_cause_top_k" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -583,17 +584,17 @@ which can be a pandas dataframe or a file path of a CSV file or a pickled file.<
 <span class="sig-name descname"><span class="pre">find_root_causes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">anomalous_metrics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.analyzers.random_walk.RandomWalk.find_root_causes" title="Permalink to this definition"></a></dt>
 <dd><p>Finds the root causes given the observed anomalous metrics.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>anomalous_metrics</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>]) – A list of anomalous metrics. <code class="docutils literal notranslate"><span class="pre">anomalous_metrics</span></code> is either a list
 [‘metric_A’, ‘metric_B’, …] or a dict {‘metric_A’: 1, ‘metric_B’: 1}.</p></li>
 <li><p><strong>df</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – The time series dataframe in the incident window.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="#pyrca.analyzers.base.RCAResults" title="pyrca.analyzers.base.RCAResults"><code class="xref py py-class docutils literal notranslate"><span class="pre">RCAResults</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A list of the found root causes.</p>
 </dd>
 </dl>
@@ -611,7 +612,7 @@ which can be a pandas dataframe or a file path of a CSV file or a pickled file.<
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseConfig</span></code></p>
 <p>The configuration class for the epsilon-diagnosis algorithm for Root Cause Analysis.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>alpha</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The desired significance level (float) in (0, 1). Default: 0.05.</p></li>
 <li><p><strong>bootstrap_time</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Bootstrap times.</p></li>
@@ -621,17 +622,17 @@ which can be a pandas dataframe or a file path of a CSV file or a pickled file.<
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosisConfig.alpha">
-<span class="sig-name descname"><span class="pre">alpha</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.05</span></em><a class="headerlink" href="#pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosisConfig.alpha" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">alpha</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.05</span></em><a class="headerlink" href="#pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosisConfig.alpha" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosisConfig.bootstrap_time">
-<span class="sig-name descname"><span class="pre">bootstrap_time</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">200</span></em><a class="headerlink" href="#pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosisConfig.bootstrap_time" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">bootstrap_time</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">200</span></em><a class="headerlink" href="#pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosisConfig.bootstrap_time" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosisConfig.root_cause_top_k">
-<span class="sig-name descname"><span class="pre">root_cause_top_k</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosisConfig.root_cause_top_k" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">root_cause_top_k</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosisConfig.root_cause_top_k" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -653,7 +654,7 @@ which can be a pandas dataframe or a file path of a CSV file or a pickled file.<
 <span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">normal_df</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosis.train" title="Permalink to this definition"></a></dt>
 <dd><p>Two variable correlation analysis given the training time series.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>normal_df</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – A pandas dataframe of normal data.</p>
 </dd>
 </dl>
@@ -664,10 +665,10 @@ which can be a pandas dataframe or a file path of a CSV file or a pickled file.<
 <span class="sig-name descname"><span class="pre">find_root_causes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abnormal_df</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.analyzers.epsilon_diagnosis.EpsilonDiagnosis.find_root_causes" title="Permalink to this definition"></a></dt>
 <dd><p>Finds the root causes given the abnormal dataset.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>abnormal_df</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – A pandas dataFrame of abnormal data.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A list of the found root causes.</p>
 </dd>
 </dl>
@@ -685,7 +686,7 @@ which can be a pandas dataframe or a file path of a CSV file or a pickled file.<
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseConfig</span></code></p>
 <p>The configuration class for the RCD algorithm for Root Cause Analysis</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>start_alpha</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The desired start significance level (float) in (0, 1) for search.</p></li>
 <li><p><strong>alpha_step</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The search step for alpha.</p></li>
@@ -701,52 +702,52 @@ which can be a pandas dataframe or a file path of a CSV file or a pickled file.<
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.rcd.RCDConfig.start_alpha">
-<span class="sig-name descname"><span class="pre">start_alpha</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.01</span></em><a class="headerlink" href="#pyrca.analyzers.rcd.RCDConfig.start_alpha" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">start_alpha</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.01</span></em><a class="headerlink" href="#pyrca.analyzers.rcd.RCDConfig.start_alpha" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.rcd.RCDConfig.alpha_step">
-<span class="sig-name descname"><span class="pre">alpha_step</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.1</span></em><a class="headerlink" href="#pyrca.analyzers.rcd.RCDConfig.alpha_step" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">alpha_step</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.1</span></em><a class="headerlink" href="#pyrca.analyzers.rcd.RCDConfig.alpha_step" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.rcd.RCDConfig.alpha_limit">
-<span class="sig-name descname"><span class="pre">alpha_limit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#pyrca.analyzers.rcd.RCDConfig.alpha_limit" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">alpha_limit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#pyrca.analyzers.rcd.RCDConfig.alpha_limit" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.rcd.RCDConfig.localized">
-<span class="sig-name descname"><span class="pre">localized</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#pyrca.analyzers.rcd.RCDConfig.localized" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">localized</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#pyrca.analyzers.rcd.RCDConfig.localized" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.rcd.RCDConfig.gamma">
-<span class="sig-name descname"><span class="pre">gamma</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#pyrca.analyzers.rcd.RCDConfig.gamma" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">gamma</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#pyrca.analyzers.rcd.RCDConfig.gamma" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.rcd.RCDConfig.bins">
-<span class="sig-name descname"><span class="pre">bins</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#pyrca.analyzers.rcd.RCDConfig.bins" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">bins</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#pyrca.analyzers.rcd.RCDConfig.bins" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.rcd.RCDConfig.k">
-<span class="sig-name descname"><span class="pre">k</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#pyrca.analyzers.rcd.RCDConfig.k" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">k</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#pyrca.analyzers.rcd.RCDConfig.k" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.rcd.RCDConfig.f_node">
-<span class="sig-name descname"><span class="pre">f_node</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'F-node'</span></em><a class="headerlink" href="#pyrca.analyzers.rcd.RCDConfig.f_node" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">f_node</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'F-node'</span></em><a class="headerlink" href="#pyrca.analyzers.rcd.RCDConfig.f_node" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.rcd.RCDConfig.verbose">
-<span class="sig-name descname"><span class="pre">verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#pyrca.analyzers.rcd.RCDConfig.verbose" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#pyrca.analyzers.rcd.RCDConfig.verbose" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.rcd.RCDConfig.ci_test">
-<span class="sig-name descname"><span class="pre">ci_test</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">CIT</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'chisq'</span></em><a class="headerlink" href="#pyrca.analyzers.rcd.RCDConfig.ci_test" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">ci_test</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">CIT</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'chisq'</span></em><a class="headerlink" href="#pyrca.analyzers.rcd.RCDConfig.ci_test" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -774,7 +775,7 @@ which can be a pandas dataframe or a file path of a CSV file or a pickled file.<
 <span class="sig-name descname"><span class="pre">find_root_causes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">normal_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abnormal_df</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.analyzers.rcd.RCD.find_root_causes" title="Permalink to this definition"></a></dt>
 <dd><p>Finds the root causes given the abnormal dataset.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A list of the found root causes.</p>
 </dd>
 </dl>
@@ -792,7 +793,7 @@ which can be a pandas dataframe or a file path of a CSV file or a pickled file.<
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseConfig</span></code></p>
 <p>The configuration class of the HT method for Root Cause Analysis</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The adjacency matrix of the causal graphs,
 which can be a pandas dataframe or a file path of a CSV file or a pickled file.</p></li>
@@ -803,17 +804,17 @@ which can be a pandas dataframe or a file path of a CSV file or a pickled file.<
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.ht.HTConfig.graph">
-<span class="sig-name descname"><span class="pre">graph</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#pyrca.analyzers.ht.HTConfig.graph" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">graph</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">DataFrame</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyrca.analyzers.ht.HTConfig.graph" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.ht.HTConfig.aggregator">
-<span class="sig-name descname"><span class="pre">aggregator</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'max'</span></em><a class="headerlink" href="#pyrca.analyzers.ht.HTConfig.aggregator" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">aggregator</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'max'</span></em><a class="headerlink" href="#pyrca.analyzers.ht.HTConfig.aggregator" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.analyzers.ht.HTConfig.root_cause_top_k">
-<span class="sig-name descname"><span class="pre">root_cause_top_k</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#pyrca.analyzers.ht.HTConfig.root_cause_top_k" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">root_cause_top_k</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#pyrca.analyzers.ht.HTConfig.root_cause_top_k" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -836,7 +837,7 @@ If using this explainer, please cite the original work:
 <span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">normal_df</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.analyzers.ht.HT.train" title="Permalink to this definition"></a></dt>
 <dd><p>Train regression model for each node based on its parents. Build the score functions.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>normal_df</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – A pandas dataFrame of normal data.</p>
 </dd>
 </dl>
@@ -847,14 +848,14 @@ If using this explainer, please cite the original work:
 <span class="sig-name descname"><span class="pre">find_root_causes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abnormal_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anomalous_metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adjustment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.analyzers.ht.HT.find_root_causes" title="Permalink to this definition"></a></dt>
 <dd><p>Finds the root causes given the abnormal dataset.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>abnormal_df</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – A pandas dataFrame of abnormal data.</p></li>
 <li><p><strong>anomalous_metrics</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The name of detected anomalous metrics, it is used to print the path from root nodes.</p></li>
 <li><p><strong>adjustment</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Whether to perform descendant adjustment.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A list of the found root causes.</p>
 </dd>
 </dl>
