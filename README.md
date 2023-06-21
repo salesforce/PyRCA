@@ -12,7 +12,7 @@
   <a href="https://pepy.tech/project/sfr-pyrca">
   <img alt="Downloads" src="https://pepy.tech/badge/sfr-pyrca">
   </a>
-  <a href="https://arxiv.org/abs/xxxx.xxxxx">
+  <a href="https://arxiv.org/abs/2306.11417">
   <img alt="DOI" src="https://zenodo.org/badge/DOI/10.48550/ARXIV.xxxx.xxxxx.svg"/>
   </a>
 </div>
