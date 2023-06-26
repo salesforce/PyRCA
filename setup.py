@@ -6,7 +6,7 @@
 from setuptools import setup, find_namespace_packages
 
 extras_require = {
-    "plot": ["plotly>=4", "dash>=2.0", "dash_bootstrap_components>=1.0", "jupyter-dash>=0.4", "dash[diskcache]"]
+    "plot": ["plotly>=4", "dash>=2.0", "dash_bootstrap_components>=1.0", "jupyter-dash>=0.4", "dash[diskcache]", "dash_cytoscape"]
 }
 extras_require["all"] = sum(extras_require.values(), [])
 
