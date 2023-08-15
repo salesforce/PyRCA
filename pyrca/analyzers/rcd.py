@@ -40,7 +40,7 @@ class RCDConfig(BaseConfig):
     localized: bool = True
     gamma: int = 5
     bins: int = 5
-    k: int = 3
+    root_cause_top_k: int = 3
     f_node: str = "F-node"
     verbose: bool = False
     ci_test: CIT = chisq

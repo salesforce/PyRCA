@@ -36,7 +36,6 @@ setup(
         "tqdm",
         "wheel",
         "packaging",
-        "javabridge>=1.0.11",
     ],
     extras_require=extras_require,
     python_requires=">=3.7,<4",
