@@ -10,7 +10,7 @@
   <img alt="Documentation" src="https://github.com/salesforce/PyRCA/actions/workflows/docs.yml/badge.svg"/>
   </a>
   <a href="https://pepy.tech/project/sfr-pyrca">
-  <img alt="Downloads" src="https://pepy.tech/badge/sfr-pyrca">
+  <img alt="Downloads" src="https://static.pepy.tech/badge/sfr-pyrca">
   </a>
   <a href="https://arxiv.org/abs/2306.11417">
   <img alt="DOI" src="https://zenodo.org/badge/DOI/10.48550/ARXIV.2306.11417.svg"/>
