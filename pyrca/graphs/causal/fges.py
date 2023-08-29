@@ -12,6 +12,8 @@ from typing import List
 from dataclasses import dataclass
 from pyrca.graphs.causal.base import CausalModel, CausalModelConfig
 
+from pyrca.thirdparty.pytetrad.tools.TetradSearch import TetradSearch
+
 
 @dataclass
 class FGESConfig(CausalModelConfig):
@@ -19,19 +21,17 @@ class FGESConfig(CausalModelConfig):
     The configuration class for the FGES algorithm.
 
     :param domain_knowledge_file: The file path of the domain knowledge file.
-    :param run_pdag2dag: Whether to convert a partial DAG to a DAG.
     :param max_num_points: The maximum number of data points in causal discovery.
     :param max_degree: The allowed maximum number of parents when searching the graph.
     :param penalty_discount: The penalty discount (a regularization parameter).
-    :param score_id: The score function name, e.g., "sem-bic-score".
+    :param score_id: The score function name, e.g., "sem_bic_score".
     """
 
     domain_knowledge_file: str = None
-    run_pdag2dag: bool = True
     max_num_points: int = 5000000
     max_degree: int = 10
     penalty_discount: int = 80
-    score_id: str = "sem-bic-score"
+    score_id: str = "sem_bic_score"
 
 
 class FGES(CausalModel):
@@ -47,62 +47,47 @@ class FGES(CausalModel):
 
     @staticmethod
     def initialize():
-        from pycausal.pycausal import pycausal as pc
-
-        FGES.causal = pc()
-        FGES.causal.start_vm()
+        TetradSearch.search.start_vm()
 
     @staticmethod
     def finish():
-        FGES.causal.stop_vm()
+        TetradSearch.search.stop_vm()
 
     def _train(self, df: pd.DataFrame, forbids: List, requires: List, start_vm: bool = True, **kwargs):
-        from ...utils.misc import is_pycausal_available
-
-        assert is_pycausal_available(), (
-            "pycausal is not installed. Please install it from github repo: " "https://github.com/bd2kccd/py-causal."
-        )
-
-        from pycausal import search, prior
-        from pycausal.pycausal import pycausal as pc
-
         var_names, n = df.columns, df.shape[1]
-        if start_vm and FGES.causal is None:
-            causal = pc()
-            causal.start_vm()
 
-        column_name2idx = {str(name): i for i, name in enumerate(var_names)}
         graph = np.zeros((n, n))
-        prior_knowledge = prior.knowledge(forbiddirect=forbids, requiredirect=requires)
 
-        tetrad = search.tetradrunner()
-        tetrad.run(
-            algoId="fges",
-            dfs=df,
-            priorKnowledge=prior_knowledge,
-            scoreId=self.config.score_id,
-            dataType="continuous",
-            maxDegree=self.config.max_degree,
-            faithfulnessAssumed=True,
-            symmetricFirstStep=False,
-            penaltyDiscount=self.config.penalty_discount,
-            verbose=False,
-        )
-        for edge in tetrad.getEdges():
-            if edge == "":
-                continue
-            items = edge.split()
-            assert len(items) == 3
-            a, b = str(items[0]), str(items[2])
-            if items[1] == "-->":
-                graph[column_name2idx[a], column_name2idx[b]] = 1
-            elif items[1] == "---":
-                graph[column_name2idx[a], column_name2idx[b]] = 1
-                graph[column_name2idx[b], column_name2idx[a]] = 1
-            else:
-                raise ValueError("Unknown direction: {}".format(items[1]))
-        if start_vm and FGES.causal is None:
-            causal.stop_vm()
+        res = TetradSearch(df)
+        res.add_knowledge(forbiddirect=forbids, requiredirect=requires)
+
+        # set score function
+        res.use_sem_bic(penalty_discount=self.config.penalty_discount)
+
+        # run fges algorithm
+        res.run_fges(max_degree=self.config.max_degree,
+                     faithfulness_assumed=True,
+                     symmetric_first_step=False,
+                     parallelized=False,
+                     meek_verbose=False)
+
+        causal_learn_graph = res.get_causal_learn().graph
+
+        for source in range(n):
+            for target in range(source+1, n):
+                if (causal_learn_graph[source, target] == -1) & (causal_learn_graph[target, source] == 1):
+                    graph[source, target] = 1
+                elif (causal_learn_graph[source, target] == 1) & (causal_learn_graph[target, source] == -1):
+                    graph[target, source] = 1
+                elif (causal_learn_graph[source, target] == -1) & (causal_learn_graph[target, source] == -1):
+                    graph[source, target] = 1
+                    graph[target, source] = 1
+                elif (causal_learn_graph[source, target] == 0) & (causal_learn_graph[target, source] == 0):
+                    continue
+                else:
+                    raise ValueError("Unknown direction: source {}, target {}".format(graph[source, target], graph[target, source]))
+        if start_vm:
+            TetradSearch.stop_vm()
 
         adjacency_mat = graph.astype(int)
         np.fill_diagonal(adjacency_mat, 0)
