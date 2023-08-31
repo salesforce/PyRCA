@@ -6,7 +6,8 @@
 from setuptools import setup, find_namespace_packages
 
 extras_require = {
-    "plot": ["plotly>=4", "dash>=2.0", "dash_bootstrap_components>=1.0", "jupyter-dash>=0.4", "dash[diskcache]", "dash_cytoscape"]
+    "plot": ["plotly>=4", "dash>=2.0", "dash_bootstrap_components>=1.0", "jupyter-dash>=0.4", "dash[diskcache]", "dash_cytoscape"],
+    "fges": ["javabridge>=1.0.11"]
 }
 extras_require["all"] = sum(extras_require.values(), [])
 
@@ -36,7 +37,6 @@ setup(
         "tqdm",
         "wheel",
         "packaging",
-        "javabridge>=1.0.11",
     ],
     extras_require=extras_require,
     python_requires=">=3.7,<4",
