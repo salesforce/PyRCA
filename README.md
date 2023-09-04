@@ -50,7 +50,7 @@ The following list shows the supported RCA methods in our library:
 1. [ε-Diagnosis](https://dl.acm.org/doi/10.1145/3308558.3313653)
 2. Bayesian Inference-based RCA (BI)
 3. Random Walk-based RCA (RW)
-4. [Root Casue Discovery method (RCD)](https://openreview.net/pdf?id=weoLjoYFvXY)
+4. [Root Cause Discovery method (RCD)](https://openreview.net/pdf?id=weoLjoYFvXY)
 5. [Hypothesis Testing-based RCA (HT)](https://dl.acm.org/doi/10.1145/3534678.3539041)
 
 We will continue improving this library to make it more comprehensive in the future. In the future, 
