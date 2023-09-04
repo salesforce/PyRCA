@@ -47,11 +47,11 @@ class FGES(CausalModel):
 
     @staticmethod
     def initialize():
-        TetradSearch.search.start_vm()
+        TetradSearch.start_vm()
 
     @staticmethod
     def finish():
-        TetradSearch.search.stop_vm()
+        TetradSearch.stop_vm()
 
     def _train(self, df: pd.DataFrame, forbids: List, requires: List, start_vm: bool = True, **kwargs):
         var_names, n = df.columns, df.shape[1]
