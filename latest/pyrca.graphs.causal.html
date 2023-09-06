@@ -84,7 +84,6 @@
 </li>
 <li class="toctree-l6"><a class="reference internal" href="#pyrca.graphs.causal.FGESConfig"><code class="docutils literal notranslate"><span class="pre">FGESConfig</span></code></a><ul>
 <li class="toctree-l7"><a class="reference internal" href="#pyrca.graphs.causal.FGESConfig.domain_knowledge_file"><code class="docutils literal notranslate"><span class="pre">FGESConfig.domain_knowledge_file</span></code></a></li>
-<li class="toctree-l7"><a class="reference internal" href="#pyrca.graphs.causal.FGESConfig.run_pdag2dag"><code class="docutils literal notranslate"><span class="pre">FGESConfig.run_pdag2dag</span></code></a></li>
 <li class="toctree-l7"><a class="reference internal" href="#pyrca.graphs.causal.FGESConfig.max_num_points"><code class="docutils literal notranslate"><span class="pre">FGESConfig.max_num_points</span></code></a></li>
 <li class="toctree-l7"><a class="reference internal" href="#pyrca.graphs.causal.FGESConfig.max_degree"><code class="docutils literal notranslate"><span class="pre">FGESConfig.max_degree</span></code></a></li>
 <li class="toctree-l7"><a class="reference internal" href="#pyrca.graphs.causal.FGESConfig.penalty_discount"><code class="docutils literal notranslate"><span class="pre">FGESConfig.penalty_discount</span></code></a></li>
@@ -307,29 +306,23 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="pyrca.graphs.causal.FGESConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyrca.graphs.causal.</span></span><span class="sig-name descname"><span class="pre">FGESConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain_knowledge_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_pdag2dag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_points</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5000000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_degree</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">penalty_discount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">80</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sem-bic-score'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.graphs.causal.FGESConfig" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyrca.graphs.causal.</span></span><span class="sig-name descname"><span class="pre">FGESConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain_knowledge_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_pdag2dag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_points</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5000000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_degree</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">penalty_discount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">80</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sem_bic_score'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyrca.graphs.causal.FGESConfig" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">CausalModelConfig</span></code></p>
 <p>The configuration class for the FGES algorithm.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>domain_knowledge_file</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The file path of the domain knowledge file.</p></li>
-<li><p><strong>run_pdag2dag</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Whether to convert a partial DAG to a DAG.</p></li>
 <li><p><strong>max_num_points</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The maximum number of data points in causal discovery.</p></li>
 <li><p><strong>max_degree</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The allowed maximum number of parents when searching the graph.</p></li>
 <li><p><strong>penalty_discount</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The penalty discount (a regularization parameter).</p></li>
-<li><p><strong>score_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The score function name, e.g., “sem-bic-score”.</p></li>
+<li><p><strong>score_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The score function name, e.g., “sem_bic_score”.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.graphs.causal.FGESConfig.domain_knowledge_file">
 <span class="sig-name descname"><span class="pre">domain_knowledge_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyrca.graphs.causal.FGESConfig.domain_knowledge_file" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pyrca.graphs.causal.FGESConfig.run_pdag2dag">
-<span class="sig-name descname"><span class="pre">run_pdag2dag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#pyrca.graphs.causal.FGESConfig.run_pdag2dag" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -349,7 +342,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyrca.graphs.causal.FGESConfig.score_id">
-<span class="sig-name descname"><span class="pre">score_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'sem-bic-score'</span></em><a class="headerlink" href="#pyrca.graphs.causal.FGESConfig.score_id" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">score_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'sem_bic_score'</span></em><a class="headerlink" href="#pyrca.graphs.causal.FGESConfig.score_id" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
