@@ -26,6 +26,8 @@
 6. [Example](#application-example)
 7. [Benchmarks](#benchmarks)
 8. [How to Contribute](#how-to-contribute)
+9. [Contact Us](#contact-us)
+10. [License](#license)
 
 ## Introduction
 
