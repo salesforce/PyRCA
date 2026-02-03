@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2023 salesforce.com, inc.
+# Copyright (c) 2026 salesforce.com, inc.
 # All rights reserved.
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
@@ -87,7 +87,7 @@ class EpsilonDiagnosis(BaseRCA):
                 self.correlations[colname] = np.square(
                     np.cov(self.normal_df[colname].values, abnormal_df[colname].values)[0, 1]
                 ) / (np.var(self.normal_df[colname].values) * np.var(abnormal_df[colname].values))
-                if self.correlations[colname] > self.statistics[colname]:
+                if self.correlations[colname] < self.statistics[colname]:
                     root_cause_nodes.append((colname, self.correlations[colname]))
-        root_cause_nodes = sorted(root_cause_nodes, key=lambda r: r[1], reverse=True)[: self.config.root_cause_top_k]
+        root_cause_nodes = sorted(root_cause_nodes, key=lambda r: r[1], reverse=False)[: self.config.root_cause_top_k]
         return RCAResults(root_cause_nodes=root_cause_nodes)
