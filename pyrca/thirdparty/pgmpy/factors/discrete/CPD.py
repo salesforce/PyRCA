@@ -127,7 +127,7 @@ class TabularCPD(DiscreteFactor):
         if evidence is None:
             expected_cpd_shape = (variable_card, 1)
         else:
-            expected_cpd_shape = (variable_card, np.product(evidence_card))
+            expected_cpd_shape = (variable_card, np.prod(evidence_card))
         if values.shape != expected_cpd_shape:
             raise ValueError(
                 f"values must be of shape {expected_cpd_shape}. Got shape: {values.shape}"
@@ -577,7 +577,7 @@ class TabularCPD(DiscreteFactor):
             )
         else:
             parent_card = [cardinality[var] for var in evidence]
-            values = np.random.rand(cardinality[variable], np.product(parent_card))
+            values = np.random.rand(cardinality[variable], np.prod(parent_card))
             values = values / np.sum(values, axis=0)
             node_cpd = TabularCPD(
                 variable=variable,

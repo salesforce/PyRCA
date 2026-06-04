@@ -28,7 +28,7 @@ def dag2cpdag(G: Dag) -> GeneralGraph:
         map(lambda x: G.node_map[x], G.get_causal_ordering()))  # Perform a topological sort on the nodes of G
     # nodes_order(1) is the node which has the highest order
     # nodes_order(N) is the node which has the lowest order
-    edges_order = np.mat([[], []], dtype=np.int64).T
+    edges_order = np.asmatrix([[], []], dtype=np.int64).T
     # edges_order(1,:) is the edge which has the highest order
     # edges_order(M,:) is the edge which has the lowest order
     M = G.get_num_edges()  # the number of edges in this DAG
@@ -54,7 +54,7 @@ def dag2cpdag(G: Dag) -> GeneralGraph:
             else:
                 if G.graph[j, i] == 1:
                     break
-        edges_order = np.r_[edges_order, np.mat([i, j])]
+        edges_order = np.r_[edges_order, np.asmatrix([i, j])]
 
     ## ----------------------------------------------------------------
     sign_edges = np.zeros(M)  # 0 means unknown, 1 means compelled, -1 means reversible

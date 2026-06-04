@@ -371,8 +371,8 @@ def dist2(x, c):
     if dimx != dimc:
         raise Exception('Data dimension does not match dimension of centres')
 
-    n2 = (np.mat(np.ones((ncentres, 1))) * np.sum(np.multiply(x, x).T, axis=0)).T + \
-         np.mat(np.ones((ndata, 1))) * np.sum(np.multiply(c, c).T, axis=0) - \
+    n2 = (np.asmatrix(np.ones((ncentres, 1))) * np.sum(np.multiply(x, x).T, axis=0)).T + \
+         np.asmatrix(np.ones((ndata, 1))) * np.sum(np.multiply(c, c).T, axis=0) - \
          2 * (x * c.T)
 
     # Rounding errors occasionally cause negative entries in n2
@@ -393,7 +393,7 @@ def pdinv(A):
         Ainv = vh.T.dot(np.diag(1 / s)).dot(u.T)
     except Exception as e:
         raise e
-    return np.mat(Ainv)
+    return np.asmatrix(Ainv)
 
 def add_required_edges(G, background_knowledge, verbose=False):
     if background_knowledge is None:

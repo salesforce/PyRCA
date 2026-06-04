@@ -499,7 +499,7 @@ class DynamicBayesianNetwork(DAG):
                     cpd.to_factor()
                     .marginalize([node], inplace=False)
                     .values.flatten("C"),
-                    np.ones(np.product(evidence_card)),
+                    np.ones(np.prod(evidence_card)),
                     atol=0.01,
                 ):
                     raise ValueError(

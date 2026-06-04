@@ -34,8 +34,8 @@ def local_score_BIC(Data: ndarray, i: int, PAi: List[int], parameters=None) -> f
     if len(PAi) == 0:
         return n * np.log(cov[i, i])
 
-    yX = np.mat(cov[np.ix_([i], PAi)])
-    XX = np.mat(cov[np.ix_(PAi, PAi)])
+    yX = np.asmatrix(cov[np.ix_([i], PAi)])
+    XX = np.asmatrix(cov[np.ix_(PAi, PAi)])
     H = np.log(cov[i, i] - yX * np.linalg.inv(XX) * yX.T)
 
     return n * H + np.log(n) * len(PAi) * lambda_value
@@ -68,8 +68,8 @@ def local_score_BIC_from_cov(
     if len(PAi) == 0:
         return n * np.log(cov[i, i])
 
-    yX = np.mat(cov[np.ix_([i], PAi)])
-    XX = np.mat(cov[np.ix_(PAi, PAi)])
+    yX = np.asmatrix(cov[np.ix_([i], PAi)])
+    XX = np.asmatrix(cov[np.ix_(PAi, PAi)])
     H = np.log(cov[i, i] - yX * np.linalg.inv(XX) * yX.T)
 
     return n * H + np.log(n) * len(PAi) * lambda_value
@@ -194,7 +194,7 @@ def local_score_cv_general(
     score: local score
     """
 
-    Data = np.mat(Data)
+    Data = np.asmatrix(Data)
     PAi = list(PAi)
 
     T = Data.shape[0]
@@ -223,7 +223,7 @@ def local_score_cv_general(
 
         Kx, _ = kernel(X, X, (theta, 1))  # Gaussian kernel
         H0 = (
-            np.mat(np.eye(T)) - np.mat(np.ones((T, T))) / T
+            np.asmatrix(np.eye(T)) - np.asmatrix(np.ones((T, T))) / T
         )  # for centering of the data in feature space
         Kx = H0 * Kx * H0  # kernel matrix for X
 
@@ -234,7 +234,7 @@ def local_score_cv_general(
         # mx = len(IIx)
 
         # set the kernel for PA
-        Kpa = np.mat(np.ones((T, T)))
+        Kpa = np.asmatrix(np.ones((T, T)))
 
         for m in range(PA.shape[1]):
             G = np.sum((np.multiply(PA[:, m], PA[:, m])), axis=1)
@@ -251,7 +251,7 @@ def local_score_cv_general(
             Kpa = np.multiply(Kpa, kernel(PA[:, m], PA[:, m], (theta, 1))[0])
 
         H0 = (
-            np.mat(np.eye(T)) - np.mat(np.ones((T, T))) / T
+            np.asmatrix(np.eye(T)) - np.asmatrix(np.ones((T, T))) / T
         )  # for centering of the data in feature space
         Kpa = H0 * Kpa * H0  # kernel matrix for PA
 
@@ -317,11 +317,11 @@ def local_score_cv_general(
                 raise ValueError("Not cover all logic path")
 
             n1 = T - nv
-            tmp1 = pdinv(Kpa_tr + n1 * var_lambda * np.mat(np.eye(n1)))
+            tmp1 = pdinv(Kpa_tr + n1 * var_lambda * np.asmatrix(np.eye(n1)))
             tmp2 = tmp1 * Kx_tr * tmp1
             tmp3 = (
                 tmp1
-                * pdinv(np.mat(np.eye(n1)) + n1 * var_lambda**2 / gamma * tmp2)
+                * pdinv(np.asmatrix(np.eye(n1)) + n1 * var_lambda**2 / gamma * tmp2)
                 * tmp1
             )
             A = (
@@ -350,7 +350,7 @@ def local_score_cv_general(
                 * Kpa_tr_te
             ) / gamma
 
-            B = n1 * var_lambda**2 / gamma * tmp2 + np.mat(np.eye(n1))
+            B = n1 * var_lambda**2 / gamma * tmp2 + np.asmatrix(np.eye(n1))
             L = np.linalg.cholesky(B)
             C = np.sum(np.log(np.diag(L)))
             #  CV = CV + (nv*nv*log(2*pi) + nv*C + nv*mx*log(gamma) + trace(A))/2;
@@ -372,7 +372,7 @@ def local_score_cv_general(
         theta = 1 / (width**2)
 
         Kx, _ = kernel(X, X, (theta, 1))  # Gaussian kernel
-        H0 = np.mat(np.eye(T)) - np.mat(np.ones((T, T))) / (
+        H0 = np.asmatrix(np.eye(T)) - np.asmatrix(np.ones((T, T))) / (
             T
         )  # for centering of the data in feature space
         Kx = H0 * Kx * H0  # kernel matrix for X
@@ -423,10 +423,10 @@ def local_score_cv_general(
                 - 1
                 / (gamma * n1)
                 * Kx_tr_te.T
-                * pdinv(np.mat(np.eye(n1)) + 1 / (gamma * n1) * Kx_tr)
+                * pdinv(np.asmatrix(np.eye(n1)) + 1 / (gamma * n1) * Kx_tr)
                 * Kx_tr_te
             ) / gamma
-            B = 1 / (gamma * n1) * Kx_tr + np.mat(np.eye(n1))
+            B = 1 / (gamma * n1) * Kx_tr + np.asmatrix(np.eye(n1))
             L = np.linalg.cholesky(B)
             C = np.sum(np.log(np.diag(L)))
 
@@ -487,13 +487,13 @@ def local_score_cv_multi(
         theta = 1 / (width**2 * X.shape[1])  #
 
         Kx, _ = kernel(X, X, (theta, 1))  # Gaussian kernel
-        H0 = np.mat(np.eye(T)) - np.mat(np.ones((T, T))) / (
+        H0 = np.asmatrix(np.eye(T)) - np.asmatrix(np.ones((T, T))) / (
             T
         )  # for centering of the data in feature space
         Kx = H0 * Kx * H0  # kernel matrix for X
 
         # set the kernel for PA
-        Kpa = np.mat(np.ones((T, T)))
+        Kpa = np.asmatrix(np.ones((T, T)))
 
         for m in range(len(PAi)):
             PA = Data[:, parameters["dlabel"][PAi[m]]]
@@ -510,7 +510,7 @@ def local_score_cv_multi(
             theta = 1 / (width**2 * PA.shape[1])
             Kpa = np.multiply(Kpa, kernel(PA, PA, (theta, 1))[0])
 
-        H0 = np.mat(np.eye(T)) - np.mat(np.ones((T, T))) / (
+        H0 = np.asmatrix(np.eye(T)) - np.asmatrix(np.ones((T, T))) / (
             T
         )  # for centering of the data in feature space
         Kpa = H0 * Kpa * H0  # kernel matrix for PA
@@ -577,11 +577,11 @@ def local_score_cv_multi(
                 raise ValueError("Not cover all logic path")
 
             n1 = T - nv
-            tmp1 = pdinv(Kpa_tr + n1 * var_lambda * np.mat(np.eye(n1)))
+            tmp1 = pdinv(Kpa_tr + n1 * var_lambda * np.asmatrix(np.eye(n1)))
             tmp2 = tmp1 * Kx_tr * tmp1
             tmp3 = (
                 tmp1
-                * pdinv(np.mat(np.eye(n1)) + n1 * var_lambda**2 / gamma * tmp2)
+                * pdinv(np.asmatrix(np.eye(n1)) + n1 * var_lambda**2 / gamma * tmp2)
                 * tmp1
             )
             A = (
@@ -610,7 +610,7 @@ def local_score_cv_multi(
                 * Kpa_tr_te
             ) / gamma
 
-            B = n1 * var_lambda**2 / gamma * tmp2 + np.mat(np.eye(n1))
+            B = n1 * var_lambda**2 / gamma * tmp2 + np.asmatrix(np.eye(n1))
             L = np.linalg.cholesky(B)
             C = np.sum(np.log(np.diag(L)))
             #  CV = CV + (nv*nv*log(2*pi) + nv*C + nv*mx*log(gamma) + trace(A))/2;
@@ -632,7 +632,7 @@ def local_score_cv_multi(
         theta = 1 / (width**2 * X.shape[1])  #
 
         Kx, _ = kernel(X, X, (theta, 1))  # Gaussian kernel
-        H0 = np.mat(np.eye(T)) - np.mat(np.ones((T, T))) / (
+        H0 = np.asmatrix(np.eye(T)) - np.asmatrix(np.ones((T, T))) / (
             T
         )  # for centering of the data in feature space
         Kx = H0 * Kx * H0  # kernel matrix for X
@@ -679,10 +679,10 @@ def local_score_cv_multi(
                 - 1
                 / (gamma * n1)
                 * Kx_tr_te.T
-                * pdinv(np.mat(np.eye(n1)) + 1 / (gamma * n1) * Kx_tr)
+                * pdinv(np.asmatrix(np.eye(n1)) + 1 / (gamma * n1) * Kx_tr)
                 * Kx_tr_te
             ) / gamma
-            B = 1 / (gamma * n1) * Kx_tr + np.mat(np.eye(n1))
+            B = 1 / (gamma * n1) * Kx_tr + np.asmatrix(np.eye(n1))
             L = np.linalg.cholesky(B)
             C = np.sum(np.log(np.diag(L)))
 
@@ -728,7 +728,7 @@ def local_score_marginal_general(
     width = np.sqrt(0.5 * np.median(dists[np.where(dists > 0)], axis=1)[0, 0])
     width = width * 2.5  # kernel width
     theta = 1 / (width**2)
-    H = np.mat(np.eye(T)) - np.mat(np.ones((T, T))) / T
+    H = np.asmatrix(np.eye(T)) - np.asmatrix(np.ones((T, T))) / T
     Kx, _ = kernel(X, X, (theta, 1))
     Kx = H * Kx * H
 
@@ -743,7 +743,7 @@ def local_score_marginal_general(
     if len(PAi):
         PA = Data[:, PAi]
 
-        widthPA = np.mat(np.empty((PA.shape[1], 1)))
+        widthPA = np.asmatrix(np.empty((PA.shape[1], 1)))
         # set the kernel for PA
         for m in range(PA.shape[1]):
             G = np.sum((np.multiply(PA[:, m], PA[:, m])), axis=1)
@@ -777,8 +777,8 @@ def local_score_marginal_general(
         )
     else:
         covfunc = np.asarray(["covSum", ["covSEard", "covNoise"]])
-        PA = np.mat(np.zeros((T, 1)))
-        logtheta0 = np.mat([100, 0, np.log(np.sqrt(0.1))]).T
+        PA = np.asmatrix(np.zeros((T, 1)))
+        logtheta0 = np.asmatrix([100, 0, np.log(np.sqrt(0.1))]).T
         logtheta, fvals, iter = minimize(
             logtheta0,
             "gpr_multi_new",
@@ -834,7 +834,7 @@ def local_score_marginal_multi(
     widthX = np.sqrt(0.5 * np.median(dists[np.where(dists > 0)], axis=1)[0, 0])
     widthX = widthX * 2.5  # kernel width
     theta = 1 / (widthX**2)
-    H = np.mat(np.eye(T)) - np.mat(np.ones((T, T))) / T
+    H = np.asmatrix(np.eye(T)) - np.asmatrix(np.ones((T, T))) / T
     Kx, _ = kernel(X, X, (theta, 1))
     Kx = H * Kx * H
 
@@ -847,9 +847,9 @@ def local_score_marginal_multi(
     eix = eix[:, IIx]
 
     if len(PAi):
-        widthPA_all = np.mat(np.empty((1, 0)))
+        widthPA_all = np.asmatrix(np.empty((1, 0)))
         # set the kernel for PA
-        PA_all = np.mat(np.empty((Data.shape[0], 0)))
+        PA_all = np.asmatrix(np.empty((Data.shape[0], 0)))
         for m in range(len(PAi)):
             PA = Data[:, parameters["dlabel"][PAi[m]]]
             PA_all = np.hstack([PA_all, PA])
@@ -864,7 +864,7 @@ def local_score_marginal_multi(
                 [
                     widthPA_all,
                     widthPA
-                    * np.mat(np.ones((1, np.size(parameters["dlabel"][PAi[m]])))),
+                    * np.asmatrix(np.ones((1, np.size(parameters["dlabel"][PAi[m]])))),
                 ]
             )
         widthPA_all = widthPA_all * 2.5  # kernel width
@@ -888,8 +888,8 @@ def local_score_marginal_multi(
         )
     else:
         covfunc = np.asarray(["covSum", ["covSEard", "covNoise"]])
-        PA = np.mat(np.zeros((T, 1)))
-        logtheta0 = np.mat([100, 0, np.log(np.sqrt(0.1))]).T
+        PA = np.asmatrix(np.zeros((T, 1)))
+        logtheta0 = np.asmatrix([100, 0, np.log(np.sqrt(0.1))]).T
         logtheta, fvals, iter = minimize(
             logtheta0,
             "gpr_multi_new",

@@ -44,7 +44,7 @@ def ges(X: ndarray, score_func: str = 'local_score_BIC', maxP: Optional[float] =
     if X.shape[0] < X.shape[1]:
         warnings.warn("The number of features is much larger than the sample size!")
 
-    X = np.mat(X)
+    X = np.asmatrix(X)
     if score_func == 'local_score_CV_general':  # % k-fold negative cross validated likelihood based on regression in RKHS
         if parameters is None:
             parameters = {'kfold': 10,  # 10 fold cross validation
@@ -110,7 +110,7 @@ def ges(X: ndarray, score_func: str = 'local_score_BIC', maxP: Optional[float] =
 
     G = GeneralGraph(nodes)
     add_required_edges(G, background_knowledge, verbose)
-    # G = np.matlib.zeros((N, N)) # initialize the graph structure
+    # G = np.asmatrixlib.zeros((N, N)) # initialize the graph structure
     score = score_g(X, G, score_func, parameters, background_knowledge)  # initialize the score
 
     # G = pdag2dag(G)
@@ -150,7 +150,7 @@ def ges(X: ndarray, score_func: str = 'local_score_BIC', maxP: Optional[float] =
                                         np.where(G.graph[j, :] == Endpoint.TAIL.value)[0])  # neighbors of Xj
 
                     Ti = np.union1d(np.where(G.graph[:, i] != Endpoint.NULL.value)[0],
-                                    np.where(G.graph[i, 0] != Endpoint.NULL.value)[0])  # adjacent to Xi
+                                    np.where(G.graph[i, :] != Endpoint.NULL.value)[0])  # adjacent to Xi
 
                     NTi = np.setdiff1d(np.arange(N), Ti)
                     T0 = np.intersect1d(Tj, NTi)  # find the neighbours of Xj that are not adjacent to Xi
