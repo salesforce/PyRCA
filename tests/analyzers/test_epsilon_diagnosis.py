@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2023 salesforce.com, inc.
+# Copyright (c) 2026 salesforce.com, inc.
 # All rights reserved.
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
@@ -31,10 +31,14 @@ class TestEpsilonDiagnosis(unittest.TestCase):
         self.abnormal_data = pd.DataFrame(self.abnormal_data, columns=columns)
 
     def test(self):
+        np.random.seed(42)
         model = EpsilonDiagnosis(config=EpsilonDiagnosisConfig(alpha=0.01))
         model.train(self.normal_data)
         results = model.find_root_causes(self.abnormal_data).to_list()
-        print(results)
+        # Columns with low correlation (a, b, d, e) should be identified as root causes
+        # Column c has high correlation (0.9) so should NOT be a root cause
+        root_causes = [r["root_cause"] for r in results]
+        self.assertNotIn("c", root_causes, "High correlation column 'c' should not be a root cause")
 
 
 if __name__ == "__main__":
