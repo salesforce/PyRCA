@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2023 salesforce.com, inc.
+# Copyright (c) 2026 salesforce.com, inc.
 # All rights reserved.
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
@@ -32,6 +32,7 @@ class BayesianNetworkConfig(BaseConfig):
 
     :param graph: The adjacency matrix of the causal graph,
         which can be a pandas dataframe or a file path of a CSV file or a pickled file.
+        CSV row labels may be included in the first column; otherwise rows follow the column order.
     :param sigmas: Specific sigmas other than ``default_sigma`` for certain variables. This parameter
         is for constructing training data (only used when ``detector`` in the ``train`` function is not set).
     :param default_sigma: The default sigma value for computing the detection. This parameter is
@@ -67,7 +68,7 @@ class BayesianNetwork(BaseRCA):
         self.config = config
         if isinstance(config.graph, str):
             if config.graph.endswith(".csv"):
-                self.graph = pd.read_csv(config.graph)
+                self.graph = self._load_csv_graph(config.graph)
             elif config.graph.endswith(".pkl"):
                 with open(config.graph, "rb") as f:
                     self.graph = pickle.load(f)

@@ -1,11 +1,12 @@
 #
-# Copyright (c) 2023 salesforce.com, inc.
+# Copyright (c) 2026 salesforce.com, inc.
 # All rights reserved.
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
 """Base classes for all RCA algorithms"""
 from abc import abstractmethod
 from dataclasses import dataclass, field, asdict
+import pandas as pd
 
 from pyrca.base import BaseModel
 from pyrca.utils.logger import get_logger
@@ -51,6 +52,15 @@ class BaseRCA(BaseModel):
 
     def __init__(self):
         self.logger = get_logger(self.__class__.__name__)
+
+    @staticmethod
+    def _load_csv_graph(path):
+        graph = pd.read_csv(path)
+        if graph.shape[1] == graph.shape[0] + 1:
+            graph = pd.read_csv(path, index_col=0)
+        elif graph.shape[1] == graph.shape[0]:
+            graph.index = graph.columns
+        return graph
 
     @abstractmethod
     def train(self, **kwargs):
