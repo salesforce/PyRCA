@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2023 salesforce.com, inc.
+# Copyright (c) 2026 salesforce.com, inc.
 # All rights reserved.
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
@@ -26,6 +26,7 @@ class HTConfig(BaseConfig):
 
     :param graph: The adjacency matrix of the causal graphs,
         which can be a pandas dataframe or a file path of a CSV file or a pickled file.
+        CSV row labels may be included in the first column; otherwise rows follow the column order.
     :param aggregator: The function for aggregating the node score from all the abnormal data.
     :param root_cause_top_k: The maximum number of root causes in the results.
     """
@@ -49,7 +50,7 @@ class HT(BaseRCA):
         self.config = config
         if isinstance(config.graph, str):
             if config.graph.endswith(".csv"):
-                graph = pd.read_csv(config.graph)
+                graph = self._load_csv_graph(config.graph)
             elif config.graph.endswith(".pkl"):
                 with open(config.graph, "rb") as f:
                     graph = pickle.load(f)

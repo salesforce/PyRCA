@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2023 salesforce.com, inc.
+# Copyright (c) 2026 salesforce.com, inc.
 # All rights reserved.
 # SPDX-License-Identifier: BSD-3-Clause
 # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause#
@@ -25,6 +25,7 @@ class RandomWalkConfig(BaseConfig):
 
     :param graph: The adjacency matrix of the causal graph,
         which can be a pandas dataframe or a file path of a CSV file or a pickled file.
+        CSV row labels may be included in the first column; otherwise rows follow the column order.
     :param use_partial_corr: Whether to use partial correlation when computing edge weights.
     :param rho: The weight from a "cause" node to a "result" node.
     :param num_steps: The number of random walk steps in each run.
@@ -52,7 +53,7 @@ class RandomWalk(BaseRCA):
         self.config = config
         if isinstance(config.graph, str):
             if config.graph.endswith(".csv"):
-                graph = pd.read_csv(config.graph)
+                graph = self._load_csv_graph(config.graph)
             elif config.graph.endswith(".pkl"):
                 with open(config.graph, "rb") as f:
                     graph = pickle.load(f)
